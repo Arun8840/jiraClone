@@ -1,7 +1,4 @@
 "use client"
-import Button from "@/Utility/ui/Button"
-import Divider from "@/Utility/ui/Divider"
-import TextInput from "@/Utility/ui/Inputs/Text-input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import { SubmitHandler } from "react-hook-form"
@@ -11,6 +8,9 @@ import { z } from "zod"
 import { RegisterSchema } from "./schema/AuthSchema"
 import { useRegister } from "./api/use-register"
 import { Loader } from "lucide-react"
+import { Input } from "../ui/input"
+import { Button } from "../ui/button"
+import { Separator } from "../ui/separator"
 
 function SignUpComponent() {
   const { mutate, isPending } = useRegister()
@@ -42,43 +42,46 @@ function SignUpComponent() {
         <p className="text-stone-500 text-sm p-2 text-center">
           Provide your email and choose a password
         </p>
-        <Divider type="dotted" />
+        <Separator />
 
         <form onSubmit={handleSubmit(handle_submit)} className="p-2">
-          <TextInput {...register("name")} type="text" label="UserName" />
+          <label htmlFor="name" className="block py-2">
+            Name
+          </label>
+          <Input {...register("name")} type="text" />
           {errors.email?.message && (
             <p className="text-red-500 font-poppins_normal text-sm pt-2">
               {errors.name?.message}
             </p>
           )}
-          <TextInput {...register("email")} type="text" label="Email" />
+
+          <label htmlFor="email" className="block py-2">
+            Email
+          </label>
+          <Input {...register("email")} type="text" />
           {errors.email?.message && (
             <p className="text-red-500 font-poppins_normal text-sm pt-2">
               {errors.email?.message}
             </p>
           )}
-          <TextInput
-            {...register("password")}
-            type="password"
-            label="Password"
-          />
+          <label htmlFor="password" className="block py-2">
+            Password
+          </label>
+          <Input {...register("password")} type="password" />
           {errors.password?.message && (
             <p className="text-red-500 font-poppins_normal text-sm pt-2">
               {errors.password?.message}
             </p>
           )}
-          <Button
-            icon={
-              isPending && (
-                <Loader className="animate-spin origin-center" size={18} />
-              )
-            }
-            className="w-full justify-center mt-3"
-          >
-            Register
+          <Button disabled={isPending} className="w-full justify-center mt-3">
+            {isPending ? (
+              <Loader className="text-white animate-spin origin-center" />
+            ) : (
+              "Register"
+            )}
           </Button>
         </form>
-        <Divider type="dotted" />
+        <Separator />
 
         <p className="col-span-full text-center text-sm p-3">
           Already have a account ?

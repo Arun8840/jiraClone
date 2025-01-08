@@ -1,64 +1,90 @@
 "use client"
+import React from "react"
 import {
-  SidebarContainer,
-  SidebarTrigger,
-  SidebarHeader,
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
   SidebarGroup,
-  SidebarItem,
-  SidebarList,
-} from "@/Utility/ui/Sidebar"
+  SidebarGroupContent,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "../ui/sidebar"
 import {
-  Bell,
   ChartAreaIcon,
   GitCompareArrows,
-  Home,
   LayoutDashboardIcon,
-  Mail,
-  Settings,
-  UserRound,
 } from "lucide-react"
 import Image from "next/image"
-import React from "react"
+import { Separator } from "../ui/separator"
+import AccountButton from "./AccountButton"
 
 function DashboardSidemenu() {
-  const Menus: { title: string; icon: React.ReactNode }[] = [
+  const Menus: { title: string; icon: React.ReactNode; url: string }[] = [
     {
-      title: "Home",
-      icon: <LayoutDashboardIcon size={18} />,
+      title: "Workspaces",
+      icon: <LayoutDashboardIcon />,
+      url: "#",
     },
     {
       title: "My Tasks",
-      icon: <ChartAreaIcon size={18} />,
+      icon: <ChartAreaIcon />,
+      url: "#",
     },
     {
       title: "Settings",
-      icon: <GitCompareArrows size={18} />,
+      icon: <GitCompareArrows />,
+      url: "#",
     },
     {
       title: "Members",
-      icon: <GitCompareArrows size={18} />,
+      icon: <GitCompareArrows />,
+      url: "/members",
     },
   ]
   return (
-    <SidebarContainer className="h-full border-r border-dashed">
-      <SidebarTrigger />
-      <SidebarHeader>
-        <Image src={"/logo.svg"} width={100} height={100} alt="logo" />
-      </SidebarHeader>
-      <SidebarList>
-        {Menus?.map((childValues) => {
-          return (
-            <SidebarItem
-              icon={childValues?.icon}
-              key={childValues?.title}
-              title={childValues?.title}
-            >
-              {childValues?.title}
-            </SidebarItem>
-          )
-        })}
-      </SidebarList>
-    </SidebarContainer>
+    <>
+      <Sidebar>
+        <SidebarHeader>
+          <Image src={"/logo.svg"} width={110} height={110} alt="logo" />
+        </SidebarHeader>
+        <Separator />
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {Menus.map((item, itemIndex) => {
+                  const firstindex = itemIndex === 0
+                  return (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton
+                        variant={"default"}
+                        isActive={firstindex}
+                        asChild
+                      >
+                        <a href={item.url}>
+                          {item.icon}
+                          <span>{item.title}</span>
+                        </a>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  )
+                })}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+
+        <SidebarFooter>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <AccountButton />
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarFooter>
+      </Sidebar>
+    </>
   )
 }
 
