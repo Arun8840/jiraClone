@@ -1,7 +1,4 @@
 "use client"
-import Button from "@/Utility/ui/Button"
-import Divider from "@/Utility/ui/Divider"
-import TextInput from "@/Utility/ui/Inputs/Text-input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Chrome, Github, Loader } from "lucide-react"
 import Link from "next/link"
@@ -10,6 +7,9 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from "zod"
 import { LoginSchema } from "./schema/AuthSchema"
 import { useLogin } from "./api/use-login"
+import { Separator } from "../ui/separator"
+import { Input } from "../ui/input"
+import { Button } from "../ui/button"
 
 function SignInComponent() {
   const { mutate, isPending } = useLogin()
@@ -39,53 +39,51 @@ function SignInComponent() {
         <p className="text-stone-500 text-sm p-2 text-center">
           Provide your email and password
         </p>
-        <Divider type="dotted" />
 
         <form onSubmit={handleSubmit(handle_submit)} className="p-2">
-          <TextInput {...register("email")} type="text" label="UserName" />
+          <label htmlFor="Email" className="py-2 block">
+            Email
+          </label>
+          <Input {...register("email")} id="Email" type="text" />
           {errors.email?.message && (
             <p className="text-red-500 font-poppins_normal text-sm pt-2">
               {errors.email?.message}
             </p>
           )}
-          <TextInput
-            {...register("password")}
-            type="password"
-            label="Password"
-          />
+          <label htmlFor="password" className="block py-2">
+            Password
+          </label>
+          <Input {...register("password")} id="password" type="password" />
           {errors.password?.message && (
             <p className="text-red-500 font-poppins_normal text-sm pt-2">
               {errors.password?.message}
             </p>
           )}
-          <Button
-            icon={
-              isPending && (
-                <Loader className="animate-spin origin-center" size={18} />
-              )
-            }
-            className="w-full justify-center mt-3"
-          >
-            Login
+          <Button disabled={isPending} className="w-full justify-center mt-3">
+            {isPending ? (
+              <Loader className="text-white animate-spin origin-center" />
+            ) : (
+              "Login"
+            )}
           </Button>
         </form>
-        <Divider type="dotted" />
+        <Separator />
 
-        <div className="grid lg:grid-cols-2 gap-2">
+        <div className="grid lg:grid-cols-2 gap-2 p-2">
           <Button
-            icon={<Chrome size={18} />}
-            variant="default"
+            variant="secondary"
             disabled
-            className="w-full justify-center text-black"
+            className="w-full justify-center"
           >
+            <Chrome />
             Google
           </Button>
           <Button
-            icon={<Github size={18} />}
-            variant="default"
+            variant="secondary"
             disabled
-            className="w-full justify-center text-black"
+            className="w-full justify-center"
           >
+            <Github />
             Github
           </Button>
 
