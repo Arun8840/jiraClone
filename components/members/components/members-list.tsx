@@ -98,14 +98,6 @@ function MembersList() {
   return (
     <div className="container mx-auto">
       <DeleteModal />
-      <Button
-        onClick={() => router.back()}
-        variant={"ghost"}
-        className="size-fit p-2"
-      >
-        <ArrowLeft /> Back
-      </Button>
-
       <div className="pt-2 flex flex-col gap-3">
         <div className="grid grid-cols-2">
           <h1 className="text-xl self-center flex-1 font-medium font-poppins_normal">
