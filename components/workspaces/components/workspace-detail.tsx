@@ -2,7 +2,7 @@
 import React from "react"
 import { Workspace } from "../types"
 import Image from "next/image"
-import { CopyIcon, Images, Link, Loader, Trash } from "lucide-react"
+import { ArrowLeft, CopyIcon, Images, Link, Loader, Trash } from "lucide-react"
 import { useDeleteWorkspace } from "../api/use-delete-workspace"
 import { useConfirm } from "@/hooks/use-confirm"
 import { Button } from "@/components/ui/button"
@@ -91,12 +91,12 @@ function WorkspaceDetail({ value }: PropTypes) {
           <Image
             src={value?.imageUrl}
             alt="logo"
-            width={200}
-            height={200}
+            width={100}
+            height={100}
             className="rounded-lg"
           />
         ) : (
-          <div className="size-40 bg-neutral-50 grid place-items-center rounded">
+          <div className="size-14 bg-neutral-50 grid place-items-center rounded">
             <Images className="text-neutral-400" />
           </div>
         )}

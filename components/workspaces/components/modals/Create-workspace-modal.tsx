@@ -13,7 +13,7 @@ export const CreateWorkspaceModal = () => {
   return (
     <>
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetContent>
+        <SheetContent className="flex flex-col">
           <SheetHeader>
             <SheetTitle>Create Workspace</SheetTitle>
             <SheetDescription>

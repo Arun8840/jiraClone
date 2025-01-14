@@ -2,7 +2,7 @@ import { parseAsBoolean, useQueryState } from "nuqs"
 
 export const useCreateWorkspaceModal = () => {
   const [isOpen, setIsOpen] = useQueryState(
-    "update-workspace",
+    "craete-workspace",
     parseAsBoolean.withDefault(false).withOptions({ clearOnDefault: true })
   )
 

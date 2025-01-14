@@ -10,6 +10,7 @@ import { useLogin } from "./api/use-login"
 import { Separator } from "../ui/separator"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
+import Image from "next/image"
 
 function SignInComponent() {
   const { mutate, isPending } = useLogin()
@@ -30,69 +31,87 @@ function SignInComponent() {
   }
 
   return (
-    <div className="flex-1 grid place-items-center">
-      <div className="bg-white p-3 rounded-lg  w-3/4 lg:w-1/3 shadow-sm">
-        <h1 className="text-center text-2xl p-2 font-poppins_bold font-semibold">
-          Login your account
+    <div className="flex-1 grid grid-cols-2 gap-2">
+      {/* Banner Section */}
+      <div className="size-full bg-[url(/Loginbanner.svg)] bg-cover bg-center flex justify-center items-center">
+        <h1 className="text-4xl font-poppins_bold font-bold text-white tracking-wide">
+          Welcome to <span>Jira Clone</span>
         </h1>
+      </div>
 
-        <p className="text-stone-500 text-sm p-2 text-center">
-          Provide your email and password
-        </p>
+      {/* Login Section */}
+      <div className="grid place-items-center">
+        <div className="w-2/3 flex flex-col justify-center">
+          {/* Header */}
+          <h1 className="text-2xl p-2 font-poppins_bold font-semibold">
+            Sign in to your workspace
+          </h1>
 
-        <form onSubmit={handleSubmit(handle_submit)} className="p-2">
-          <label htmlFor="Email" className="py-2 block">
-            Email
-          </label>
-          <Input {...register("email")} id="Email" type="text" />
-          {errors.email?.message && (
-            <p className="text-red-500 font-poppins_normal text-sm pt-2">
-              {errors.email?.message}
-            </p>
-          )}
-          <label htmlFor="password" className="block py-2">
-            Password
-          </label>
-          <Input {...register("password")} id="password" type="password" />
-          {errors.password?.message && (
-            <p className="text-red-500 font-poppins_normal text-sm pt-2">
-              {errors.password?.message}
-            </p>
-          )}
-          <Button disabled={isPending} className="w-full justify-center mt-3">
-            {isPending ? (
-              <Loader className="text-white animate-spin origin-center" />
-            ) : (
-              "Login"
-            )}
-          </Button>
-        </form>
-        <Separator />
-
-        <div className="grid lg:grid-cols-2 gap-2 p-2">
-          <Button
-            variant="secondary"
-            disabled
-            className="w-full justify-center"
-          >
-            <Chrome />
-            Google
-          </Button>
-          <Button
-            variant="secondary"
-            disabled
-            className="w-full justify-center"
-          >
-            <Github />
-            Github
-          </Button>
-
-          <p className="col-span-full text-center text-sm p-3">
-            Don&apos;t have a account ?
-            <Link href={"/sign-up"} className="px-2 text-blue-500">
-              Sign-up
-            </Link>
+          {/* Sub-header */}
+          <p className="text-stone-500 text-sm p-2">
+            Manage your projects, track progress, and collaborate with your team
+            seamlessly. Provide your email and password to get started.
           </p>
+
+          {/* Login Form */}
+          <form onSubmit={handleSubmit(handle_submit)} className="p-2">
+            <label htmlFor="Email" className="py-2 block">
+              Email
+            </label>
+            <Input {...register("email")} id="Email" type="text" />
+            {errors.email?.message && (
+              <p className="text-red-500 font-poppins_normal text-sm pt-2">
+                {errors.email?.message}
+              </p>
+            )}
+            <label htmlFor="password" className="block py-2">
+              Password
+            </label>
+            <Input {...register("password")} id="password" type="password" />
+            {errors.password?.message && (
+              <p className="text-red-500 font-poppins_normal text-sm pt-2">
+                {errors.password?.message}
+              </p>
+            )}
+            <Button disabled={isPending} className="w-full justify-center mt-3">
+              {isPending ? (
+                <Loader className="text-white animate-spin origin-center" />
+              ) : (
+                "Login"
+              )}
+            </Button>
+          </form>
+
+          {/* Separator */}
+          <Separator />
+
+          {/* OAuth Buttons */}
+          <div className="grid lg:grid-cols-2 gap-2 p-2">
+            <Button
+              variant="outline"
+              disabled
+              className="w-full justify-center"
+            >
+              <Chrome />
+              Google
+            </Button>
+            <Button
+              variant="outline"
+              disabled
+              className="w-full justify-center"
+            >
+              <Github />
+              Github
+            </Button>
+
+            {/* Sign-up Link */}
+            <p className="col-span-full text-center text-sm p-3">
+              Don&apos;t have an account?{" "}
+              <Link href={"/sign-up"} className="px-2 text-blue-500">
+                Sign up
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

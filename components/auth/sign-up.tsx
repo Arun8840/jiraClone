@@ -33,62 +33,85 @@ function SignUpComponent() {
     mutate({ json: data })
   }
   return (
-    <div className="flex-1 grid place-items-center">
-      <div className="bg-white p-3 rounded-lg shadow-sm w-3/4 lg:w-1/3">
-        <h1 className="text-center text-2xl p-2 font-poppins_bold font-semibold">
-          Create a account
+    <div className="flex-1 grid grid-cols-2 gap-2">
+      {/* Banner Section */}
+      <div className="size-full bg-[url(/Loginbanner.svg)] bg-cover bg-center flex justify-center items-center">
+        <h1 className="text-4xl font-poppins_bold font-bold text-white tracking-wide">
+          Welcome to <span>Jira Clone</span>
         </h1>
+      </div>
 
-        <p className="text-stone-500 text-sm p-2 text-center">
-          Provide your email and choose a password
-        </p>
-        <Separator />
+      {/* Sign-Up Section */}
+      <div className="grid place-items-center">
+        <div className="w-2/3 flex flex-col justify-center">
+          {/* Header */}
+          <h1 className="text-2xl p-2 font-poppins_bold font-semibold">
+            Create Your Account
+          </h1>
 
-        <form onSubmit={handleSubmit(handle_submit)} className="p-2">
-          <label htmlFor="name" className="block py-2">
-            Name
-          </label>
-          <Input {...register("name")} type="text" />
-          {errors.email?.message && (
-            <p className="text-red-500 font-poppins_normal text-sm pt-2">
-              {errors.name?.message}
-            </p>
-          )}
+          {/* Sub-header */}
+          <p className="text-stone-500 text-sm p-2">
+            Sign up to start managing your projects and collaborate with your
+            team effectively.
+          </p>
 
-          <label htmlFor="email" className="block py-2">
-            Email
-          </label>
-          <Input {...register("email")} type="text" />
-          {errors.email?.message && (
-            <p className="text-red-500 font-poppins_normal text-sm pt-2">
-              {errors.email?.message}
-            </p>
-          )}
-          <label htmlFor="password" className="block py-2">
-            Password
-          </label>
-          <Input {...register("password")} type="password" />
-          {errors.password?.message && (
-            <p className="text-red-500 font-poppins_normal text-sm pt-2">
-              {errors.password?.message}
-            </p>
-          )}
-          <Button disabled={isPending} className="w-full justify-center mt-3">
-            {isPending ? (
-              <Loader className="text-white animate-spin origin-center" />
-            ) : (
-              "Register"
+          <Separator />
+
+          {/* Sign-Up Form */}
+          <form onSubmit={handleSubmit(handle_submit)} className="p-2">
+            {/* Name Field */}
+            <label htmlFor="name" className="block py-2">
+              Name
+            </label>
+            <Input {...register("name")} type="text" id="name" />
+            {errors.name?.message && (
+              <p className="text-red-500 font-poppins_normal text-sm pt-2">
+                {errors.name?.message}
+              </p>
             )}
-          </Button>
-        </form>
-        <Separator />
 
-        <p className="col-span-full text-center text-sm p-3">
-          Already have a account ?
-          <Link href={"/sign-in"} className="px-2 text-blue-500">
-            Sign-in
-          </Link>
-        </p>
+            {/* Email Field */}
+            <label htmlFor="email" className="block py-2">
+              Email
+            </label>
+            <Input {...register("email")} type="text" id="email" />
+            {errors.email?.message && (
+              <p className="text-red-500 font-poppins_normal text-sm pt-2">
+                {errors.email?.message}
+              </p>
+            )}
+
+            {/* Password Field */}
+            <label htmlFor="password" className="block py-2">
+              Password
+            </label>
+            <Input {...register("password")} type="password" id="password" />
+            {errors.password?.message && (
+              <p className="text-red-500 font-poppins_normal text-sm pt-2">
+                {errors.password?.message}
+              </p>
+            )}
+
+            {/* Register Button */}
+            <Button disabled={isPending} className="w-full justify-center mt-3">
+              {isPending ? (
+                <Loader className="text-white animate-spin origin-center" />
+              ) : (
+                "Register"
+              )}
+            </Button>
+          </form>
+
+          <Separator />
+
+          {/* Sign-In Redirect */}
+          <p className="col-span-full text-center text-sm p-3">
+            Already have an account?{" "}
+            <Link href={"/sign-in"} className="px-2 text-blue-500">
+              Sign in
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   )

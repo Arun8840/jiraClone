@@ -6,12 +6,11 @@ interface UserGetProjectTypes {
 }
 export const useGetProjects = ({ workspaceId }: UserGetProjectTypes) => {
   const query = useQuery({
-    queryKey: ["projects"],
+    queryKey: ["projects", workspaceId],
     queryFn: async () => {
       const response = await client.api.projects.$get({
         query: { workspaceId },
       })
-
       if (!response?.ok) {
         throw new Error("Failed to load projects")
       }

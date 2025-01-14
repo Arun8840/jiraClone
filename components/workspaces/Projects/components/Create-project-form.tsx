@@ -62,85 +62,85 @@ export default function CreateProjectForm({ onCancel }: CreateFormProps) {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handle_create)}
-          className="space-y-8 pt-3"
+          className="space-y-3 flex flex-col h-full"
         >
-          <FormField
-            control={form.control}
-            name="image"
-            render={({ field }) => (
-              <div className="flex flex-col items-center">
-                <div
-                  onClick={() => uploadRef?.current?.click()}
-                  className="flex cursor-pointer justify-center border rounded-full items-center size-20 overflow-hidden"
-                >
-                  {field?.value ? (
-                    <Image
-                      src={
-                        field?.value instanceof File
-                          ? URL.createObjectURL(field?.value)
-                          : field?.value
-                      }
-                      width={100}
-                      height={100}
-                      className="size-full object-center"
-                      alt="uploading image"
-                    />
-                  ) : (
-                    <ImagePlus size={20} />
-                  )}
-                  {/* file input */}
-                  <Input
-                    ref={uploadRef}
-                    type="file"
-                    className="hidden"
-                    accept=".jpg, .svg, .jpeg, .png"
-                    onChange={handleUploadImage}
-                  />
-                </div>
-                {field.value && (
-                  <Button
-                    className="text-xs mt-2"
-                    onClick={() => {
-                      field.onChange(null)
-                      if (uploadRef.current) {
-                        uploadRef.current.value = ""
-                      }
-                    }}
-                    variant={"destructive"}
+          <div className="flex-1">
+            <FormField
+              control={form.control}
+              name="image"
+              render={({ field }) => (
+                <div className="flex flex-col items-center">
+                  <div
+                    onClick={() => uploadRef?.current?.click()}
+                    className="flex cursor-pointer justify-center border rounded-full items-center size-20 overflow-hidden"
                   >
-                    Remove image
-                  </Button>
-                )}
-                <h1 className="pt-2 text-sm">Upload Image</h1>
-                <p className="text-stone-500 tracking-wide text-sm pt-2">
-                  jpg,jpeg,svg,png,max 1MB
-                </p>
-              </div>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="flex justify-end">
-            <Button type="submit" className="mt-2">
-              {isPending ? (
-                <Loader className="animate-spin origin-center" size={18} />
-              ) : (
-                <Plus size={18} />
+                    {field?.value ? (
+                      <Image
+                        src={
+                          field?.value instanceof File
+                            ? URL.createObjectURL(field?.value)
+                            : field?.value
+                        }
+                        width={100}
+                        height={100}
+                        className="size-full object-center"
+                        alt="uploading image"
+                      />
+                    ) : (
+                      <ImagePlus size={20} />
+                    )}
+                    {/* file input */}
+                    <Input
+                      ref={uploadRef}
+                      type="file"
+                      className="hidden"
+                      accept=".jpg, .svg, .jpeg, .png"
+                      onChange={handleUploadImage}
+                    />
+                  </div>
+                  {field.value && (
+                    <Button
+                      className="text-xs mt-2"
+                      onClick={() => {
+                        field.onChange(null)
+                        if (uploadRef.current) {
+                          uploadRef.current.value = ""
+                        }
+                      }}
+                      variant={"destructive"}
+                    >
+                      Remove image
+                    </Button>
+                  )}
+                  <h1 className="pt-2 text-sm">Upload Image</h1>
+                  <p className="text-stone-500 tracking-wide text-sm pt-2">
+                    jpg,jpeg,svg,png,max 1MB
+                  </p>
+                </div>
               )}
-              Create
-            </Button>
+            />
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
+          <Button type="submit" className="w-full">
+            {isPending ? (
+              <Loader className="animate-spin origin-center" size={18} />
+            ) : (
+              <Plus size={18} />
+            )}
+            Create
+          </Button>
         </form>
       </Form>
     </>

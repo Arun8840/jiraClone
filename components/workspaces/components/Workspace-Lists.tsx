@@ -17,7 +17,12 @@ function WorkspaceLists() {
       <CreateWorkspaceModal />
       <div className="flex justify-between items-center p-1">
         <h1 className="text-lg font-medium tracking-wide">WorkSpaces</h1>
-        <Button disabled={isPending} onClick={open}>
+        <Button
+          variant={"secondary"}
+          className="hover:bg-primary hover:text-primary-foreground"
+          disabled={isPending}
+          onClick={open}
+        >
           <Plus /> Workspace
         </Button>
       </div>
@@ -68,7 +73,7 @@ function WorkspaceLists() {
                     {items?.$createdAt?.split("T")[0]}
                   </small>
                   <Link
-                    href={`/workspaces/${items?.$id}`}
+                    href={`/workspaces/${items?.$id}/settings`}
                     className="opacity-0 group-hover/workspace:opacity-[1] transition-opacity duration-150"
                   >
                     <Button

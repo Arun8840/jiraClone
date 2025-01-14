@@ -61,83 +61,89 @@ function CreateWorkspaceForm() {
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handle_create)} className="space-y-3">
-          <FormField
-            control={form.control}
-            name="image"
-            render={({ field }) => (
-              <div className="flex flex-col items-center">
-                <div
-                  onClick={() => uploadRef?.current?.click()}
-                  className="flex cursor-pointer justify-center border rounded-full items-center size-20 overflow-hidden"
-                >
-                  {field?.value ? (
-                    <Image
-                      src={
-                        field?.value instanceof File
-                          ? URL.createObjectURL(field?.value)
-                          : field?.value
-                      }
-                      width={100}
-                      height={100}
-                      className="size-full object-center"
-                      alt="uploading image"
+        <form
+          onSubmit={form.handleSubmit(handle_create)}
+          className="space-y-3 flex flex-col h-full justify-between"
+        >
+          <div className="">
+            <FormField
+              control={form.control}
+              name="image"
+              render={({ field }) => (
+                <div className="flex flex-col items-center">
+                  <div
+                    onClick={() => uploadRef?.current?.click()}
+                    className="flex cursor-pointer justify-center border rounded-full items-center size-20 overflow-hidden"
+                  >
+                    {field?.value ? (
+                      <Image
+                        src={
+                          field?.value instanceof File
+                            ? URL.createObjectURL(field?.value)
+                            : field?.value
+                        }
+                        width={100}
+                        height={100}
+                        className="size-full object-center"
+                        alt="uploading image"
+                      />
+                    ) : (
+                      <ImagePlus size={20} />
+                    )}
+                    {/* file input */}
+                    <Input
+                      ref={uploadRef}
+                      type="file"
+                      className="hidden"
+                      accept=".jpg, .svg, .jpeg, .png"
+                      onChange={handleUploadImage}
                     />
-                  ) : (
-                    <ImagePlus size={20} />
-                  )}
-                  {/* file input */}
-                  <Input
-                    ref={uploadRef}
-                    type="file"
-                    className="hidden"
-                    accept=".jpg, .svg, .jpeg, .png"
-                    onChange={handleUploadImage}
-                  />
+                  </div>
+                  <h1 className="pt-2 text-sm">Upload Image</h1>
+                  <p className="text-stone-500 tracking-wide text-sm pt-2">
+                    jpg&#44; jpeg&#44; svg&#44; png&#44; max 1MB
+                  </p>
                 </div>
-                <h1 className="pt-2 text-sm">Upload Image</h1>
-                <p className="text-stone-500 tracking-wide text-sm pt-2">
-                  jpg&#44; jpeg&#44; svg&#44; png&#44; max 1MB
-                </p>
-              </div>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Description</FormLabel>
-                <FormControl>
-                  <Textarea placeholder="Type your message here." {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="flex justify-end">
-            <Button type="submit" disabled={isPending} className="mt-2">
-              {isPending ? (
-                <Loader className="animate-spin origin-center" size={18} />
-              ) : (
-                <Plus size={18} />
               )}
-              Create
-            </Button>
+            />
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Type your message here."
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? (
+              <Loader className="animate-spin origin-center" size={18} />
+            ) : (
+              <Plus size={18} />
+            )}
+            Create
+          </Button>
         </form>
       </Form>
     </>
