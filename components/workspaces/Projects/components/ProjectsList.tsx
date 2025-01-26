@@ -40,10 +40,10 @@ function ProjectsList() {
               return (
                 <div
                   key={projectValues?.$id}
-                  className="p-2 min-h-[100px] flex justify-between flex-col bg-neutral-200/50 rounded-lg"
+                  className="p-2 min-h-[100px] flex justify-between flex-col bg-neutral-100 dark:bg-card rounded-lg"
                 >
                   <div>
-                    <h1 className="font-poppins_normal font-medium p-1 text-neutral-600">
+                    <h1 className="font-poppins_normal font-medium p-1 text-neutral-600 dark:text-foreground">
                       {projectValues?.name}
                     </h1>
                   </div>

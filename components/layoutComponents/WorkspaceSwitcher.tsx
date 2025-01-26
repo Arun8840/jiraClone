@@ -30,7 +30,7 @@ function WorkspaceSwitcher() {
               <SelectValue placeholder="Select Workspaces" />
             </SelectTrigger>
             <SelectContent>
-              {workspaces?.length > 0 &&
+              {workspaces?.length > 0 ? (
                 workspaces?.map((workspaceOptions) => {
                   return (
                     <SelectItem
@@ -40,7 +40,12 @@ function WorkspaceSwitcher() {
                       {workspaceOptions?.name}
                     </SelectItem>
                   )
-                })}
+                })
+              ) : (
+                <SelectItem value=" " disabled className="capitalize">
+                  No workspaces found
+                </SelectItem>
+              )}
             </SelectContent>
           </Select>
         </div>

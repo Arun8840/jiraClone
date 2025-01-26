@@ -40,7 +40,7 @@ function DashboardSidemenu() {
     <>
       <Sidebar>
         <SidebarHeader>
-          <Image src={"/logo.svg"} width={110} height={110} alt="logo" />
+          <Image src={"/logo.svg"} width={150} height={150} alt="logo" />
         </SidebarHeader>
         <Separator />
         <SidebarContent>
@@ -50,10 +50,13 @@ function DashboardSidemenu() {
                 <SidebarMenuItem>
                   <WorkspaceSwitcher />
                 </SidebarMenuItem>
-                <Separator />
+                {/* <Separator /> */}
                 {Menus.map((item, itemIndex) => {
                   return (
-                    <SidebarMenuItem key={item.title}>
+                    <SidebarMenuItem
+                      className="dark:text-secondary"
+                      key={item.title}
+                    >
                       <SidebarMenuButton
                         className="p-3 h-10"
                         variant={"default"}

@@ -227,6 +227,38 @@ function CreateTaskForm({ onCancel }: FormPropTypes) {
                           <SelectItem value={TaskStatus?.DONE}>
                             Completed
                           </SelectItem>
+                          <SelectItem value={TaskStatus?.TODO}>Todo</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="status"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Priority Type</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field?.value}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select Priority" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value={TaskStatus?.BACKLOG}>
+                            Low
+                          </SelectItem>
+                          <SelectItem value={TaskStatus?.IN_PROGRESS}>
+                            Medium
+                          </SelectItem>
+                          <SelectItem value={TaskStatus?.IN_REVIEW}>
+                            High
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                     </FormControl>

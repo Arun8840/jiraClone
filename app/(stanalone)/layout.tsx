@@ -6,7 +6,7 @@ interface LayoutProps {
 }
 function StandaloneLayout({ children }: LayoutProps) {
   return (
-    <section className="bg-white h-screen overflow-y-auto p-3">
+    <section className="bg-background dark:bg-background h-screen overflow-y-auto p-3">
       <div className="container mx-auto h-full flex flex-col">
         <StandaloneHeader />
         <main className="flex-1">{children}</main>

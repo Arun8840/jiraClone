@@ -33,17 +33,10 @@ function SignUpComponent() {
     mutate({ json: data })
   }
   return (
-    <div className="flex-1 grid grid-cols-2 gap-2">
-      {/* Banner Section */}
-      <div className="size-full bg-[url(/Loginbanner.svg)] bg-cover bg-center flex justify-center items-center">
-        <h1 className="text-4xl font-poppins_bold font-bold text-white tracking-wide">
-          Welcome to <span>Jira Clone</span>
-        </h1>
-      </div>
-
+    <div className="flex-1 grid gap-2">
       {/* Sign-Up Section */}
       <div className="grid place-items-center">
-        <div className="w-2/3 flex flex-col justify-center">
+        <div className="lg:w-1/3 flex flex-col justify-center">
           {/* Header */}
           <h1 className="text-2xl p-2 font-poppins_bold font-semibold">
             Create Your Account
@@ -101,8 +94,6 @@ function SignUpComponent() {
               )}
             </Button>
           </form>
-
-          <Separator />
 
           {/* Sign-In Redirect */}
           <p className="col-span-full text-center text-sm p-3">

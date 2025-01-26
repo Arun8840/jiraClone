@@ -23,18 +23,22 @@ function AccountButton() {
             ) : (
               <User2 />
             )}
-            <span>{data?.name}</span>
+            <span>{data?.email}</span>
             <ChevronUp className="ml-auto" />
           </SidebarMenuButton>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-[--radix-popper-anchor-width]">
+        <DropdownMenuContent className="w-[--radix-popper-anchor-width] flex flex-col gap-2">
           <DropdownMenuItem>
-            <UserRound />
+            <div className="size-7 rounded-full bg-primary text-white grid place-items-center">
+              <h1>{data?.name?.charAt(0).toUpperCase()}</h1>
+            </div>
             <p className="break-words line-clamp-1">{data?.email}</p>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => mutate()}>
-            <LogOut />
-            <span>Sign out</span>
+          <DropdownMenuItem
+            className="bg-destructive/10 text-destructive"
+            onClick={() => mutate()}
+          >
+            <span>Logout</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

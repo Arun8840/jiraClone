@@ -86,7 +86,7 @@ function WorkspaceDetail({ value }: PropTypes) {
       <DeleteDialog />
       <ResetInvitelinkDialog />
       <UpdateWorkspaceForm initialValue={value} />
-      <div className="flex gap-2 bg-white  rounded p-3">
+      <div className="flex gap-2 bg-white  dark:bg-card rounded p-3">
         {value?.imageUrl ? (
           <Image
             src={value?.imageUrl}
@@ -96,8 +96,8 @@ function WorkspaceDetail({ value }: PropTypes) {
             className="rounded-lg"
           />
         ) : (
-          <div className="size-14 bg-neutral-50 grid place-items-center rounded">
-            <Images className="text-neutral-400" />
+          <div className="size-14 bg-neutral-50 dark:bg-primary grid place-items-center rounded">
+            <Images />
           </div>
         )}
         <div className="flex-1 ">
@@ -112,7 +112,7 @@ function WorkspaceDetail({ value }: PropTypes) {
           </p>
         </div>
       </div>
-      <div className="bg-white  rounded p-3">
+      <div className="bg-white dark:bg-card  rounded p-3">
         <h1 className="font-medium pb-2">Invite members</h1>
         <p className="text-neutral-500 text-sm py-2">
           Use the invite-link to add members to your workspace
@@ -135,7 +135,7 @@ function WorkspaceDetail({ value }: PropTypes) {
           </Button>
         </div>
       </div>
-      <div className="bg-white  rounded p-3">
+      <div className="bg-white dark:bg-card  rounded p-3">
         <h1 className="font-medium pb-2">Danger Zone</h1>
         <p className="text-neutral-500 text-sm">
           Deleting a workspace is irreversible and will remove all associated

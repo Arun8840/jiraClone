@@ -69,7 +69,7 @@ function UpdateWorkspaceForm({ initialValue }: PropTypes) {
       <Sheet>
         <div className="flex justify-end">
           <SheetTrigger asChild>
-            <Button variant={"ghost"}>
+            <Button>
               <Pencil /> Edit
             </Button>
           </SheetTrigger>

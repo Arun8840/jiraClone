@@ -6,7 +6,7 @@ interface LayoutProps {
 }
 function AuthLayout({ children }: LayoutProps) {
   return (
-    <section className="min-h-screen flex flex-col bg-[#EEEEEE50]">
+    <section className="min-h-screen flex flex-col dark:bg-background">
       {children}
     </section>
   )

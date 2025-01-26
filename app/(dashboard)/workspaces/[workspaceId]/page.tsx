@@ -10,7 +10,7 @@ async function page() {
   }
 
   return (
-    <section className="bg-neutral-50 p-2 size-full">
+    <section className="p-2 size-full">
       <ProjectsList />
     </section>
   )

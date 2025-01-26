@@ -15,10 +15,10 @@ interface ProjectDetailsTypes {
 function ProjectDetails({ initialValue }: ProjectDetailsTypes) {
   const { open } = useCreateTasktModal()
   return (
-    <section>
+    <section className="size-full bg-neutral-50 dark:bg-background">
       <CreateTaskModal />
       {/* //* HEADER */}
-      <div className="flex justify-between items-center p-3">
+      <div className="flex justify-between p-2 bg-[url('/projectBanner.png')] bg-center bg-cover">
         <div className="flex items-center gap-2">
           <div className="bg-neutral-100 size-10 grid place-items-center rounded-full">
             {initialValue?.imageUrl ? (
@@ -32,13 +32,15 @@ function ProjectDetails({ initialValue }: ProjectDetailsTypes) {
               <Images size={18} className="text-muted-foreground" />
             )}
           </div>
-          <h1 className="font-poppins_normal text-lg">{initialValue?.name}</h1>
+          <h1 className="font-poppins_normal text-lg text-white">
+            {initialValue?.name}
+          </h1>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-end gap-3">
           <Button onClick={open}>
             <Logs />
-            New Task
+            Create Task
           </Button>
           <Button variant={"secondary"}>
             <Link

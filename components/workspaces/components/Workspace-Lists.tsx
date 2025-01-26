@@ -18,7 +18,6 @@ function WorkspaceLists() {
       <div className="flex justify-between items-center p-1">
         <h1 className="text-lg font-medium tracking-wide">WorkSpaces</h1>
         <Button
-          variant={"secondary"}
           className="hover:bg-primary hover:text-primary-foreground"
           disabled={isPending}
           onClick={open}
@@ -37,10 +36,10 @@ function WorkspaceLists() {
             return (
               <div
                 key={items.$id}
-                className="group/workspace p-2 bg-neutral-100 rounded-lg hover:shadow-md transition-shadow duration-150"
+                className="group/workspace p-2 bg-card rounded-lg"
               >
                 <div className="flex gap-2">
-                  <div className="grid place-items-center bg-white overflow-hidden size-14 rounded">
+                  <div className="grid place-items-center overflow-hidden size-14 rounded-xl bg-primary">
                     {items?.imageUrl ? (
                       <Image
                         src={
@@ -54,7 +53,7 @@ function WorkspaceLists() {
                         alt="uploading image"
                       />
                     ) : (
-                      <Images color="gray" size={20} />
+                      <Images color="white" size={20} />
                     )}
                   </div>
                   <div>
@@ -78,7 +77,7 @@ function WorkspaceLists() {
                   >
                     <Button
                       variant={"ghost"}
-                      className="size-fit p-2 group-hover/workspace:bg-white"
+                      className="size-fit p-2 group-hover/workspace:bg-secondary"
                     >
                       <ArrowRight />
                     </Button>
