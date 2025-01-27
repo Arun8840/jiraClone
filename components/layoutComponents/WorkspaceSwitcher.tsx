@@ -24,7 +24,7 @@ function WorkspaceSwitcher() {
       {isPending ? (
         <Loader className="animate-spin origin-center mx-auto" size={18} />
       ) : (
-        <div className="pt-2">
+        <div>
           <Select onValueChange={handleChangeWorkspace_Switcher}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Select Workspaces" />

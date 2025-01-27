@@ -121,7 +121,7 @@ function TaskKnban({ data }: KanbanPropTypes) {
         })}
         {isTaskUpdating && (
           <div className="col-span-full flex justify-center items-center gap-2 p-3 text-muted-foreground">
-            <small>Task is updating</small>{" "}
+            <small>Task is updating</small>
             <Loader className="animate-spin origin-center " size={18} />
           </div>
         )}

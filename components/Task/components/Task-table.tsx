@@ -18,6 +18,7 @@ interface statusColorsTypes {
   DONE: string
   IN_REVIEW: string
   BACKLOG: string
+  TODO: string
 }
 
 interface TaksTablePropTypes {
@@ -40,10 +41,11 @@ function TaskTable({ data }: TaksTablePropTypes) {
     "Action",
   ]
   const statusColors: statusColorsTypes = {
-    IN_PROGRESS: "text-orange-600 bg-orange-600/10",
-    DONE: "text-green-600 bg-green-600/10",
-    IN_REVIEW: "text-indigo-600 bg-indigo-600/10",
-    BACKLOG: "text-red-600 bg-red-600/10",
+    IN_PROGRESS: "bg-orange-600/20 text-orange-600",
+    DONE: "bg-green-600/20 text-green-600",
+    IN_REVIEW: "bg-indigo-600/20 text-indigo-600",
+    BACKLOG: "bg-red-600/20 text-red-600",
+    TODO: "bg-yellow-600/20 text-yellow-600",
   }
 
   const handle_delete_task = async (task: Task) => {
@@ -62,7 +64,7 @@ function TaskTable({ data }: TaksTablePropTypes) {
           <Loader className="animate-spin" size={18} />
         </div>
       ) : (
-        <Table className="table-fixed bg-background rounded font-poppins_normal">
+        <Table className="table-fixed bg-background dark:bg-black rounded font-poppins_normal">
           <TableHeader>
             <TableRow>
               {tableHeaders?.map((headers) => {
@@ -82,7 +84,10 @@ function TaskTable({ data }: TaksTablePropTypes) {
               data?.map((taskValues) => {
                 const status: string = taskValues?.status ?? "COMPLETED"
                 return (
-                  <TableRow key={taskValues.$id}>
+                  <TableRow
+                    key={taskValues.$id}
+                    className="dark:text-secondary"
+                  >
                     <TableCell>
                       <p className="line-clamp-1">{taskValues?.name}</p>
                     </TableCell>
@@ -117,13 +122,12 @@ function TaskTable({ data }: TaksTablePropTypes) {
                     </TableCell>
                     <TableCell>
                       <Badge
-                        variant={"secondary"}
                         className={`${
                           statusColors?.[
                             (status as keyof typeof statusColors) ??
                               "IN_PROGRESS"
                           ]
-                        } font-poppins_normal`}
+                        } font-poppins_normal text-xs`}
                       >
                         {taskValues?.status}
                       </Badge>

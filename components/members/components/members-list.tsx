@@ -168,7 +168,7 @@ function MembersList() {
                   return (
                     <TableRow key={memberValues.$id}>
                       <TableCell className="font-medium">
-                        <div className="size-14 grid place-items-center bg-neutral-50 dark:bg-primary rounded-full">
+                        <div className="size-14 grid place-items-center bg-primary text-secondary rounded-full">
                           {firstLetter}
                         </div>
                       </TableCell>

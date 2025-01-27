@@ -3,7 +3,6 @@ import React from "react"
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
@@ -14,7 +13,6 @@ import {
 import { CheckCheck, LayoutGridIcon, UsersRound } from "lucide-react"
 import Image from "next/image"
 import { Separator } from "../ui/separator"
-import AccountButton from "./AccountButton"
 import WorkspaceSwitcher from "./WorkspaceSwitcher"
 import Link from "next/link"
 
@@ -38,9 +36,14 @@ function DashboardSidemenu() {
   ]
   return (
     <>
-      <Sidebar>
+      <Sidebar className="bg-background dark:bg-black">
         <SidebarHeader>
-          <Image src={"/logo.svg"} width={150} height={150} alt="logo" />
+          <div className="flex items-center gap-3">
+            <Image src={"/logo.svg"} width={30} height={30} alt="logo" />
+            <h1 className="font-bold flex-1 uppercase text-primary">
+              Jira Clone
+            </h1>
+          </div>
         </SidebarHeader>
         <Separator />
         <SidebarContent>
@@ -50,7 +53,6 @@ function DashboardSidemenu() {
                 <SidebarMenuItem>
                   <WorkspaceSwitcher />
                 </SidebarMenuItem>
-                {/* <Separator /> */}
                 {Menus.map((item, itemIndex) => {
                   return (
                     <SidebarMenuItem
@@ -74,14 +76,6 @@ function DashboardSidemenu() {
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
-
-        <SidebarFooter>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <AccountButton />
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarFooter>
       </Sidebar>
     </>
   )

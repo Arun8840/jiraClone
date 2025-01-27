@@ -1,9 +1,15 @@
 import React from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
-import { Kanban, Loader, SquareAsterisk, TableProperties } from "lucide-react"
+import {
+  Calendar,
+  Kanban,
+  Loader,
+  SquareAsterisk,
+  TableProperties,
+} from "lucide-react"
 import { useQueryState } from "nuqs"
 import TaskTable from "./components/Task-table"
-import TaskCard from "./components/Task-card"
+import TaskCalendar from "./components/Task-calendar"
 import TaskKnban from "./components/Task-kanban"
 import { useGetTasks } from "./api/use-get-task"
 import { useGetParamId } from "@/hooks/use-getParamId"
@@ -36,19 +42,20 @@ function TaskViewer() {
           <TabsTrigger className="dark:text-foreground" value="kanban">
             <Kanban size={18} /> <small className="pl-1 ">Kanban</small>
           </TabsTrigger>
-          <TabsTrigger className="dark:text-foreground" value="card">
-            <SquareAsterisk size={18} /> <small className="pl-1 ">Card</small>
+          <TabsTrigger className="dark:text-foreground" value="calendar">
+            <Calendar size={18} />
+            <small className="pl-1 ">Calendar</small>
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="table">
           <TaskTable data={tasks?.documents || []} />
         </TabsContent>
-        <TabsContent value="card">
-          <TaskCard data={tasks?.documents || []} />
-        </TabsContent>
         <TabsContent value="kanban">
           <TaskKnban data={tasks?.documents || []} />
+        </TabsContent>
+        <TabsContent value="calendar">
+          <TaskCalendar data={tasks?.documents || []} />
         </TabsContent>
       </Tabs>
     </>

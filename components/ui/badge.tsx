@@ -16,10 +16,10 @@ const badgeVariants = cva(
         destructive:
           "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         outline: "text-foreground",
-        IN_PROGRESS: "text-orange-600 bg-orange-600/10",
-        [TaskStatus.DONE]: "text-green-600 bg-green-600/10",
-        [TaskStatus.IN_REVIEW]: "text-indigo-600 bg-indigo-600/10",
-        [TaskStatus.BACKLOG]: "text-red-600 bg-red-600/10",
+        IN_PROGRESS: "text-orange-600 bg-orange-600/10 ",
+        [TaskStatus.DONE]: "text-green-600 bg-green-600/10 ",
+        [TaskStatus.IN_REVIEW]: "text-indigo-600 bg-indigo-600/10 ",
+        [TaskStatus.BACKLOG]: "text-red-600 bg-red-600/10 ",
       },
     },
     defaultVariants: {
