@@ -95,7 +95,7 @@ function ProjectSettings({ value }: ValueProps) {
             control={form.control}
             name="image"
             render={({ field }) => (
-              <div className="flex flex-col bg-neutral-50 rounded-lg justify-center items-center min-w-[300px] relative">
+              <div className="flex flex-col bg-neutral-50 dark:bg-card rounded-lg justify-center items-center min-w-[300px] relative">
                 <div
                   onClick={() => uploadRef?.current?.click()}
                   className="flex cursor-pointer justify-center border rounded-full items-center size-32 overflow-hidden "
@@ -148,7 +148,7 @@ function ProjectSettings({ value }: ValueProps) {
             )}
           />
 
-          <div className="flex flex-col justify-between flex-1 bg-neutral-50 p-4 rounded-lg">
+          <div className="flex flex-col justify-between flex-1 bg-neutral-50 dark:bg-card p-4 rounded-lg">
             <div className="flex-1 grid gap-2">
               <FormField
                 control={form.control}
@@ -190,9 +190,9 @@ function ProjectSettings({ value }: ValueProps) {
         </form>
       </Form>
 
-      <div className="bg-neutral-50 p-4 rounded-lg w-full mt-2">
+      <div className="bg-neutral-50 dark:bg-card p-4 rounded-lg w-full mt-2">
         <h1 className="font-medium font-poppins_normal text-lg">Danger zone</h1>
-        <p className="py-3 text-muted-foreground text-justify">
+        <p className="py-3 text-muted-foreground font-poppins_normal text-justify">
           Are you sure you want to delete this project? This action is
           irreversible and will permanently remove all associated tasks, issues,
           and data related to the project. Ensure you have backed up any

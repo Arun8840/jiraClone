@@ -1,0 +1,33 @@
+.rbc-calendar {
+  @apply bg-card dark:bg-black p-2 rounded-lg font-poppins_normal;
+}
+.rbc-header {
+  @apply text-xs font-poppins_normal p-2 text-muted-foreground border-b-0;
+}
+.rbc-toolbar {
+  @apply p-1 text-sm rounded bg-secondary text-primary;
+}
+
+.rbc-month-header {
+  @apply border-b border-dashed border-primary/50;
+}
+.rbc-btn-group {
+  @apply flex gap-1;
+}
+.rbc-btn-group > button {
+  @apply border-0 rounded bg-white text-sm text-muted-foreground;
+}
+.rbc-month-row {
+  @apply min-h-[180px];
+}
+
+.rbc-month-view {
+  @apply rounded p-1 border-0;
+}
+.rbc-row {
+  @apply text-sm;
+}
+
+.rbc-today {
+  @apply bg-primary/20;
+}

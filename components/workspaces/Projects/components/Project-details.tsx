@@ -15,10 +15,10 @@ interface ProjectDetailsTypes {
 function ProjectDetails({ initialValue }: ProjectDetailsTypes) {
   const { open } = useCreateTasktModal()
   return (
-    <section>
+    <section className="size-full dark:bg-black">
       <CreateTaskModal />
       {/* //* HEADER */}
-      <div className="flex justify-between items-center p-3">
+      <div className="sticky top-0 z-10 flex justify-between p-2">
         <div className="flex items-center gap-2">
           <div className="bg-neutral-100 size-10 grid place-items-center rounded-full">
             {initialValue?.imageUrl ? (
@@ -32,21 +32,22 @@ function ProjectDetails({ initialValue }: ProjectDetailsTypes) {
               <Images size={18} className="text-muted-foreground" />
             )}
           </div>
-          <h1 className="font-poppins_normal text-lg">{initialValue?.name}</h1>
+          <h1 className="font-poppins_normal dark:text-secondary text-lg">
+            {initialValue?.name}
+          </h1>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-end gap-3">
           <Button onClick={open}>
             <Logs />
             New Task
           </Button>
-          <Button variant={"secondary"}>
+          <Button variant={"ghost"}>
             <Link
               className="flex items-center gap-2"
               href={`/workspaces/${initialValue?.workspaceId}/project/${initialValue?.$id}/settings`}
             >
-              <Pen size={18} />
-              Edit Project
+              <Pen className="fill-current text-muted-foreground" size={18} />
             </Link>
           </Button>
         </div>

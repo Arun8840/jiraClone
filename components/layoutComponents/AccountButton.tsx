@@ -18,23 +18,29 @@ function AccountButton() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <SidebarMenuButton>
-            {isPending ? (
-              <Loader className="animate-spin origin-center" />
-            ) : (
-              <User2 />
-            )}
-            <span>{data?.name}</span>
-            <ChevronUp className="ml-auto" />
+            <div className="bg-primary size-8 rounded-full grid place-items-center">
+              {isPending ? (
+                <Loader
+                  size={15}
+                  className="animate-spin origin-center text-secondary"
+                />
+              ) : (
+                <span className="text-secondary">
+                  {data?.email.charAt(0).toUpperCase()}
+                </span>
+              )}
+            </div>
           </SidebarMenuButton>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-[--radix-popper-anchor-width]">
+        <DropdownMenuContent className="w-[--radix-popper-anchor-width] flex flex-col gap-2">
           <DropdownMenuItem>
-            <UserRound />
             <p className="break-words line-clamp-1">{data?.email}</p>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => mutate()}>
-            <LogOut />
-            <span>Sign out</span>
+          <DropdownMenuItem
+            className="bg-destructive/10 text-destructive"
+            onClick={() => mutate()}
+          >
+            <span>Logout</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

@@ -18,7 +18,7 @@ function ProjectsList() {
 
       <div className="flex flex-col h-full">
         <div className="flex justify-between items-center">
-          <h1 className="text-xl font-medium font-poppins_normal p-2">
+          <h1 className="text-xl font-medium dark:text-secondary font-poppins_normal p-2">
             Projects
           </h1>
 
@@ -40,10 +40,10 @@ function ProjectsList() {
               return (
                 <div
                   key={projectValues?.$id}
-                  className="p-2 min-h-[100px] flex justify-between flex-col bg-neutral-200/50 rounded-lg"
+                  className="p-2 min-h-[100px] flex justify-between flex-col bg-card rounded-lg"
                 >
                   <div>
-                    <h1 className="font-poppins_normal font-medium p-1 text-neutral-600">
+                    <h1 className="font-poppins_normal font-medium p-1 text-neutral-600 dark:text-foreground">
                       {projectValues?.name}
                     </h1>
                   </div>

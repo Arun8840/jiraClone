@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useGetWorkspaces } from "@/components/workspaces/api/use-get-workspaces"
-import { ArrowLeft, Loader, MoreHorizontal } from "lucide-react"
+import { Loader, MoreHorizontal } from "lucide-react"
 import { useRouter } from "next/navigation"
 import React, { useState } from "react"
 import { useGetMembers } from "../api/use-get-members"
@@ -35,7 +35,6 @@ import { toast } from "@/hooks/use-toast"
 import { MemberRole } from "@/models/RoleTypes"
 
 function MembersList() {
-  const router = useRouter()
   const { data: workspacesData, isPending: isWorkspacePending } =
     useGetWorkspaces()
   const workspaces = workspacesData?.documents
@@ -142,7 +141,7 @@ function MembersList() {
         ) : (
           <Card>
             <Table>
-              <TableCaption className="border-t p-2 border-dashed bg-lime-50 text-lime-600">
+              <TableCaption className="border-t p-2 border-dashed bg-lime-50 dark:bg-secondary text-lime-600">
                 A list of your workspace members.
               </TableCaption>
               <TableHeader>
@@ -169,7 +168,7 @@ function MembersList() {
                   return (
                     <TableRow key={memberValues.$id}>
                       <TableCell className="font-medium">
-                        <div className="size-14 grid place-items-center bg-neutral-50 rounded-full">
+                        <div className="size-14 grid place-items-center bg-primary text-secondary rounded-full">
                           {firstLetter}
                         </div>
                       </TableCell>

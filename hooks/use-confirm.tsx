@@ -55,7 +55,7 @@ export const useConfirm = (
           <AlertDialogFooter>
             <AlertDialogCancel onClick={handleCancel}>Cancel</AlertDialogCancel>
             <AlertDialogAction asChild onClick={handleConfirm}>
-              <Button>Continute</Button>
+              <Button variant={variant}>Continute</Button>
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

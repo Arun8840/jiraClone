@@ -24,13 +24,13 @@ function WorkspaceSwitcher() {
       {isPending ? (
         <Loader className="animate-spin origin-center mx-auto" size={18} />
       ) : (
-        <div className="pt-2">
+        <div>
           <Select onValueChange={handleChangeWorkspace_Switcher}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Select Workspaces" />
             </SelectTrigger>
             <SelectContent>
-              {workspaces?.length > 0 &&
+              {workspaces?.length > 0 ? (
                 workspaces?.map((workspaceOptions) => {
                   return (
                     <SelectItem
@@ -40,7 +40,12 @@ function WorkspaceSwitcher() {
                       {workspaceOptions?.name}
                     </SelectItem>
                   )
-                })}
+                })
+              ) : (
+                <SelectItem value=" " disabled className="capitalize">
+                  No workspaces found
+                </SelectItem>
+              )}
             </SelectContent>
           </Select>
         </div>
