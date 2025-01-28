@@ -7,10 +7,10 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { RegisterSchema } from "./schema/AuthSchema"
 import { useRegister } from "./api/use-register"
-import { Loader } from "lucide-react"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { Separator } from "../ui/separator"
+import { Loader } from "@/Utility/Ui/Loader"
 
 function SignUpComponent() {
   const { mutate, isPending } = useRegister()
@@ -87,11 +87,7 @@ function SignUpComponent() {
 
             {/* Register Button */}
             <Button disabled={isPending} className="w-full justify-center mt-3">
-              {isPending ? (
-                <Loader className="text-white animate-spin origin-center" />
-              ) : (
-                "Register"
-              )}
+              {isPending ? <Loader className="text-white" /> : "Register"}
             </Button>
           </form>
 

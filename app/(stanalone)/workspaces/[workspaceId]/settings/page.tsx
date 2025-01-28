@@ -16,9 +16,9 @@ async function WorkspaceSetting({ params }: ParamTypes) {
 
   const workspace = (await getWorkspace({ workspaceId })) as Workspace
   return (
-    <div>
+    <>
       <WorkspaceDetail value={workspace} />
-    </div>
+    </>
   )
 }
 

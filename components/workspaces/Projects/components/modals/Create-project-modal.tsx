@@ -13,9 +13,9 @@ export const CreateProjectModal = () => {
   return (
     <>
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetContent className="flex flex-col">
+        <SheetContent className="flex flex-col dark:bg-neutral-900 dark:text-white border-l-0">
           <SheetHeader>
-            <SheetTitle>Create Project</SheetTitle>
+            <SheetTitle className="dark:text-white">Create Project</SheetTitle>
             <SheetDescription>
               Enter the project details below Click save when you&apos;re done.
             </SheetDescription>

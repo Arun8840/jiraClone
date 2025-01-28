@@ -1,12 +1,13 @@
 "use client"
 import React from "react"
 import { useGetWorkspaces } from "../api/use-get-workspaces"
-import { ArrowRight, Images, Loader, Plus } from "lucide-react"
+import { ArrowRight, Images, Plus } from "lucide-react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { CreateWorkspaceModal } from "./modals/Create-workspace-modal"
 import { useCreateWorkspaceModal } from "@/hooks/use-createWorkspace-modal"
+import { Loader } from "@/Utility/Ui/Loader"
 
 function WorkspaceLists() {
   const { open } = useCreateWorkspaceModal()
@@ -16,7 +17,9 @@ function WorkspaceLists() {
     <div>
       <CreateWorkspaceModal />
       <div className="flex justify-between items-center p-1">
-        <h1 className="text-lg font-medium tracking-wide">WorkSpaces</h1>
+        <h1 className="text-lg font-medium tracking-wide dark:text-white">
+          WorkSpaces
+        </h1>
         <Button
           className="hover:bg-primary hover:text-primary-foreground"
           disabled={isPending}
@@ -27,9 +30,7 @@ function WorkspaceLists() {
       </div>
       <div className=" grid lg:grid-cols-4 gap-2 pt-2">
         {isPending ? (
-          <div className="size-full grid place-items-center min-h-[100px] border border-dashed rounded-lg bg-white">
-            <Loader className="animate-spin origin-center" size={18} />
-          </div>
+          <Loader className="bg-white rounded min-h-[100px]" />
         ) : (
           workspaces &&
           workspaces?.map((items) => {

@@ -6,14 +6,16 @@ import AccountButton from "./AccountButton"
 
 function Header() {
   return (
-    <nav className="p-1 w-full flex justify-between items-center">
-      <SidebarTrigger />
+    <>
+      <nav className="p-1 w-full flex justify-between items-center bg-card dark:bg-black">
+        <SidebarTrigger />
 
-      <div className="flex items-center gap-2">
-        <DarkModeSwitcher />
-        <AccountButton />
-      </div>
-    </nav>
+        <div className="flex items-center gap-2">
+          <DarkModeSwitcher />
+          <AccountButton />
+        </div>
+      </nav>
+    </>
   )
 }
 

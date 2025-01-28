@@ -75,9 +75,11 @@ function UpdateWorkspaceForm({ initialValue }: PropTypes) {
           </SheetTrigger>
         </div>
 
-        <SheetContent>
+        <SheetContent className="dark:bg-neutral-900 border-l-0 dark:text-white">
           <SheetHeader>
-            <SheetTitle>{initialValue?.name}</SheetTitle>
+            <SheetTitle className="dark:text-white">
+              {initialValue?.name}
+            </SheetTitle>
             <SheetDescription>
               Update the workspace details below. Click save when you&apos;re
               done.

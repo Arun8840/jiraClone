@@ -26,8 +26,8 @@ function KanbanColumnHeader({ count, header }: HeaderProps) {
     <>
       <div className="flex items-center justify-between pb-1">
         <div className="flex-1 flex items-center gap-1">
-          <small className="pl-2">{count}</small>
-          <h1 className="font-poppins_normal text-xs px-2 font-medium text-neutral-600">
+          <small className="pl-2 dark:text-white">{count}</small>
+          <h1 className="font-poppins_normal text-xs px-2 font-medium text-neutral-600 dark:text-white">
             {header}
           </h1>
           {/* {statusIcon[header as TaskStatus]} */}

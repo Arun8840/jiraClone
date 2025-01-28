@@ -7,7 +7,7 @@ import { ArrowLeft } from "lucide-react"
 function StandaloneHeader() {
   const router = useRouter()
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between dark:text-white">
       <Button onClick={() => router?.back()} variant={"ghost"}>
         <ArrowLeft /> Back
       </Button>

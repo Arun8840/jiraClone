@@ -99,7 +99,7 @@ function MembersList() {
       <DeleteModal />
       <div className="pt-2 flex flex-col gap-3">
         <div className="grid grid-cols-2">
-          <h1 className="text-xl self-center flex-1 font-medium font-poppins_normal">
+          <h1 className="text-xl self-center dark:text-white flex-1 font-medium font-poppins_normal">
             Members List
           </h1>
           <div className="w-full">
@@ -139,13 +139,13 @@ function MembersList() {
             <Loader className="animate-spin origin-center" />
           </div>
         ) : (
-          <Card>
+          <Card className="dark:bg-neutral-950 dark:border-0">
             <Table>
-              <TableCaption className="border-t p-2 border-dashed bg-lime-50 dark:bg-secondary text-lime-600">
+              <TableCaption className="border-t p-2 border-dashed bg-lime-50 dark:bg-inherit text-lime-400">
                 A list of your workspace members.
               </TableCaption>
               <TableHeader>
-                <TableRow>
+                <TableRow className="dark:border-dashed">
                   {tableHeaders?.map((headers) => {
                     return (
                       <TableHead
@@ -166,7 +166,10 @@ function MembersList() {
                     memberValues?.name.charAt(0).toUpperCase() ?? "M"
                   const memberId = memberValues.$id as string
                   return (
-                    <TableRow key={memberValues.$id}>
+                    <TableRow
+                      key={memberValues.$id}
+                      className="dark:text-white"
+                    >
                       <TableCell className="font-medium">
                         <div className="size-14 grid place-items-center bg-primary text-secondary rounded-full">
                           {firstLetter}

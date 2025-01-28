@@ -40,7 +40,11 @@ function KanbanRowData({ data }: KanbanDataProps) {
           data?.map((taskValues) => {
             return (
               <li key={taskValues?.$id}>
-                <Dragable data={taskValues} dragId={taskValues?.$id}>
+                <Dragable
+                  className="dark:bg-neutral-800 dark:text-white"
+                  data={taskValues}
+                  dragId={taskValues?.$id}
+                >
                   <p title={taskValues?.name} className="line-clamp-1 flex-1">
                     {taskValues?.name}
                   </p>

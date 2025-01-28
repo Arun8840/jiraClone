@@ -280,7 +280,7 @@ function CreateTaskForm({ onCancel }: FormPropTypes) {
                               type="button"
                               variant={"outline"}
                               className={cn(
-                                "flex  w-full text-left font-normal",
+                                "flex  w-full text-left dark:text-white dark:bg-inherit font-normal",
                                 !field.value && "text-muted-foreground"
                               )}
                             >
