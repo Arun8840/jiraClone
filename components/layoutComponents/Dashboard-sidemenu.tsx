@@ -53,7 +53,7 @@ function DashboardSidemenu() {
                 <SidebarMenuItem>
                   <WorkspaceSwitcher />
                 </SidebarMenuItem>
-                {Menus.map((item, itemIndex) => {
+                {Menus.map((item) => {
                   return (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton

@@ -68,7 +68,7 @@ function CreateTaskForm({ onCancel }: FormPropTypes) {
     mutate(
       { json: { ...data, workspaceId } },
       {
-        onSuccess(data) {
+        onSuccess() {
           form.reset()
           onCancel()
         },

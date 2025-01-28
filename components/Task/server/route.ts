@@ -32,7 +32,7 @@ const app = new Hono()
       const databases = c.get("databases")
       const user = c.get("user")
 
-      const { workspaceId, assigneeId, dueDate, projectId, search, status } =
+      const { workspaceId, assigneeId, projectId, search, status } =
         c.req.valid("query")
 
       const member = await getMembers({

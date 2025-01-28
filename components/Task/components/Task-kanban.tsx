@@ -105,7 +105,7 @@ function TaskKnban({ data }: KanbanPropTypes) {
     <DndContext onDragEnd={handleDragEnd}>
       <DetailModal title="Task details" description="" />
       <section className="grid lg:grid-cols-5  auto-rows-max gap-2">
-        {boards?.map((taskBoard, index) => {
+        {boards?.map((taskBoard) => {
           const taskLength = tasks[taskBoard]?.length
           const taskData = tasks[taskBoard]
           return (

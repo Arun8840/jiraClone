@@ -3,7 +3,6 @@ import { Projects } from "@/components/workspaces/Projects/type"
 import { TaskStatus } from "../../types"
 import { cn } from "@/lib/utils"
 import {
-  Circle,
   CircleAlert,
   CircleCheck,
   CircleDashed,
@@ -17,7 +16,7 @@ interface EventProps extends HTMLAttributes<HTMLDivElement> {
     end: Date
     project: Projects
     title: string
-    assignee: any
+    assignee: Record<string, string>
     status: string
     id: string
   }

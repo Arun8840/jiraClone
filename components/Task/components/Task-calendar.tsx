@@ -14,12 +14,6 @@ import "react-big-calendar/lib/css/react-big-calendar.css"
 import "./data-calendar.css"
 import EventCard from "./Calendar-view-components/Event-card"
 import CustomToolbar from "./Calendar-view-components/Custom-toolbar"
-interface statusColorsTypes {
-  IN_PROGRESS: string
-  DONE: string
-  IN_REVIEW: string
-  BACKLOG: string
-}
 
 interface TaksCardPropTypes {
   data: Task[]
