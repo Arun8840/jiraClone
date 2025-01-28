@@ -1,5 +1,4 @@
 import React from "react"
-import { ChevronUp, Loader, LogOut, User2, UserRound } from "lucide-react"
 import { useCurrent } from "../auth/api/use-current"
 import { useLogout } from "../auth/api/use-logout"
 import {
@@ -9,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
 import { SidebarMenuButton } from "../ui/sidebar"
+import { Loader } from "@/Utility/Ui/Loader"
 
 function AccountButton() {
   const { data } = useCurrent()
@@ -20,10 +20,7 @@ function AccountButton() {
           <SidebarMenuButton>
             <div className="bg-primary size-8 rounded-full grid place-items-center">
               {isPending ? (
-                <Loader
-                  size={15}
-                  className="animate-spin origin-center text-secondary"
-                />
+                <Loader />
               ) : (
                 <span className="text-secondary">
                   {data?.email.charAt(0).toUpperCase()}

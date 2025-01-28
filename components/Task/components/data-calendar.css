@@ -25,7 +25,7 @@
   @apply rounded p-1 border-0;
 }
 .rbc-row {
-  @apply text-sm;
+  @apply text-sm dark:text-white;
 }
 
 .rbc-today {

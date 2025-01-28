@@ -1,12 +1,13 @@
 "use client"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Loader, Plus } from "lucide-react"
+import { ArrowRight, Plus } from "lucide-react"
 import React from "react"
 import { useGetProjects } from "../api/use-get-projects"
 import { useCreateProjectModal } from "@/hooks/use-createProject-modal"
 import Link from "next/link"
 import { useGetParamId } from "@/hooks/use-getParamId"
 import { CreateProjectModal } from "./modals/Create-project-modal"
+import { Loader } from "@/Utility/Ui/Loader"
 function ProjectsList() {
   const { open } = useCreateProjectModal()
   // * load projects data
@@ -18,7 +19,7 @@ function ProjectsList() {
 
       <div className="flex flex-col h-full">
         <div className="flex justify-between items-center">
-          <h1 className="text-xl font-medium dark:text-secondary font-poppins_normal p-2">
+          <h1 className="text-xl font-medium  font-poppins_normal p-2">
             Projects
           </h1>
 
@@ -29,12 +30,7 @@ function ProjectsList() {
 
         <div className="flex-1 grid lg:grid-cols-4 auto-rows-max gap-2 pt-3 ">
           {isPending ? (
-            <div className="p-2 grid place-items-center col-span-full rounded-lg">
-              <Loader
-                size={18}
-                className="animate-spin text-muted-foreground origin-center"
-              />
-            </div>
+            <Loader className="col-span-full dark:text-primary" />
           ) : data?.documents && data?.documents?.length > 0 ? (
             data?.documents?.map((projectValues) => {
               return (

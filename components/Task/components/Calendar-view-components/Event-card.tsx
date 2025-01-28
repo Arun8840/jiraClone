@@ -47,7 +47,9 @@ function EventCard({ events, className }: EventProps) {
   }`
   return (
     <div className={cn(baseClass, className)}>
-      <h1 className="text-sm font-medium tracking-wide pb-2">{title}</h1>
+      <h1 className="text-sm text-neutral-700 font-medium tracking-wide pb-2">
+        {title}
+      </h1>
       <div className="flex items-center gap-1">
         <div
           title="Project"
@@ -59,7 +61,7 @@ function EventCard({ events, className }: EventProps) {
         </div>
         <div
           title="Assignee"
-          className="size-7 bg-secondary rounded-full grid place-items-center"
+          className="size-7 dark:text-primary bg-secondary rounded-full grid place-items-center"
         >
           <span>{assignee?.name?.charAt(0).toUpperCase()}</span>
         </div>

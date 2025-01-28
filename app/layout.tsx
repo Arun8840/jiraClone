@@ -4,7 +4,7 @@ import "./globals.css"
 import Providers from "@/components/query-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
-import { ThemeProvider } from "@/Utility/theme-provider"
+import { ThemeProvider } from "@/components/theme-provider"
 
 const poppins_normal = Open_Sans({
   weight: "400",
@@ -30,22 +30,24 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${poppins_normal.variable} ${poppins_bold.variable} bg-white dark:bg-black`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+    <>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${poppins_normal.variable} ${poppins_bold.variable}`}>
           <Providers>
-            <NuqsAdapter>{children}</NuqsAdapter>
+            <NuqsAdapter>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                {children}
+              </ThemeProvider>
+            </NuqsAdapter>
           </Providers>
           <Toaster />
-        </ThemeProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </>
   )
 }

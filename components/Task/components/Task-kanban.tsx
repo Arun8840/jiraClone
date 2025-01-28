@@ -23,11 +23,13 @@ function TaskKnban({ data }: KanbanPropTypes) {
     TaskStatus.DONE,
   ]
   const droppableColors: Record<TaskStatus, string> = {
-    BACKLOG: "bg-blue-100",
-    IN_PROGRESS: "bg-yellow-100",
-    IN_REVIEW: "bg-purple-100",
-    TODO: "bg-gray-100",
-    DONE: "bg-green-100",
+    BACKLOG: "bg-blue-100 dark:border dark:border-blue-500 dark:bg-inherit",
+    IN_PROGRESS:
+      "bg-yellow-100 dark:border dark:border-yellow-500 dark:bg-inherit",
+    IN_REVIEW:
+      "bg-purple-100 dark:border dark:border-purple-500 dark:bg-inherit",
+    TODO: "bg-gray-200 dark:border dark:border-gray-500 dark:bg-inherit",
+    DONE: "bg-green-100 dark:border dark:border-green-500 dark:bg-inherit",
   }
   const { mutate: bulkUpdate, isPending: isTaskUpdating } = useBulkUpdateTask()
   const [tasks, setTasks] = useState<Taskstate>(() => {

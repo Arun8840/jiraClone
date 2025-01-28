@@ -1,18 +1,13 @@
 import React from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
-import {
-  Calendar,
-  Kanban,
-  Loader,
-  SquareAsterisk,
-  TableProperties,
-} from "lucide-react"
+import { Calendar, Kanban, TableProperties } from "lucide-react"
 import { useQueryState } from "nuqs"
 import TaskTable from "./components/Task-table"
 import TaskCalendar from "./components/Task-calendar"
 import TaskKnban from "./components/Task-kanban"
 import { useGetTasks } from "./api/use-get-task"
 import { useGetParamId } from "@/hooks/use-getParamId"
+import { Loader } from "@/Utility/Ui/Loader"
 
 function TaskViewer() {
   const [view, setView] = useQueryState("task-view", {
@@ -25,24 +20,20 @@ function TaskViewer() {
   })
 
   if (isPending) {
-    return (
-      <div className="size-full p-3 flex justify-center">
-        <Loader size={18} className="animate-spin" />
-      </div>
-    )
+    return <Loader className="dark:text-primary" />
   }
   return (
     <>
       <Tabs defaultValue={view} onValueChange={setView}>
-        <TabsList className="font-poppins_normal">
-          <TabsTrigger className="dark:text-foreground" value="table">
+        <TabsList className="font-poppins_normal dark:bg-neutral-900">
+          <TabsTrigger value="table">
             <TableProperties size={18} />
             <small className="pl-1 ">Table</small>
           </TabsTrigger>
-          <TabsTrigger className="dark:text-foreground" value="kanban">
+          <TabsTrigger value="kanban">
             <Kanban size={18} /> <small className="pl-1 ">Kanban</small>
           </TabsTrigger>
-          <TabsTrigger className="dark:text-foreground" value="calendar">
+          <TabsTrigger value="calendar">
             <Calendar size={18} />
             <small className="pl-1 ">Calendar</small>
           </TabsTrigger>

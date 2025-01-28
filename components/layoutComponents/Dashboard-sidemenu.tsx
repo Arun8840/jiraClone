@@ -36,7 +36,7 @@ function DashboardSidemenu() {
   ]
   return (
     <>
-      <Sidebar className="bg-background dark:bg-black">
+      <Sidebar className="bg-card dark:bg-neutral-950 group-data-[side=left]:border-r-0">
         <SidebarHeader>
           <div className="flex items-center gap-3">
             <Image src={"/logo.svg"} width={30} height={30} alt="logo" />
@@ -55,10 +55,7 @@ function DashboardSidemenu() {
                 </SidebarMenuItem>
                 {Menus.map((item, itemIndex) => {
                   return (
-                    <SidebarMenuItem
-                      className="dark:text-secondary"
-                      key={item.title}
-                    >
+                    <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton
                         className="p-3 h-10"
                         variant={"default"}

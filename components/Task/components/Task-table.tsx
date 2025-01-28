@@ -7,12 +7,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Loader, Pen, Trash } from "lucide-react"
+import { Pen, Trash } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useConfirm } from "@/hooks/use-confirm"
 import { Task } from "../types"
 import { Badge } from "@/components/ui/badge"
 import { useDeleteTask } from "../api/use-delete-task"
+import { Loader } from "@/Utility/Ui/Loader"
 interface statusColorsTypes {
   IN_PROGRESS: string
   DONE: string
@@ -60,13 +61,11 @@ function TaskTable({ data }: TaksTablePropTypes) {
     <>
       <DeleteModal />
       {isTaskRemoving ? (
-        <div className="p-2 flex justify-center">
-          <Loader className="animate-spin" size={18} />
-        </div>
+        <Loader className="dark:text-primary" />
       ) : (
         <Table className="table-fixed bg-background dark:bg-black rounded font-poppins_normal">
           <TableHeader>
-            <TableRow>
+            <TableRow className="dark:border-b-neutral-900 border-dashed">
               {tableHeaders?.map((headers) => {
                 return (
                   <TableHead
@@ -86,7 +85,7 @@ function TaskTable({ data }: TaksTablePropTypes) {
                 return (
                   <TableRow
                     key={taskValues.$id}
-                    className="dark:text-secondary"
+                    className="dark:border-b-neutral-900 border-dashed"
                   >
                     <TableCell>
                       <p className="line-clamp-1">{taskValues?.name}</p>
@@ -141,7 +140,7 @@ function TaskTable({ data }: TaksTablePropTypes) {
                       <div className="flex items-center gap-2 justify-center">
                         <Button
                           type="button"
-                          variant={"secondary"}
+                          variant={"ghost"}
                           className="size-fit  text-muted-foreground p-2"
                         >
                           <Pen size={18} />
@@ -149,7 +148,7 @@ function TaskTable({ data }: TaksTablePropTypes) {
                         <Button
                           type="button"
                           onClick={() => handle_delete_task(taskValues)}
-                          variant={"secondary"}
+                          variant={"ghost"}
                           className="size-fit  text-muted-foreground p-2"
                         >
                           <Trash size={18} />

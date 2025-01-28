@@ -1,6 +1,6 @@
 "use client"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Chrome, Github, Loader } from "lucide-react"
+import { Chrome, Github } from "lucide-react"
 import Link from "next/link"
 import React from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
@@ -9,6 +9,7 @@ import { LoginSchema } from "./schema/AuthSchema"
 import { useLogin } from "./api/use-login"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
+import { Loader } from "@/Utility/Ui/Loader"
 
 function SignInComponent() {
   const { mutate, isPending } = useLogin()
@@ -32,7 +33,7 @@ function SignInComponent() {
     <div className="flex-1 grid  gap-2">
       {/* Login Section */}
       <div className="grid place-items-center">
-        <div className="lg:w-1/3 flex flex-col justify-center">
+        <div className="lg:w-1/3 w-[80%] flex flex-col justify-center">
           {/* Header */}
           <h1 className="text-2xl p-2 font-poppins_bold font-semibold">
             Sign in to your workspace
@@ -65,11 +66,7 @@ function SignInComponent() {
               </p>
             )}
             <Button disabled={isPending} className="w-full justify-center mt-3">
-              {isPending ? (
-                <Loader className="text-white animate-spin origin-center" />
-              ) : (
-                "Login"
-              )}
+              {isPending ? <Loader className="text-white" /> : "Login"}
             </Button>
           </form>
 

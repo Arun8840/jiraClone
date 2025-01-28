@@ -13,9 +13,9 @@ export const CreateTaskModal = () => {
   return (
     <>
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetContent className="flex flex-col overflow-y-auto">
+        <SheetContent className="flex flex-col overflow-y-auto dark:bg-stone-950 border-l-0 dark:text-white">
           <SheetHeader>
-            <SheetTitle>Create Task</SheetTitle>
+            <SheetTitle className="dark:text-white">Create Task</SheetTitle>
             <SheetDescription>
               Enter the task details below Click save when you&apos;re done.
             </SheetDescription>

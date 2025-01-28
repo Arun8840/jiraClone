@@ -1,5 +1,4 @@
 import React from "react"
-import { Loader, Plus } from "lucide-react"
 import { useGetWorkspaces } from "../workspaces/api/use-get-workspaces"
 import {
   Select,
@@ -9,6 +8,7 @@ import {
   SelectValue,
 } from "../ui/select"
 import { useRouter } from "next/navigation"
+import { Loader } from "@/Utility/Ui/Loader"
 
 function WorkspaceSwitcher() {
   const router = useRouter()
@@ -22,7 +22,7 @@ function WorkspaceSwitcher() {
   return (
     <div>
       {isPending ? (
-        <Loader className="animate-spin origin-center mx-auto" size={18} />
+        <Loader className="dark:text-primary" />
       ) : (
         <div>
           <Select onValueChange={handleChangeWorkspace_Switcher}>

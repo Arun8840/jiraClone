@@ -32,9 +32,7 @@ function ProjectDetails({ initialValue }: ProjectDetailsTypes) {
               <Images size={18} className="text-muted-foreground" />
             )}
           </div>
-          <h1 className="font-poppins_normal dark:text-secondary text-lg">
-            {initialValue?.name}
-          </h1>
+          <h1 className="font-poppins_normal text-lg">{initialValue?.name}</h1>
         </div>
 
         <div className="flex items-center justify-end gap-3">
@@ -47,14 +45,14 @@ function ProjectDetails({ initialValue }: ProjectDetailsTypes) {
               className="flex items-center gap-2"
               href={`/workspaces/${initialValue?.workspaceId}/project/${initialValue?.$id}/settings`}
             >
-              <Pen className="fill-current text-muted-foreground" size={18} />
+              <Pen className="fill-current" size={18} />
             </Link>
           </Button>
         </div>
       </div>
 
       {/* //* VIEW OF THE TASK DATA */}
-      <div className="p-2">
+      <div className="p-2 bg-inherit">
         <TaskViewer />
       </div>
     </section>
