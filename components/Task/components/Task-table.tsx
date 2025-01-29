@@ -7,13 +7,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Pen, Trash } from "lucide-react"
+import { Info, MoreVertical, Pen, Trash } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useConfirm } from "@/hooks/use-confirm"
 import { Task } from "../types"
 import { Badge } from "@/components/ui/badge"
 import { useDeleteTask } from "../api/use-delete-task"
 import { Loader } from "@/Utility/Ui/Loader"
+import Link from "next/link"
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+} from "@/components/ui/dropdown-menu"
 interface statusColorsTypes {
   IN_PROGRESS: string
   DONE: string
@@ -82,13 +89,16 @@ function TaskTable({ data }: TaksTablePropTypes) {
             {data && data?.length > 0 ? (
               data?.map((taskValues) => {
                 const status: string = taskValues?.status ?? "COMPLETED"
+                const fullLink = `/workspaces/${taskValues?.workspaceId}/tasks/${taskValues?.$id}`
                 return (
                   <TableRow
                     key={taskValues.$id}
                     className="dark:border-b-neutral-900 border-dashed"
                   >
                     <TableCell>
-                      <p className="line-clamp-1">{taskValues?.name}</p>
+                      <p title={taskValues?.name} className="line-clamp-1">
+                        {taskValues?.name}
+                      </p>
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
@@ -138,21 +148,32 @@ function TaskTable({ data }: TaksTablePropTypes) {
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2 justify-center">
-                        <Button
-                          type="button"
-                          variant={"ghost"}
-                          className="size-fit  text-muted-foreground p-2"
-                        >
-                          <Pen size={18} />
-                        </Button>
-                        <Button
-                          type="button"
-                          onClick={() => handle_delete_task(taskValues)}
-                          variant={"ghost"}
-                          className="size-fit  text-muted-foreground p-2"
-                        >
-                          <Trash size={18} />
-                        </Button>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant={"ghost"} className="p-2 size-fit">
+                              <MoreVertical size={18} />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent>
+                            <DropdownMenuItem>
+                              <Link
+                                href={fullLink}
+                                className="flex items-center gap-2"
+                              >
+                                <Info className="text-primary" /> Task info
+                              </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="flex items-center gap-2">
+                              <Pen className="text-primary" /> Edit task
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                              className="text-destructive"
+                              onClick={() => handle_delete_task(taskValues)}
+                            >
+                              <Trash /> Remove task
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                       </div>
                     </TableCell>
                   </TableRow>

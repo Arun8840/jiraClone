@@ -55,7 +55,7 @@ function TaskCalendar({ data }: TaksCardPropTypes) {
     }
   }
   return (
-    <section className="p-2">
+    <section>
       <Calendar
         localizer={localizer}
         date={value}
