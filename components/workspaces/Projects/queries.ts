@@ -1,7 +1,7 @@
 import { createSessionClient } from "@/lib/appwrite"
 import { getMembers } from "../members/util-get-members"
 import { Projects } from "./type"
-import { DATABASE_ID, PROJECTS_ID, WORKSPACE_ID } from "@/lib/config"
+import { DATABASE_ID, PROJECTS_ID } from "@/lib/config"
 
 interface GetProjectTypes {
   projectId: string

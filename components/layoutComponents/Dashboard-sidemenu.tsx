@@ -15,8 +15,11 @@ import Image from "next/image"
 import { Separator } from "../ui/separator"
 import WorkspaceSwitcher from "./WorkspaceSwitcher"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useGetParamId } from "@/hooks/use-getParamId"
 
 function DashboardSidemenu() {
+  const { workspaceId } = useGetParamId()
   const Menus: { title: string; icon: React.ReactNode; url: string }[] = [
     {
       title: "Workspaces",
@@ -26,7 +29,7 @@ function DashboardSidemenu() {
     {
       title: "My Tasks",
       icon: <CheckCheck />,
-      url: "#",
+      url: `/workspaces/${workspaceId}/tasks`,
     },
     {
       title: "Members",
@@ -53,7 +56,7 @@ function DashboardSidemenu() {
                 <SidebarMenuItem>
                   <WorkspaceSwitcher />
                 </SidebarMenuItem>
-                {Menus.map((item, itemIndex) => {
+                {Menus.map((item) => {
                   return (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton

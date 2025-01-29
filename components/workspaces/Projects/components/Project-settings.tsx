@@ -20,7 +20,6 @@ import Image from "next/image"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useConfirm } from "@/hooks/use-confirm"
-import { Separator } from "@/components/ui/separator"
 import { useDeleteProject } from "../api/use-delete-project"
 import { useRouter } from "next/navigation"
 
@@ -165,7 +164,7 @@ function ProjectSettings({ value }: ValueProps) {
               />
               <FormField
                 name="Description"
-                render={({ field }) => (
+                render={() => (
                   <FormItem>
                     <FormControl>
                       <Textarea

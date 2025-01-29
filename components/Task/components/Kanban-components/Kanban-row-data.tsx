@@ -17,7 +17,7 @@ interface KanbanDataProps {
   data: Task[]
 }
 function KanbanRowData({ data }: KanbanDataProps) {
-  const { mutate, isPending: isTaskRemoving } = useDeleteTask()
+  const { mutate } = useDeleteTask()
   const { open } = useDetailModal()
   const [DeleteModal, confirmDelete] = useConfirm(
     "Confirmation",

@@ -7,7 +7,7 @@ import AccountButton from "./AccountButton"
 function Header() {
   return (
     <>
-      <nav className="p-1 w-full flex justify-between items-center bg-card dark:bg-black">
+      <nav className="p-1 w-full flex justify-between items-center bg-card dark:bg-black sticky top-0 z-20">
         <SidebarTrigger />
 
         <div className="flex items-center gap-2">

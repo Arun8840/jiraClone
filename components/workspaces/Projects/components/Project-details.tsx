@@ -1,24 +1,20 @@
 "use client"
 import React from "react"
 import { Projects } from "../type"
-import { Images, Logs, Pen } from "lucide-react"
+import { Images, Info } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
 import TaskViewer from "@/components/Task/Task-viewer"
-import { useCreateTasktModal } from "@/hooks/use-create-task"
-import { CreateTaskModal } from "@/components/Task/components/Modal/Create-task-modal"
 
 interface ProjectDetailsTypes {
   initialValue: Projects
 }
 function ProjectDetails({ initialValue }: ProjectDetailsTypes) {
-  const { open } = useCreateTasktModal()
   return (
     <section className="size-full dark:bg-black">
-      <CreateTaskModal />
       {/* //* HEADER */}
-      <div className="sticky top-0 z-10 flex justify-between p-2">
+      <div className="flex justify-between p-2">
         <div className="flex items-center gap-2">
           <div className="bg-neutral-100 size-10 grid place-items-center rounded-full">
             {initialValue?.imageUrl ? (
@@ -36,18 +32,14 @@ function ProjectDetails({ initialValue }: ProjectDetailsTypes) {
         </div>
 
         <div className="flex items-center justify-end gap-3">
-          <Button onClick={open}>
-            <Logs />
-            New Task
-          </Button>
-          <Button variant={"ghost"}>
-            <Link
-              className="flex items-center gap-2"
-              href={`/workspaces/${initialValue?.workspaceId}/project/${initialValue?.$id}/settings`}
-            >
-              <Pen className="fill-current" size={18} />
-            </Link>
-          </Button>
+          <Link
+            className="flex items-center gap-2"
+            href={`/workspaces/${initialValue?.workspaceId}/project/${initialValue?.$id}/settings`}
+          >
+            <Button title="Open Project info" variant={"ghost"}>
+              <Info className="text-primary" size={18} />
+            </Button>
+          </Link>
         </div>
       </div>
 

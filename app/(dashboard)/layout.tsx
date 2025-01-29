@@ -8,9 +8,9 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
     <SidebarProvider>
       <section className="h-screen bg-neutral-100 dark:bg-black flex w-full">
         <DashboardSidemenu />
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col overflow-y-auto">
           <Header />
-          {children}
+          <div className="flex-1">{children}</div>
         </div>
       </section>
     </SidebarProvider>
