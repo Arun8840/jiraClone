@@ -46,10 +46,13 @@ function EventCard({ events, className }: EventProps) {
   }`
   return (
     <div className={cn(baseClass, className)}>
-      <h1 className="text-sm text-neutral-700 font-medium tracking-wide pb-2">
+      <h1
+        title={title}
+        className="text-sm text-neutral-700 font-medium tracking-wide line-clamp-1"
+      >
         {title}
       </h1>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 pt-2">
         <div
           title="Project"
           className="size-7 bg-primary rounded-full grid place-items-center"
