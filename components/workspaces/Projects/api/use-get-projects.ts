@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 interface UserGetProjectTypes {
   workspaceId: string
 }
+
 export const useGetProjects = ({ workspaceId }: UserGetProjectTypes) => {
   const query = useQuery({
     queryKey: ["projects", workspaceId],

@@ -42,8 +42,8 @@ function DashboardSidemenu() {
       <Sidebar className="bg-card dark:bg-neutral-950 group-data-[side=left]:border-r-0">
         <SidebarHeader>
           <div className="flex items-center gap-3">
-            <Image src={"/logo.svg"} width={30} height={30} alt="logo" />
-            <h1 className="font-bold flex-1 uppercase text-primary">
+            <Image src={"/logo.svg"} width={20} height={20} alt="logo" />
+            <h1 className="font-bold font flex-1 capitalize tracking-wide text-primary">
               Jira Clone
             </h1>
           </div>

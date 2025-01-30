@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { Task, TaskStatus } from "../types"
 import KanbanColumnHeader from "./Kanban-components/Kanban-column-header"
 import KanbanRowData from "./Kanban-components/Kanban-row-data"
@@ -101,6 +101,25 @@ function TaskKnban({ data }: KanbanPropTypes) {
     [onChange]
   )
 
+  useEffect(() => {
+    const initialTasks: Taskstate = {
+      [TaskStatus.BACKLOG]: [],
+      [TaskStatus.IN_PROGRESS]: [],
+      [TaskStatus.IN_REVIEW]: [],
+      [TaskStatus.DONE]: [],
+      [TaskStatus.TODO]: [],
+    }
+
+    data?.forEach((task) => {
+      initialTasks[task.status as TaskStatus].push(task)
+    })
+
+    Object.keys(initialTasks).forEach((status) => {
+      initialTasks[status as TaskStatus].sort((a, b) => a.position - b.position)
+    })
+
+    setTasks(initialTasks)
+  }, [data])
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <DetailModal title="Task details" description="" />

@@ -5,3 +5,16 @@ export type Projects = Models.Document & {
   imageUrl: string
   workspaceId: string
 }
+
+export interface TaskAnalyticsTypes {
+  taskCount: number
+  taskDifference: number
+  assignedTaskCount: number
+  assignedTaskDifference: number
+  incompleteTaskCount: number
+  incompleteTaskDifference: number
+  completeTaskCount: number
+  completeTaskDifference: number
+  overdueTaskCount: number
+  overdueTaskDifference: number
+}

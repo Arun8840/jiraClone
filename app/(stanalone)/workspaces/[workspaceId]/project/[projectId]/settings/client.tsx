@@ -1,7 +1,5 @@
 "use client"
-import { useDeleteProject } from "@/components/workspaces/Projects/api/use-delete-project"
 import { useGetProject } from "@/components/workspaces/Projects/api/use-get-project"
-import { useUpdateProject } from "@/components/workspaces/Projects/api/use-update-project"
 import ProjectSettings from "@/components/workspaces/Projects/components/Project-settings"
 import { useGetParamId } from "@/hooks/use-getParamId"
 import ErrorComponent from "@/Utility/Ui/Error-component"
@@ -21,7 +19,6 @@ function ProjectId() {
     return <ErrorComponent />
   }
 
-  console.log(project)
   return (
     <>
       <ProjectSettings value={project} />

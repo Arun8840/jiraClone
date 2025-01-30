@@ -15,7 +15,7 @@ function BreadCrum({
   children,
   ...otherProps
 }: BreadCrumProp) {
-  const baseClass = "flex items-center gap-2 text-sm bg-white p-2 rounded-lg"
+  const baseClass = "flex items-center gap-2 text-sm bg-card p-2 rounded-lg"
 
   return (
     <div className={cn(baseClass, className)} {...otherProps}>

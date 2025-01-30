@@ -4,6 +4,7 @@ import { useGetTask } from "@/components/Task/api/use-get-task"
 import { TaskStatus } from "@/components/Task/types"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
 import { useConfirm } from "@/hooks/use-confirm"
 import { useGetParamId } from "@/hooks/use-getParamId"
 import BreadCrum from "@/Utility/Ui/BreadCrum"
@@ -86,7 +87,7 @@ const TaskIdClient = () => {
       </div>
 
       <div className="grid md:grid-cols-3 gap-2 p-1">
-        <div className="bg-white rounded-md min-h-[100px] text-sm font-poppins_normal p-3 grid gap-3">
+        <Card className="min-h-[100px] border-0 text-sm font-poppins_normal p-3 grid gap-3">
           <div className="flex items-center gap-x-2">
             <h1 className="text-muted-foreground min-w-[100px]">Assignee</h1>
 
@@ -112,7 +113,6 @@ const TaskIdClient = () => {
               {task?.status}
             </Badge>
           </div>
-
           <div className="flex items-start gap-x-2">
             <h1 className="text-muted-foreground min-w-[100px]">Description</h1>
 
@@ -120,7 +120,7 @@ const TaskIdClient = () => {
               {task?.description ?? "Not set"}
             </p>
           </div>
-        </div>
+        </Card>
       </div>
     </section>
   )
