@@ -1,5 +1,4 @@
 import { getCurrentUser } from "@/components/auth/actions"
-import ProjectsList from "@/components/workspaces/Projects/components/ProjectsList"
 import { redirect } from "next/navigation"
 import React from "react"
 
@@ -9,11 +8,7 @@ async function page() {
     redirect("/sign-in")
   }
 
-  return (
-    <section className="p-2 size-full">
-      <ProjectsList />
-    </section>
-  )
+  return <section className="p-2 size-full">Overall home page</section>
 }
 
 export default page

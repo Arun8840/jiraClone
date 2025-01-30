@@ -117,11 +117,7 @@ function WorkspaceDetail({ value }: PropTypes) {
           Use the invite-link to add members to your workspace
         </p>
         <div className="flex gap-2">
-          <Input
-            disabled
-            value={fullInviteLink}
-            className="dark:text-secondary dark:bg-inherit"
-          />
+          <Input disabled value={fullInviteLink} />
           <Button onClick={handleCopyLink} variant={"outline"}>
             <CopyIcon className="dark:text-primary" />
           </Button>

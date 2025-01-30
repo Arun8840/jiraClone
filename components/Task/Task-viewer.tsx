@@ -19,16 +19,17 @@ function TaskViewer() {
   })
   const { open } = useCreateTasktModal()
 
-  const { workspaceId } = useGetParamId()
+  const { workspaceId, projectId } = useGetParamId()
   const { data: tasks, isPending } = useGetTasks({
     workspaceId,
+    projectId,
   })
 
   if (isPending) {
     return <Loader className="dark:text-primary" />
   }
   return (
-    <>
+    <div className="size-full">
       <CreateTaskModal />
       <Tabs defaultValue={view} onValueChange={setView}>
         <div className="flex justify-between">
@@ -65,7 +66,7 @@ function TaskViewer() {
           <TaskCalendar data={tasks?.documents || []} />
         </TabsContent>
       </Tabs>
-    </>
+    </div>
   )
 }
 

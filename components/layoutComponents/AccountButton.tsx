@@ -9,6 +9,7 @@ import {
 } from "../ui/dropdown-menu"
 import { SidebarMenuButton } from "../ui/sidebar"
 import { Loader } from "@/Utility/Ui/Loader"
+import Avatar from "@/Utility/Ui/Avatar"
 
 function AccountButton() {
   const { data } = useCurrent()
@@ -18,13 +19,11 @@ function AccountButton() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <SidebarMenuButton>
-            <div className="bg-primary size-8 rounded-full grid place-items-center">
+            <div className="grid place-items-center">
               {isPending ? (
                 <Loader />
               ) : (
-                <span className="text-secondary">
-                  {data?.email.charAt(0).toUpperCase()}
-                </span>
+                <Avatar title={data?.email as string} />
               )}
             </div>
           </SidebarMenuButton>

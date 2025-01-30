@@ -1,25 +1,17 @@
 import { getCurrentUser } from "@/components/auth/actions"
-import ProjectSettings from "@/components/workspaces/Projects/components/Project-settings"
-import { getProject } from "@/components/workspaces/Projects/queries"
-import { Projects } from "@/components/workspaces/Projects/type"
+import { redirect } from "next/navigation"
 import React from "react"
+import ProjectId from "./client"
 
-interface SettingParamTypes {
-  params: { projectId: string }
-}
-async function ProjectSettingPage({ params }: SettingParamTypes) {
-  const { projectId } = await params
-
+async function ProjectSettingPage() {
   const user = await getCurrentUser()
   if (!user) {
-    return null
+    redirect("/sign-in")
   }
-
-  const project = (await getProject({ projectId })) as Projects
   return (
-    <div>
-      <ProjectSettings value={project} />
-    </div>
+    <>
+      <ProjectId />
+    </>
   )
 }
 

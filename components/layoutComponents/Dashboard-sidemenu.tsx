@@ -15,8 +15,8 @@ import Image from "next/image"
 import { Separator } from "../ui/separator"
 import WorkspaceSwitcher from "./WorkspaceSwitcher"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
 import { useGetParamId } from "@/hooks/use-getParamId"
+import ProjectsList from "../workspaces/Projects/components/ProjectsList"
 
 function DashboardSidemenu() {
   const { workspaceId } = useGetParamId()
@@ -53,6 +53,7 @@ function DashboardSidemenu() {
           <SidebarGroup>
             <SidebarGroupContent>
               <SidebarMenu>
+                {/* //* WORKSPACE SWITCHER */}
                 <SidebarMenuItem>
                   <WorkspaceSwitcher />
                 </SidebarMenuItem>
@@ -72,6 +73,11 @@ function DashboardSidemenu() {
                     </SidebarMenuItem>
                   )
                 })}
+
+                {/* //* PROJECT SWITCHER */}
+                <SidebarMenuItem>
+                  <ProjectsList />
+                </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>

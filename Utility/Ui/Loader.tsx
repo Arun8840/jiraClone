@@ -8,7 +8,10 @@ export const Loader: React.FC<LoaderProps> = ({ className, ...props }) => {
   const baseClass = "size-full grid place-items-center"
   return (
     <div {...props} className={cn(baseClass, className)}>
-      <LoaderIcon size={18} className="animate-spin origin-center" />
+      <LoaderIcon
+        size={18}
+        className="animate-spin origin-center dark:text-primary"
+      />
     </div>
   )
 }
