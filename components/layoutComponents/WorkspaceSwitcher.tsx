@@ -9,9 +9,16 @@ import {
 } from "../ui/select"
 import { useRouter } from "next/navigation"
 import { Loader } from "@/Utility/Ui/Loader"
+import { useGetParamId } from "@/hooks/use-getParamId"
+import { useCreateWorkspaceModal } from "@/hooks/use-createWorkspace-modal"
+import { Button } from "../ui/button"
+import { PlusCircle } from "lucide-react"
+import { CreateWorkspaceModal } from "../workspaces/components/modals/Create-workspace-modal"
 
 function WorkspaceSwitcher() {
   const router = useRouter()
+  const { workspaceId } = useGetParamId()
+  const { open } = useCreateWorkspaceModal()
   const { data: workspacesData, isPending } = useGetWorkspaces()
   const workspaces = workspacesData?.documents || []
 
@@ -21,11 +28,26 @@ function WorkspaceSwitcher() {
 
   return (
     <div>
+      <CreateWorkspaceModal />
       {isPending ? (
         <Loader className="dark:text-primary" />
       ) : (
         <div>
-          <Select onValueChange={handleChangeWorkspace_Switcher}>
+          <div className="flex items-center justify-between pb-1">
+            <h1 className="text-sm p-1 flex-1">Workspaces</h1>
+            <Button
+              onClick={open}
+              title="Create Workspace"
+              className="size-fit p-1"
+              variant={"ghost"}
+            >
+              <PlusCircle className="hover:text-primary dark:text-primary text-muted-foreground" />
+            </Button>
+          </div>
+          <Select
+            defaultValue={workspaceId}
+            onValueChange={handleChangeWorkspace_Switcher}
+          >
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Select Workspaces" />
             </SelectTrigger>

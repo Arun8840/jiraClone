@@ -7,6 +7,7 @@ import { getMembers } from "../../members/util-get-members"
 import { DATABASE_ID, IMAGES_BUCKET_ID, PROJECTS_ID } from "@/lib/config"
 import { createProjectSchema, updateProjectSchema } from "../Schema/schemas"
 import { MemberRole } from "@/models/RoleTypes"
+import { Projects } from "../type"
 
 const app = new Hono()
 
@@ -49,6 +50,28 @@ const app = new Hono()
       })
     }
   )
+
+  // * GET PROJECT
+  .get("/:projectId", sessionMiddleware, async (c) => {
+    const { projectId } = c.req.param()
+    const databases = c.get("databases")
+    const user = c.get("user")
+    const project = await databases.getDocument<Projects>(
+      DATABASE_ID,
+      PROJECTS_ID,
+      projectId
+    )
+    const memeber = await getMembers({
+      databases,
+      userId: user.$id,
+      workspaceId: project.workspaceId,
+    })
+    if (!memeber) {
+      return c.json({ error: "Unauthorized" }, 401)
+    }
+
+    return c.json({ data: project, message: "Project loadded successfully" })
+  })
 
   // * CREATE NEW PROJECT
   .post(

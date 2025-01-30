@@ -8,6 +8,7 @@ import Link from "next/link"
 import { CreateWorkspaceModal } from "./modals/Create-workspace-modal"
 import { useCreateWorkspaceModal } from "@/hooks/use-createWorkspace-modal"
 import { Loader } from "@/Utility/Ui/Loader"
+import Avatar from "@/Utility/Ui/Avatar"
 
 function WorkspaceLists() {
   const { open } = useCreateWorkspaceModal()
@@ -21,6 +22,7 @@ function WorkspaceLists() {
           WorkSpaces
         </h1>
         <Button
+          size={"sm"}
           className="hover:bg-primary hover:text-primary-foreground"
           disabled={isPending}
           onClick={open}
@@ -35,28 +37,13 @@ function WorkspaceLists() {
           workspaces &&
           workspaces?.map((items) => {
             return (
-              <div
-                key={items.$id}
-                className="group/workspace p-2 bg-card rounded-lg"
-              >
+              <div key={items.$id} className="p-2 bg-card rounded-lg">
                 <div className="flex gap-2">
-                  <div className="grid place-items-center overflow-hidden size-14 rounded-xl bg-primary">
-                    {items?.imageUrl ? (
-                      <Image
-                        src={
-                          items?.imageUrl instanceof File
-                            ? URL.createObjectURL(items?.imageUrl)
-                            : items?.imageUrl
-                        }
-                        width={100}
-                        height={100}
-                        className="size-full object-center"
-                        alt="uploading image"
-                      />
-                    ) : (
-                      <Images color="white" size={20} />
-                    )}
-                  </div>
+                  <Avatar
+                    title={items?.name}
+                    className="size-12"
+                    imageUrl={items?.imageUrl}
+                  />
                   <div>
                     <h1 className="font-medium font-poppins_normal line-clamp-1">
                       {items?.name}
@@ -72,10 +59,7 @@ function WorkspaceLists() {
                   <small className="block p-1 text-neutral-400">
                     {items?.$createdAt?.split("T")[0]}
                   </small>
-                  <Link
-                    href={`/workspaces/${items?.$id}/settings`}
-                    className="opacity-0 group-hover/workspace:opacity-[1] transition-opacity duration-150"
-                  >
+                  <Link href={`/workspaces/${items?.$id}/settings`}>
                     <Button
                       variant={"ghost"}
                       className="size-fit p-2 group-hover/workspace:bg-secondary"

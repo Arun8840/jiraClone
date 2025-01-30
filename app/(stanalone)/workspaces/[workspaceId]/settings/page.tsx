@@ -1,23 +1,20 @@
 import { getCurrentUser } from "@/components/auth/actions"
-import { getWorkspace } from "@/components/workspaces/actions"
-import WorkspaceDetail from "@/components/workspaces/components/workspace-detail"
-import { Workspace } from "@/components/workspaces/types"
 import React from "react"
+import WorkspaceIdClient from "./client"
+import { redirect } from "next/navigation"
 
 interface ParamTypes {
   params: { workspaceId: string }
 }
 async function WorkspaceSetting({ params }: ParamTypes) {
-  const { workspaceId } = await params
   const user = await getCurrentUser()
   if (!user) {
-    return null
+    return redirect("/sign-in")
   }
 
-  const workspace = (await getWorkspace({ workspaceId })) as Workspace
   return (
     <>
-      <WorkspaceDetail value={workspace} />
+      <WorkspaceIdClient />
     </>
   )
 }
