@@ -9,16 +9,29 @@ import { useGetParamId } from "@/hooks/use-getParamId"
 import { useGetProject } from "../api/use-get-project"
 import { Loader } from "@/Utility/Ui/Loader"
 import ErrorComponent from "@/Utility/Ui/Error-component"
+import { useGetProjectAnalytics } from "../api/use-get-project-analytics"
+import Analytics from "@/components/Analytics"
 
 function ProjectDetails() {
   const { projectId } = useGetParamId()
-  const { data: project, isLoading, error } = useGetProject({ projectId })
+  const {
+    data: project,
+    isLoading: isProjectLoading,
+    error: isProjectError,
+  } = useGetProject({ projectId })
+  const {
+    data: analytics,
+    isLoading: isAnalyticsLoading,
+    error: isAnalyticError,
+  } = useGetProjectAnalytics({ projectId })
+
+  const isLoading = isProjectLoading || isAnalyticsLoading
 
   if (isLoading) {
     return <Loader />
   }
 
-  if (error) {
+  if (!project) {
     return <ErrorComponent />
   }
 
@@ -55,7 +68,8 @@ function ProjectDetails() {
       </div>
 
       {/* //* VIEW OF THE TASK DATA */}
-      <div className="p-2 bg-inherit flex-1">
+      <div className="p-2 bg-inherit flex-1 grid gap-2 auto-rows-max">
+        {analytics ? <Analytics data={analytics} /> : null}
         <TaskViewer />
       </div>
     </section>
