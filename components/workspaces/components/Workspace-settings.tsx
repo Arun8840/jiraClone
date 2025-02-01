@@ -1,6 +1,15 @@
 import React, { useRef } from "react"
+import { Workspace } from "../types"
 import Image from "next/image"
-import { ArrowLeft, ImagePlus, Trash, Upload, X } from "lucide-react"
+import {
+  ArrowLeft,
+  CopyIcon,
+  ImagePlus,
+  Link,
+  Trash,
+  Upload,
+  X,
+} from "lucide-react"
 import {
   Form,
   FormLabel,
@@ -9,35 +18,37 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form"
+import { updateWorkSchema } from "../schema/schemas"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
+import { useUpdateWorkspace } from "../api/use-update-workspace"
 import { useRouter } from "next/navigation"
+import { useDeleteWorkspace } from "../api/use-delete-workspace"
+import { useResetInviteLink } from "../api/use-reset-invitelink"
 import { useConfirm } from "@/hooks/use-confirm"
+import { toast } from "@/hooks/use-toast"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Loader } from "@/Utility/Ui/Loader"
-import { Projects } from "../type"
-import { updateProjectSchema } from "../Schema/schemas"
-import { useUpdateProject } from "../api/use-update-project"
-import { useDeleteProject } from "../api/use-delete-project"
+import { Textarea } from "@/components/ui/textarea"
 
-interface ValueProps {
-  initialValue: Projects
+interface PropTypes {
+  initialValue: Workspace
 }
-const ProjectSettings = ({ initialValue }: ValueProps) => {
-  const router = useRouter()
-  const { mutate, isPending: isUpdating } = useUpdateProject()
-
+const WorkspaceSettings = ({ initialValue }: PropTypes) => {
   const uploadRef = useRef<HTMLInputElement>(null)
-
-  const form = useForm<z.infer<typeof updateProjectSchema>>({
-    resolver: zodResolver(updateProjectSchema),
+  const { mutate, isPending: isUpdating } = useUpdateWorkspace()
+  const form = useForm<z.infer<typeof updateWorkSchema>>({
+    resolver: zodResolver(updateWorkSchema),
     defaultValues: {
       ...initialValue,
       image: initialValue?.imageUrl ?? "",
     },
   })
+
+  const router = useRouter()
+
   const handleUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e?.target?.files?.[0]
 
@@ -45,19 +56,21 @@ const ProjectSettings = ({ initialValue }: ValueProps) => {
       form.setValue("image", file)
     }
   }
-  const handle_update = (data: z.infer<typeof updateProjectSchema>) => {
+
+  const handle_update = (data: z.infer<typeof updateWorkSchema>) => {
     const updatedValue = {
       ...data,
       image: data.image instanceof File ? data.image : "",
     }
-    if (data) {
-      mutate({
-        form: updatedValue,
-        param: { projectId: initialValue?.$id },
-      })
-    }
+    mutate(
+      { form: updatedValue, param: { workspaceId: initialValue?.$id } },
+      {
+        onSuccess: () => {
+          form?.reset()
+        },
+      }
+    )
   }
-
   return (
     <div className="size-full grid auto-rows-max gap-2 font-poppins_normal">
       <div className=" bg-card p-3 rounded-lg">
@@ -142,7 +155,7 @@ const ProjectSettings = ({ initialValue }: ValueProps) => {
               name="name"
               render={({ field }) => (
                 <FormItem className="p-2">
-                  <FormLabel>Project name</FormLabel>
+                  <FormLabel>Workspace name</FormLabel>
                   <FormControl>
                     <Input placeholder="name" {...field} />
                   </FormControl>
@@ -150,7 +163,22 @@ const ProjectSettings = ({ initialValue }: ValueProps) => {
                 </FormItem>
               )}
             />
-
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem className="p-2">
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Type your message here."
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <div className="flex justify-end p-2">
               <Button disabled={isUpdating}>
                 {isUpdating && <Loader />}Save changes
@@ -160,50 +188,130 @@ const ProjectSettings = ({ initialValue }: ValueProps) => {
         </Form>
       </div>
 
-      <Dangerzone
-        projectId={initialValue.$id}
-        workspaceId={initialValue.workspaceId}
+      <InviteLink
+        inviteCode={initialValue.inviteCode}
+        workspaceId={initialValue.$id}
       />
+      <Dangerzone workspaceId={initialValue.$id} />
     </div>
   )
 }
 
-export default ProjectSettings
+export default WorkspaceSettings
+
+// Invite memeber
+
+interface InviteLinkProps {
+  inviteCode: string
+  workspaceId: string
+}
+export const InviteLink = ({ inviteCode, workspaceId }: InviteLinkProps) => {
+  const router = useRouter()
+  const { mutate: resetInviteLink, isPending: isInvitelinkPending } =
+    useResetInviteLink()
+
+  const fullInviteLink =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/workspaces/${workspaceId}/join/${inviteCode}`
+      : ""
+
+  const [ResetInvitelinkDialog, confirmResetLink] = useConfirm(
+    "Reset Invite-link",
+    "This will invalidate the current",
+    "default"
+  )
+  const handleCopyLink = () => {
+    navigator.clipboard
+      .writeText(fullInviteLink)
+      .then(() =>
+        toast({
+          title: "Invite-link",
+          description: "Workspace Invite-link copied to clipbord!!",
+          variant: "success",
+        })
+      )
+      .catch(() =>
+        toast({ variant: "destructive", description: "Failed to copy link." })
+      )
+  }
+
+  const handleResetLink = async () => {
+    const ok = await confirmResetLink()
+    if (!ok) return
+    resetInviteLink(
+      { param: { workspaceId: workspaceId } },
+      {
+        onSuccess: () => {
+          toast({
+            title: "Invite-link",
+            description: "Workspace Invite-link reset successfully !!",
+            variant: "success",
+          })
+          router.refresh()
+        },
+      }
+    )
+  }
+  return (
+    <>
+      <ResetInvitelinkDialog />
+      <div className="bg-white dark:bg-neutral-900  dark:text-white rounded-lg p-4">
+        <h1 className="font-medium pb-2">Invite members</h1>
+        <p className="text-sm py-2">
+          Use the invite-link to add members to your workspace
+        </p>
+        <div className="flex gap-2">
+          <Input
+            disabled
+            value={fullInviteLink}
+            className="selection:bg-primary selection:text-white"
+          />
+          <Button onClick={handleCopyLink} variant={"outline"}>
+            <CopyIcon className="dark:text-primary" />
+          </Button>
+        </div>
+        <div className="flex justify-end pt-3">
+          <Button onClick={handleResetLink}>
+            {isInvitelinkPending ? (
+              <Loader className="animate-spin origin-center" />
+            ) : (
+              <Link />
+            )}
+            Reset Invite-link
+          </Button>
+        </div>
+      </div>
+    </>
+  )
+}
 
 // Delete workspace
 
 interface DangerZonePropsTypes {
-  projectId: string
   workspaceId: string
 }
-export const Dangerzone = ({
-  projectId,
-  workspaceId,
-}: DangerZonePropsTypes) => {
+export const Dangerzone = ({ workspaceId }: DangerZonePropsTypes) => {
   const router = useRouter()
-  const { mutate: DeleteProject, isPending: isProjectDeleting } =
-    useDeleteProject()
+  const { mutate: deleteWorkspace, isPending: isworkspacePending } =
+    useDeleteWorkspace()
+
   const [DeleteDialog, confirmDelete] = useConfirm(
     "Are you absolutely sure you want to delete?",
     "This action cannot be undone",
     "destructive"
   )
 
-  // ! delete project
-  const handleProjectDelete = async () => {
-    const confirm = await confirmDelete()
-    if (confirm) {
-      DeleteProject(
-        {
-          param: { projectId },
+  const handleDelete = async () => {
+    const ok = await confirmDelete()
+    if (!ok) return
+    deleteWorkspace(
+      { param: { workspaceId } },
+      {
+        onSuccess: () => {
+          router.push("/")
         },
-        {
-          onSuccess: () => {
-            router?.push(`/workspaces/${workspaceId}`)
-          },
-        }
-      )
-    }
+      }
+    )
   }
   return (
     <>
@@ -211,14 +319,12 @@ export const Dangerzone = ({
       <div className="bg-white dark:bg-neutral-900  dark:text-white rounded-lg p-4">
         <h1 className="font-medium pb-2">Danger Zone</h1>
         <p className="text-sm">
-          Are you sure you want to delete this project? This action is
-          irreversible and will permanently remove all associated tasks, issues,
-          and data related to the project. Ensure you have backed up any
-          important information before proceeding.
+          Deleting a workspace is irreversible and will remove all associated
+          data.
         </p>
         <div className="flex justify-end">
-          <Button onClick={handleProjectDelete} variant={"destructive"}>
-            {isProjectDeleting ? (
+          <Button onClick={handleDelete} variant={"destructive"}>
+            {isworkspacePending ? (
               <Loader className="animate-spin origin-center" />
             ) : (
               <Trash />

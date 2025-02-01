@@ -10,7 +10,7 @@ import { CreateProjectModal } from "./modals/Create-project-modal"
 import Avatar from "@/Utility/Ui/Avatar"
 
 function ProjectsList() {
-  const { workspaceId, projectId } = useGetParamId()
+  const { workspaceId, projectId = "" } = useGetParamId()
   const { data, isLoading } = useGetProjects({ workspaceId })
   const { open } = useCreateProjectModal()
 
@@ -43,7 +43,7 @@ function ProjectsList() {
                   isActive && "bg-muted"
                 } rounded`}
               >
-                <Avatar title={project.name} />
+                <Avatar imageUrl={project.imageUrl} title={project.name} />
                 <h1 className="flex-1">{project.name}</h1>
               </Link>
             </li>

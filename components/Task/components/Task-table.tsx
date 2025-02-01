@@ -98,7 +98,10 @@ function TaskTable({ data }: TaksTablePropTypes) {
                   >
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <Avatar title={taskValues?.project?.name} />
+                        <Avatar
+                          imageUrl={taskValues.project.imageUrl}
+                          title={taskValues?.project?.name}
+                        />
                         <p className="line-clamp-1 flex-1">
                           {taskValues?.project?.name}
                         </p>

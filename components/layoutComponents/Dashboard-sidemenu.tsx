@@ -1,5 +1,5 @@
 "use client"
-import React from "react"
+import React, { Suspense } from "react"
 import {
   Sidebar,
   SidebarContent,
@@ -10,13 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "../ui/sidebar"
-import {
-  CheckCheck,
-  Home,
-  LayoutGridIcon,
-  Settings,
-  UsersRound,
-} from "lucide-react"
+import { CheckCheck, Home, Settings } from "lucide-react"
 import Image from "next/image"
 import { Separator } from "../ui/separator"
 import WorkspaceSwitcher from "./WorkspaceSwitcher"
@@ -24,6 +18,7 @@ import Link from "next/link"
 import { useGetParamId } from "@/hooks/use-getParamId"
 import ProjectsList from "../workspaces/Projects/components/ProjectsList"
 import { usePathname } from "next/navigation"
+import { Loader } from "@/Utility/Ui/Loader"
 
 function DashboardSidemenu() {
   const currentPath = usePathname()
@@ -34,11 +29,11 @@ function DashboardSidemenu() {
       icon: <Home />,
       url: `/workspaces/${workspaceId}`,
     },
-    {
-      title: "Workspaces",
-      icon: <LayoutGridIcon />,
-      url: `/workspaces`,
-    },
+    // {
+    //   title: "Workspaces",
+    //   icon: <LayoutGridIcon />,
+    //   url: `/workspaces`,
+    // },
     {
       title: "My Tasks",
       icon: <CheckCheck />,
@@ -49,11 +44,11 @@ function DashboardSidemenu() {
       icon: <Settings />,
       url: `/workspaces/${workspaceId}/settings`,
     },
-    {
-      title: "Members",
-      icon: <UsersRound />,
-      url: "/members",
-    },
+    // {
+    //   title: "Members",
+    //   icon: <UsersRound />,
+    //   url: "/members",
+    // },
   ]
 
   return (
@@ -74,7 +69,9 @@ function DashboardSidemenu() {
               <SidebarMenu>
                 {/* //* WORKSPACE SWITCHER */}
                 <SidebarMenuItem>
-                  <WorkspaceSwitcher />
+                  <Suspense fallback={<Loader />}>
+                    <WorkspaceSwitcher />
+                  </Suspense>
                 </SidebarMenuItem>
                 {Menus.map((item) => {
                   const isActive = item?.url === currentPath
@@ -97,7 +94,9 @@ function DashboardSidemenu() {
 
                 {/* //* PROJECT SWITCHER */}
                 <SidebarMenuItem>
-                  <ProjectsList />
+                  <Suspense fallback={<Loader />}>
+                    <ProjectsList />
+                  </Suspense>
                 </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroupContent>

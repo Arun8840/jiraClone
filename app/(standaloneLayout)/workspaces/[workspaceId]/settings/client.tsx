@@ -1,28 +1,28 @@
 "use client"
 import { useGetWorkspace } from "@/components/workspaces/api/use-get-workspace"
-import WorkspaceDetail from "@/components/workspaces/components/workspace-detail"
+import WorkspaceSettings from "@/components/workspaces/components/Workspace-settings"
 import { Workspace } from "@/components/workspaces/types"
 import { useGetParamId } from "@/hooks/use-getParamId"
 import ErrorComponent from "@/Utility/Ui/Error-component"
 import { Loader } from "@/Utility/Ui/Loader"
 import React from "react"
 
-const WorkspaceIdClient = () => {
+function WorkspaceIdClientSettings() {
   const { workspaceId } = useGetParamId()
-
-  const { data, isLoading } = useGetWorkspace({ workspaceId })
-
-  const workspace = data as Workspace
+  const { data: initialValue, isLoading } = useGetWorkspace({ workspaceId })
 
   if (isLoading) {
     return <Loader />
   }
-
-  if (!workspace) {
+  if (!initialValue) {
     return <ErrorComponent />
   }
 
-  return <WorkspaceDetail value={workspace} />
+  return (
+    <>
+      <WorkspaceSettings initialValue={initialValue as Workspace} />
+    </>
+  )
 }
 
-export default WorkspaceIdClient
+export default WorkspaceIdClientSettings

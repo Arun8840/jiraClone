@@ -59,8 +59,7 @@ const app = new Hono()
     if (!memeber) {
       return c.json({ error: "Unauthorized" }, 401)
     }
-
-    const workspace = await databases.getDocument(
+    const workspace = await databases.getDocument<Workspace>(
       DATABASE_ID,
       WORKSPACE_ID,
       workspaceId
@@ -68,7 +67,6 @@ const app = new Hono()
 
     return c.json({
       data: workspace,
-      message: "Workspace loadded successfully",
     })
   })
   // * CREATE NEW WORKSPACE

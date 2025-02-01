@@ -35,22 +35,26 @@ function ProjectDetails() {
       {/* //* HEADER */}
       <div className="flex justify-between p-2">
         <div className="flex items-center gap-2">
-          <div className="bg-neutral-100 size-10 grid place-items-center rounded-full">
+          <div className="bg-neutral-100  overflow-hidden grid place-items-center rounded-full">
             {project?.imageUrl ? (
               <Image
                 src={project?.imageUrl}
                 alt="ProjectImage"
-                width={50}
-                height={50}
+                width={200}
+                height={200}
+                objectFit="fill"
+                className="rounded-full size-10"
               />
             ) : (
               <Images size={18} className="text-muted-foreground" />
             )}
           </div>
-          <h1 className="font-poppins_normal text-lg">{project?.name}</h1>
+          <h1 className="font-poppins_normal text-lg flex-1">
+            {project?.name}
+          </h1>
         </div>
 
-        <div className="flex items-center justify-end gap-3">
+        <div className="flex items-center justify-end gap-3 flex-1">
           <Link
             className="flex items-center gap-2"
             href={`/workspaces/${project?.workspaceId}/project/${project?.$id}/settings`}
