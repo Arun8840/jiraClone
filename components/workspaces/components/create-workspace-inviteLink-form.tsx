@@ -4,7 +4,6 @@ import { Link, Loader, Merge } from "lucide-react"
 import React from "react"
 import { useJoinInviteLinkMember } from "../api/use-join-invitelink-member"
 import { useRouter } from "next/navigation"
-import { Workspace } from "../types"
 
 interface FormPropTypes {
   initialValue: {

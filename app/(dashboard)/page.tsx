@@ -4,14 +4,15 @@ import { redirect } from "next/navigation"
 
 export default async function Home() {
   const user = await getCurrentUser()
+  const workspaces = await getWorkspaces()
+
   if (!user) {
     redirect("/sign-in")
   }
-  const workspaces = await getWorkspaces()
 
-  if (workspaces?.total === 0) {
-    return null
+  if (workspaces.total !== 0 && workspaces.documents.length > 0) {
+    redirect(`/workspaces/${workspaces.documents[0].$id}`)
   } else {
-    redirect(`/workspaces/${workspaces?.documents[0]?.$id}`)
+    redirect(`/workspaces/create`)
   }
 }

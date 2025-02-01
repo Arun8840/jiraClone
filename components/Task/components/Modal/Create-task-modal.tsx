@@ -13,7 +13,7 @@ export const CreateTaskModal = () => {
   return (
     <>
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetContent className="flex flex-col overflow-y-auto dark:bg-stone-950 border-l-0 dark:text-white">
+        <SheetContent className="flex flex-col overflow-y-auto  border-l-0">
           <SheetHeader>
             <SheetTitle className="dark:text-white">Create Task</SheetTitle>
             <SheetDescription>

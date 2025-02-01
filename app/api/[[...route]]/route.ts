@@ -7,6 +7,7 @@ import projects from "../../../components/workspaces/Projects/server/route"
 import tasks from "../../../components/Task/server/route"
 const app = new Hono().basePath("/api")
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const route = app
   .route("/auth", auth)
   .route("/workspaces", workspaces)

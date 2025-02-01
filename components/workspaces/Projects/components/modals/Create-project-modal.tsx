@@ -13,7 +13,7 @@ export const CreateProjectModal = () => {
   return (
     <>
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetContent className="flex flex-col dark:bg-neutral-900 dark:text-white border-l-0">
+        <SheetContent className="flex flex-col  dark:text-white border-l-0">
           <SheetHeader>
             <SheetTitle className="dark:text-white">Create Project</SheetTitle>
             <SheetDescription>

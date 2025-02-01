@@ -12,7 +12,7 @@ export const useCreateTask = () => {
     mutationFn: async ({ json }) => {
       const response = await client.api.tasks["$post"]({ json })
       if (!response?.ok) {
-        throw new Error("Creating workspace failed")
+        throw new Error("Creating Task failed")
       }
       return await response.json()
     },

@@ -2,7 +2,7 @@ import { getMembers } from "@/components/workspaces/members/util-get-members"
 import { createAdminClient } from "@/lib/appwrite"
 import { DATABASE_ID, MEMBERS_ID } from "@/lib/config"
 import { sessionMiddleware } from "@/lib/session-middleware"
-import { MemberRole } from "@/models/RoleTypes"
+import { Member, MemberRole } from "@/models/RoleTypes"
 import { zValidator } from "@hono/zod-validator"
 import { Hono } from "hono"
 import { Query } from "node-appwrite"
@@ -31,9 +31,11 @@ const app = new Hono()
         return c.json({ error: "Unauthorized" }, 401)
       }
 
-      const members = await databases.listDocuments(DATABASE_ID, MEMBERS_ID, [
-        Query.equal("workspaceId", workspaceId),
-      ])
+      const members = await databases.listDocuments<Member>(
+        DATABASE_ID,
+        MEMBERS_ID,
+        [Query.equal("workspaceId", workspaceId)]
+      )
 
       const populatedMembers = await Promise.all(
         members.documents.map(async (member) => {

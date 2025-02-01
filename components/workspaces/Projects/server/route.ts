@@ -47,10 +47,11 @@ const app = new Hono()
         return c.json({ error: "workspaceId not found and missing" }, 400)
       }
 
-      const projects = await databases.listDocuments(DATABASE_ID, PROJECTS_ID, [
-        Query.equal("workspaceId", workspaceId),
-        Query.orderDesc("$createdAt"),
-      ])
+      const projects = await databases.listDocuments<Projects>(
+        DATABASE_ID,
+        PROJECTS_ID,
+        [Query.equal("workspaceId", workspaceId), Query.orderDesc("$createdAt")]
+      )
       return c.json({
         data: projects,
       })

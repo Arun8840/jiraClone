@@ -21,7 +21,7 @@ type CrupTypes = {
 const TaskIdClient = () => {
   const { taskId } = useGetParamId()
   const router = useRouter()
-  const { isLoading, data: task, error } = useGetTask({ taskId })
+  const { isLoading, data: task } = useGetTask({ taskId })
   const { mutate, isPending: isTaskRemoving } = useDeleteTask()
   const [DeleteModal, confirmDelete] = useConfirm(
     "Confirmation",
