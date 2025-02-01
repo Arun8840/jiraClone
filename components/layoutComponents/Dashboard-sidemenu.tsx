@@ -10,21 +10,34 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "../ui/sidebar"
-import { CheckCheck, LayoutGridIcon, UsersRound } from "lucide-react"
+import {
+  CheckCheck,
+  Home,
+  LayoutGridIcon,
+  Settings,
+  UsersRound,
+} from "lucide-react"
 import Image from "next/image"
 import { Separator } from "../ui/separator"
 import WorkspaceSwitcher from "./WorkspaceSwitcher"
 import Link from "next/link"
 import { useGetParamId } from "@/hooks/use-getParamId"
 import ProjectsList from "../workspaces/Projects/components/ProjectsList"
+import { usePathname } from "next/navigation"
 
 function DashboardSidemenu() {
+  const currentPath = usePathname()
   const { workspaceId } = useGetParamId()
   const Menus: { title: string; icon: React.ReactNode; url: string }[] = [
     {
+      title: "Home",
+      icon: <Home />,
+      url: `/workspaces/${workspaceId}`,
+    },
+    {
       title: "Workspaces",
-      icon: <LayoutGridIcon className="fill-current" />,
-      url: "/workspaces",
+      icon: <LayoutGridIcon />,
+      url: `/workspaces`,
     },
     {
       title: "My Tasks",
@@ -32,14 +45,20 @@ function DashboardSidemenu() {
       url: `/workspaces/${workspaceId}/tasks`,
     },
     {
+      title: "Settings",
+      icon: <Settings />,
+      url: `/workspaces/${workspaceId}/settings`,
+    },
+    {
       title: "Members",
       icon: <UsersRound />,
       url: "/members",
     },
   ]
+
   return (
     <>
-      <Sidebar className="bg-card dark:bg-neutral-950 group-data-[side=left]:border-r-0">
+      <Sidebar className="bg-card dark:bg-inherit group-data-[side=left]:border-r-0">
         <SidebarHeader>
           <div className="flex items-center gap-3">
             <Image src={"/logo.svg"} width={20} height={20} alt="logo" />
@@ -58,11 +77,13 @@ function DashboardSidemenu() {
                   <WorkspaceSwitcher />
                 </SidebarMenuItem>
                 {Menus.map((item) => {
+                  const isActive = item?.url === currentPath
                   return (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton
-                        className="p-3 h-10"
-                        variant={"default"}
+                        className={`p-3 h-10 ${
+                          isActive && "bg-muted text-primary dark:bg-card"
+                        }`}
                         asChild
                       >
                         <Link href={item.url}>

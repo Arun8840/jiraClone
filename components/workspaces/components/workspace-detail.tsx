@@ -113,11 +113,15 @@ function WorkspaceDetail({ value }: PropTypes) {
       </div>
       <div className="bg-white dark:bg-neutral-900  dark:text-white rounded-lg p-3">
         <h1 className="font-medium pb-2">Invite members</h1>
-        <p className="text-neutral-500 text-sm py-2">
+        <p className="text-sm py-2">
           Use the invite-link to add members to your workspace
         </p>
         <div className="flex gap-2">
-          <Input disabled value={fullInviteLink} />
+          <Input
+            disabled
+            value={fullInviteLink}
+            className="selection:bg-primary selection:text-white"
+          />
           <Button onClick={handleCopyLink} variant={"outline"}>
             <CopyIcon className="dark:text-primary" />
           </Button>
@@ -135,7 +139,7 @@ function WorkspaceDetail({ value }: PropTypes) {
       </div>
       <div className="bg-white dark:bg-neutral-900  dark:text-white rounded p-3">
         <h1 className="font-medium pb-2">Danger Zone</h1>
-        <p className="text-neutral-500 text-sm">
+        <p className="text-sm">
           Deleting a workspace is irreversible and will remove all associated
           data.
         </p>

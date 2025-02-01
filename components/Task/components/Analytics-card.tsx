@@ -15,7 +15,6 @@ function AnalyticsCard({
   count,
   className,
   variant,
-  ...otherProps
 }: PropsTypes) {
   const variantColor = variant === "up" ? "text-primary" : "text-destructive"
   const variantIcon =
@@ -26,7 +25,7 @@ function AnalyticsCard({
     <>
       <Card className={cn(baseClass, className)}>
         <div className="flex items-center w-full">
-          <h1 className="truncate flex-1">{title}</h1>
+          <h1 className="truncate flex-1 text-sm">{title}</h1>
           <div className={`${variantColor} flex items-center gap-1`}>
             <span>{increasedValue}</span>
             {variantIcon}

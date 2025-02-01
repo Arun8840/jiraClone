@@ -10,7 +10,7 @@ import React from "react"
 const WorkspaceIdClient = () => {
   const { workspaceId } = useGetParamId()
 
-  const { data, isLoading, error } = useGetWorkspace({ workspaceId })
+  const { data, isLoading } = useGetWorkspace({ workspaceId })
 
   const workspace = data as Workspace
 
@@ -18,7 +18,7 @@ const WorkspaceIdClient = () => {
     return <Loader />
   }
 
-  if (error || !workspace) {
+  if (!workspace) {
     return <ErrorComponent />
   }
 

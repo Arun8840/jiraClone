@@ -14,16 +14,11 @@ import Analytics from "@/components/Analytics"
 
 function ProjectDetails() {
   const { projectId } = useGetParamId()
-  const {
-    data: project,
-    isLoading: isProjectLoading,
-    error: isProjectError,
-  } = useGetProject({ projectId })
-  const {
-    data: analytics,
-    isLoading: isAnalyticsLoading,
-    error: isAnalyticError,
-  } = useGetProjectAnalytics({ projectId })
+  const { data: project, isLoading: isProjectLoading } = useGetProject({
+    projectId,
+  })
+  const { data: analytics, isLoading: isAnalyticsLoading } =
+    useGetProjectAnalytics({ projectId })
 
   const isLoading = isProjectLoading || isAnalyticsLoading
 

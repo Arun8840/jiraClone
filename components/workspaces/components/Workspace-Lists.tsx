@@ -1,8 +1,7 @@
 "use client"
 import React from "react"
 import { useGetWorkspaces } from "../api/use-get-workspaces"
-import { ArrowRight, Images, Plus } from "lucide-react"
-import Image from "next/image"
+import { ArrowRight, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { CreateWorkspaceModal } from "./modals/Create-workspace-modal"
@@ -44,7 +43,7 @@ function WorkspaceLists() {
                     className="size-12"
                     imageUrl={items?.imageUrl}
                   />
-                  <div>
+                  <div className="flex-1">
                     <h1 className="font-medium font-poppins_normal line-clamp-1">
                       {items?.name}
                     </h1>

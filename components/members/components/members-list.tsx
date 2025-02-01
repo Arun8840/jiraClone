@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useGetWorkspaces } from "@/components/workspaces/api/use-get-workspaces"
-import { Loader, MoreHorizontal } from "lucide-react"
+import { MoreHorizontal } from "lucide-react"
 import React, { useState } from "react"
 import { useGetMembers } from "../api/use-get-members"
 import {

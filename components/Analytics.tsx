@@ -4,7 +4,7 @@ import AnalyticsCard from "./Task/components/Analytics-card"
 
 function Analytics({ data }: ResponseAnalyticsTypes) {
   return (
-    <div className="grid pb-2 md:grid-cols-5 gap-2">
+    <div className="grid pb-2 md:grid-cols-2 lg:grid-cols-5 gap-2">
       <AnalyticsCard
         variant={data.taskDifference > 0 ? "up" : "down"}
         title="Total task"
