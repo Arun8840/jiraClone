@@ -108,12 +108,15 @@ export const TaskList = ({ data, total }: TaskListProps) => {
               <li key={task?.$id} className="py-1">
                 <Link
                   className="p-2 rounded-lg hover:bg-muted text-sm block"
-                  href={`/workspaces/${task?.workspaceId}/task/${task?.$id}`}
+                  href={`/workspaces/${task?.workspaceId}/tasks/${task?.$id}`}
                 >
                   <div className="flex-1">
                     <h1>{task?.name}</h1>
                     <div className="flex items-center gap-2 pt-2">
-                      <Avatar title={task?.project?.name} />
+                      <Avatar
+                        imageUrl={task.project.imageUrl}
+                        title={task?.project?.name}
+                      />
                       <p>{task?.project?.name}</p>
 
                       <p className="text-xs text-muted-foreground truncate flex-1 text-end flex gap-2 justify-end items-center">

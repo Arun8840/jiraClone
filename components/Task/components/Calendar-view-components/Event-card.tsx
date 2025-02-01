@@ -9,6 +9,7 @@ import {
   CircleDot,
   ListTodo,
 } from "lucide-react"
+import Avatar from "@/Utility/Ui/Avatar"
 
 interface EventProps extends HTMLAttributes<HTMLDivElement> {
   events: {
@@ -53,20 +54,8 @@ function EventCard({ events, className }: EventProps) {
         {title}
       </h1>
       <div className="flex items-center gap-1 pt-2">
-        <div
-          title="Project"
-          className="size-7 bg-primary rounded-full grid place-items-center"
-        >
-          <span className="text-white">
-            {project?.name?.charAt(0).toUpperCase()}
-          </span>
-        </div>
-        <div
-          title="Assignee"
-          className="size-7 dark:text-primary bg-secondary rounded-full grid place-items-center"
-        >
-          <span>{assignee?.name?.charAt(0).toUpperCase()}</span>
-        </div>
+        <Avatar imageUrl={project.imageUrl} title={project.name} />
+        <Avatar title={assignee.name} />
 
         <div className="flex-1 flex justify-end">
           {statusIcon[status as TaskStatus]}

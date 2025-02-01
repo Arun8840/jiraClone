@@ -1,18 +1,19 @@
+import React from "react"
+import ProjectIdClientSettings from "./client"
 import { getCurrentUser } from "@/components/auth/actions"
 import { redirect } from "next/navigation"
-import React from "react"
-import ProjectId from "./client"
 
-async function ProjectSettingPage() {
+async function page() {
   const user = await getCurrentUser()
+
   if (!user) {
     redirect("/sign-in")
   }
   return (
     <>
-      <ProjectId />
+      <ProjectIdClientSettings />
     </>
   )
 }
 
-export default ProjectSettingPage
+export default page

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { useConfirm } from "@/hooks/use-confirm"
 import { useGetParamId } from "@/hooks/use-getParamId"
+import Avatar from "@/Utility/Ui/Avatar"
 import BreadCrum from "@/Utility/Ui/BreadCrum"
 import { Loader } from "@/Utility/Ui/Loader"
 import { format } from "date-fns"
@@ -69,12 +70,7 @@ const TaskIdClient = () => {
       <DeleteModal />
       <div className="flex items-center justify-between p-1">
         <BreadCrum data={crumData} asChild>
-          <div
-            title={task?.name}
-            className="size-6 rounded-full bg-primary grid place-items-center text-white uppercase"
-          >
-            <h1>{task?.name?.charAt(0)}</h1>
-          </div>
+          <Avatar title={task?.project?.name as string} />
         </BreadCrum>
         <Button
           disabled={isTaskRemoving}
