@@ -13,7 +13,7 @@ import { useGetParamId } from "@/hooks/use-getParamId"
 import { useCreateWorkspaceModal } from "@/hooks/use-createWorkspace-modal"
 import { Button } from "../ui/button"
 import { PlusCircle } from "lucide-react"
-// import { CreateWorkspaceModal } from "../workspaces/components/modals/Create-workspace-modal"
+import { CreateWorkspaceModal } from "../workspaces/components/modals/Create-workspace-modal"
 
 function WorkspaceSwitcher() {
   const router = useRouter()
@@ -28,7 +28,7 @@ function WorkspaceSwitcher() {
 
   return (
     <div>
-      {/* <CreateWorkspaceModal /> */}
+      <CreateWorkspaceModal />
       {isPending ? (
         <Loader className="dark:text-primary" />
       ) : (

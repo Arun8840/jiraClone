@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { PlusCircle } from "lucide-react"
 import Link from "next/link"
 import { useCreateProjectModal } from "@/hooks/use-createProject-modal"
-// import { CreateProjectModal } from "./modals/Create-project-modal"
+import { CreateProjectModal } from "./modals/Create-project-modal"
 import Avatar from "@/Utility/Ui/Avatar"
 
 function ProjectsList() {
@@ -19,7 +19,7 @@ function ProjectsList() {
   }
   return (
     <div className="grid gap-2">
-      {/* <CreateProjectModal /> */}
+      <CreateProjectModal />
       <div className="flex items-center justify-between">
         <h1 className="p-1">Projects</h1>
         <Button
