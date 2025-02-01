@@ -23,6 +23,7 @@ import { useCreateTasktModal } from "@/hooks/use-create-task"
 import { useCreateProjectModal } from "@/hooks/use-createProject-modal"
 import { Projects } from "@/components/workspaces/Projects/type"
 import { Member } from "@/models/RoleTypes"
+import LineChart from "@/Utility/charts/Line-chart"
 
 export const WorkspaceIdClient = () => {
   const { workspaceId } = useGetParamId()
@@ -57,9 +58,11 @@ export const WorkspaceIdClient = () => {
 
   return (
     <section className="p-2 size-full">
-      {workspaceAnalytics ? <Analytics data={workspaceAnalytics} /> : null}
+      <Analytics data={workspaceAnalytics} />
+
       <div className="grid lg:grid-cols-2 auto-rows-auto gap-2">
         <TaskList data={tasks.documents} total={tasks.total} />
+        <LineChart data={{ data: workspaceAnalytics }} />
         <ProjectsList data={projects.documents} total={projects.total} />
         <MembersList data={members.document} total={members.total} />
       </div>
@@ -80,7 +83,7 @@ export const TaskList = ({ data, total }: TaskListProps) => {
   return (
     <>
       <CreateTaskModal />
-      <Card className="border-0 row-span-3 shadow-none p-3  font-poppins_normal divide-y divide-dashed">
+      <Card className="border-0 shadow-none p-3  font-poppins_normal divide-y divide-dashed">
         <div className="flex items-center pb-1">
           <div className="flex items-center gap-1 flex-1">
             <Badge
@@ -158,7 +161,7 @@ export const ProjectsList = ({ data, total }: ProjectListProps) => {
   const { open: openCreateProjectModal } = useCreateProjectModal()
   return (
     <>
-      <Card className="border-0 shadow-none p-3 h-fit font-poppins_normal divide-y divide-dashed">
+      <Card className="border-0 shadow-none p-3 size-full font-poppins_normal divide-y divide-dashed">
         <div className="flex items-center pb-1">
           <div className="flex items-center gap-1 flex-1">
             <Badge
@@ -217,7 +220,7 @@ interface MemberListProps {
 export const MembersList = ({ data, total }: MemberListProps) => {
   return (
     <>
-      <Card className="border-0 shadow-none p-3 h-fit font-poppins_normal divide-y divide-dashed">
+      <Card className="border-0 shadow-none p-3 size-full font-poppins_normal divide-y divide-dashed">
         <div className="flex items-center pb-1">
           <div className="flex items-center gap-1 flex-1">
             <Badge

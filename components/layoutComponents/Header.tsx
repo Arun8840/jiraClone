@@ -4,6 +4,7 @@ import { SidebarTrigger } from "../ui/sidebar"
 import DarkModeSwitcher from "@/Utility/Ui/Dark-mode-switcher"
 import AccountButton from "./AccountButton"
 import { usePathname } from "next/navigation"
+import DateViewer from "@/Utility/Ui/Date-Viewer"
 
 const pathnameMap = {
   tasks: {
@@ -39,6 +40,7 @@ function Header() {
           </p>
         </div>
         <div className="flex items-center gap-2">
+          <DateViewer />
           <DarkModeSwitcher />
           <AccountButton />
         </div>
