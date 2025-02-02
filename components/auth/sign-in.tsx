@@ -10,6 +10,7 @@ import { useLogin } from "./api/use-login"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { Loader } from "@/Utility/Ui/Loader"
+import { signUpWithGithub } from "@/lib/oauth"
 
 function SignInComponent() {
   const { mutate, isPending } = useLogin()
@@ -73,16 +74,16 @@ function SignInComponent() {
           {/* OAuth Buttons */}
           <div className="grid lg:grid-cols-2 gap-2 p-2">
             <Button
-              variant="outline"
               disabled
+              variant="outline"
               className="w-full justify-center"
             >
               <Chrome />
               Google
             </Button>
             <Button
+              onClick={() => signUpWithGithub()}
               variant="outline"
-              disabled
               className="w-full justify-center"
             >
               <Github />
