@@ -64,7 +64,11 @@ export const WorkspaceIdClient = () => {
         <TaskList data={tasks.documents} total={tasks.total} />
         <LineChart data={{ data: workspaceAnalytics }} />
         <ProjectsList data={projects.documents} total={projects.total} />
-        <MembersList data={members.document} total={members.total} />
+        <MembersList
+          workspaceId={workspaceId}
+          data={members.document}
+          total={members.total}
+        />
       </div>
     </section>
   )
@@ -216,8 +220,9 @@ export const ProjectsList = ({ data, total }: ProjectListProps) => {
 interface MemberListProps {
   data: Member[]
   total: number
+  workspaceId: string
 }
-export const MembersList = ({ data, total }: MemberListProps) => {
+export const MembersList = ({ data, total, workspaceId }: MemberListProps) => {
   return (
     <>
       <Card className="border-0 shadow-none p-3 size-full font-poppins_normal divide-y divide-dashed">
@@ -238,7 +243,10 @@ export const MembersList = ({ data, total }: MemberListProps) => {
             className="size-8 p-2"
             asChild
           >
-            <Link href={`/members`} className="text-muted-foreground">
+            <Link
+              href={`/workspaces/${workspaceId}/members`}
+              className="text-muted-foreground"
+            >
               <Settings />
             </Link>
           </Button>

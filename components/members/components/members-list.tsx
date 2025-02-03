@@ -1,15 +1,7 @@
 "use client"
 import { Button } from "@/components/ui/button"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { useGetWorkspaces } from "@/components/workspaces/api/use-get-workspaces"
 import { MoreHorizontal } from "lucide-react"
-import React, { useState } from "react"
+import React from "react"
 import { useGetMembers } from "../api/use-get-members"
 import {
   Table,
@@ -32,19 +24,15 @@ import { useDeleteMember } from "../api/use-delete-member"
 import { useConfirm } from "@/hooks/use-confirm"
 import { toast } from "@/hooks/use-toast"
 import { MemberRole } from "@/models/RoleTypes"
-import { Loader as CustomLoader } from "@/Utility/Ui/Loader"
+import { Loader } from "@/Utility/Ui/Loader"
 import Avatar from "@/Utility/Ui/Avatar"
+import { useGetParamId } from "@/hooks/use-getParamId"
+import ErrorComponent from "@/Utility/Ui/Error-component"
 
 function MembersList() {
-  const { data: workspacesData, isLoading: isWorkspaceLoading } =
-    useGetWorkspaces()
+  const { workspaceId } = useGetParamId()
   const { mutate: updateMember, isPending: isMemberupdating } =
     useUpdateMember()
-  const workspaces = workspacesData?.documents
-  const initialId = (workspaces && workspaces[0].$id) || ""
-  const [selectedId, setSelectedId] = useState<string | null>(
-    (workspaces && workspaces[0].$id) ?? null
-  )
 
   const [DeleteModal, confirmDelete] = useConfirm(
     "Remove member",
@@ -54,8 +42,12 @@ function MembersList() {
 
   const { mutate: deleteMember } = useDeleteMember()
 
-  const { data: members, isLoading: isMemberLoading } = useGetMembers({
-    workspaceId: selectedId || initialId,
+  const {
+    data: members,
+    isLoading,
+    error,
+  } = useGetMembers({
+    workspaceId,
   })
   const tableHeaders: string[] = [
     "Profile",
@@ -92,52 +84,25 @@ function MembersList() {
     )
   }
 
-  const handleSelectWorkspace = (id: string) => {
-    setSelectedId(id)
+  if (isLoading) {
+    return <Loader />
   }
 
-  const isLoading = isMemberLoading || isWorkspaceLoading
-
-  if (isLoading) {
-    return <CustomLoader />
+  if (error) {
+    return <ErrorComponent />
   }
   return (
     <div className="container mx-auto">
       <DeleteModal />
       <div className="pt-2 flex flex-col gap-3">
-        <div className="grid grid-cols-2">
-          <h1 className="text-xl self-center dark:text-white flex-1 font-medium font-poppins_normal">
-            Members List
-          </h1>
-          <div className="w-full">
-            <h1 className="pb-2 text-sm">Select Workspaces</h1>
-            <Select
-              defaultValue={initialId}
-              onValueChange={handleSelectWorkspace}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Workspaces" />
-              </SelectTrigger>
-              <SelectContent>
-                {workspaces?.map((workspaceItems) => {
-                  return (
-                    <SelectItem
-                      key={workspaceItems?.$id}
-                      value={workspaceItems?.$id}
-                    >
-                      {workspaceItems?.name}
-                    </SelectItem>
-                  )
-                })}
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
+        <h1 className="text-xl dark:text-white flex-1 font-medium font-poppins_normal">
+          Members List
+        </h1>
 
         {/* members */}
-        <Card className="dark:bg-neutral-950 dark:border-0">
+        <Card className="shadow-none rounded-none">
           <Table>
-            <TableCaption className="border-t p-2 border-dashed text-primary bg-primary/10 rounded-b-lg">
+            <TableCaption className="border-t p-2 border-dashed text-primary bg-primary/10">
               A list of your workspace members.
             </TableCaption>
             <TableHeader>
