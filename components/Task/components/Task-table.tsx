@@ -7,10 +7,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Info, MoreVertical, Pen, Trash } from "lucide-react"
+import {
+  ArrowDown,
+  ArrowRight,
+  ArrowUp,
+  Info,
+  MoreVertical,
+  Pen,
+  Trash,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useConfirm } from "@/hooks/use-confirm"
-import { Task } from "../types"
+import { PriorityStatus, Task } from "../types"
 import { Badge } from "@/components/ui/badge"
 import { useDeleteTask } from "../api/use-delete-task"
 import { Loader } from "@/Utility/Ui/Loader"
@@ -46,6 +54,7 @@ function TaskTable({ data }: TaksTablePropTypes) {
     "Description",
     "Assignee",
     "Status",
+    "Priority",
     "Due Date",
     "Action",
   ]
@@ -55,6 +64,12 @@ function TaskTable({ data }: TaksTablePropTypes) {
     IN_REVIEW: "bg-indigo-600/20 text-indigo-600",
     BACKLOG: "bg-red-600/20 text-red-600",
     TODO: "bg-yellow-600/20 text-yellow-600",
+  }
+
+  const priorityIcon = {
+    LOW: <ArrowDown size={18} stroke="limegreen" />,
+    MEDIUM: <ArrowRight size={18} stroke="gray" />,
+    HIGH: <ArrowUp size={18} stroke="red" />,
   }
 
   const handle_delete_task = async (task: Task) => {
@@ -89,7 +104,8 @@ function TaskTable({ data }: TaksTablePropTypes) {
           <TableBody>
             {data && data?.length > 0 ? (
               data?.map((taskValues) => {
-                const status: string = taskValues?.status ?? "COMPLETED"
+                const status: string = taskValues?.status ?? "DONE"
+                const priority: string = taskValues?.priority ?? "LOW"
                 const fullLink = `/workspaces/${taskValues?.workspaceId}/tasks/${taskValues?.$id}`
                 return (
                   <TableRow
@@ -137,6 +153,16 @@ function TaskTable({ data }: TaksTablePropTypes) {
                       >
                         {taskValues?.status}
                       </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex text-xs items-center gap-1">
+                        {
+                          priorityIcon?.[
+                            (priority as keyof typeof PriorityStatus) ?? "LOW"
+                          ]
+                        }
+                        <span>{priority}</span>
+                      </div>
                     </TableCell>
                     <TableCell>
                       <p className="line-clamp-1">

@@ -1,6 +1,6 @@
 "use client"
 import { Button } from "@/components/ui/button"
-import { MoreHorizontal } from "lucide-react"
+import { ArrowLeft, MoreHorizontal } from "lucide-react"
 import React from "react"
 import { useGetMembers } from "../api/use-get-members"
 import {
@@ -28,9 +28,11 @@ import { Loader } from "@/Utility/Ui/Loader"
 import Avatar from "@/Utility/Ui/Avatar"
 import { useGetParamId } from "@/hooks/use-getParamId"
 import ErrorComponent from "@/Utility/Ui/Error-component"
+import { useRouter } from "next/navigation"
 
 function MembersList() {
   const { workspaceId } = useGetParamId()
+  const router = useRouter()
   const { mutate: updateMember, isPending: isMemberupdating } =
     useUpdateMember()
 
@@ -95,9 +97,15 @@ function MembersList() {
     <div className="container mx-auto">
       <DeleteModal />
       <div className="pt-2 flex flex-col gap-3">
-        <h1 className="text-xl dark:text-white flex-1 font-medium font-poppins_normal">
-          Members List
-        </h1>
+        <div className="flex gap-2 items-center">
+          <Button onClick={() => router.back()} size={"sm"} variant={"outline"}>
+            <ArrowLeft />
+            Back
+          </Button>
+          <h1 className="text-xl dark:text-white flex-1 font-medium font-poppins_normal">
+            Members List
+          </h1>
+        </div>
 
         {/* members */}
         <Card className="shadow-none rounded-none">

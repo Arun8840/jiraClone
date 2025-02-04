@@ -8,9 +8,16 @@ export enum TaskStatus {
   DONE = "DONE",
 }
 
+export enum PriorityStatus {
+  LOW = "LOW",
+  MEDIUM = "MEDIUM",
+  HIGH = "HIGH",
+}
+
 export type Task = Models.Document & {
   name: string
   status: string
+  priority: string
   assigneeId: string
   position: number
   dueDate: string

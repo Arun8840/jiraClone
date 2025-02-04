@@ -87,7 +87,7 @@ export const TaskList = ({ data, total }: TaskListProps) => {
   return (
     <>
       <CreateTaskModal />
-      <Card className="border-0 shadow-none p-3  font-poppins_normal divide-y divide-dashed">
+      <Card className="border-0 shadow-none p-3  font-poppins_normal divide-y divide-dashed flex flex-col gap-2">
         <div className="flex items-center pb-1">
           <div className="flex items-center gap-1 flex-1">
             <Badge
@@ -109,7 +109,7 @@ export const TaskList = ({ data, total }: TaskListProps) => {
             <Plus />
           </Button>
         </div>
-        <ul className="flex flex-col pt-1">
+        <ul className="flex flex-col justify-between h-full">
           {data.map((task) => {
             return (
               <li key={task?.$id} className="py-1">
@@ -136,7 +136,7 @@ export const TaskList = ({ data, total }: TaskListProps) => {
               </li>
             )
           })}
-          <li className="bg-muted p-2 rounded text-sm hidden first-of-type:block mb-2">
+          <li className="bg-muted p-2 rounded text-sm hidden first-of-type:block mt-2">
             <h1 className="text-center">No Tasks found</h1>
           </li>
           {data && (
