@@ -35,7 +35,7 @@ function ProjectDetails() {
       {/* //* HEADER */}
       <div className="flex justify-between p-2">
         <div className="flex items-center gap-2">
-          <div className="bg-neutral-100  overflow-hidden grid place-items-center rounded-full">
+          <div className="bg-card size-9  overflow-hidden grid place-items-center rounded-full">
             {project?.imageUrl ? (
               <Image
                 src={project?.imageUrl}

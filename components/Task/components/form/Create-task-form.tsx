@@ -34,7 +34,7 @@ import {
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { Calendar } from "@/components/ui/calendar"
-import { TaskStatus } from "../../types"
+import { PriorityStatus, TaskStatus } from "../../types"
 
 interface FormPropTypes {
   onCancel: () => void
@@ -48,6 +48,44 @@ function CreateTaskForm({ onCancel }: FormPropTypes) {
   const { data: Members, isPending: IsMembersLoading } = useGetMembers({
     workspaceId,
   })
+
+  // *status
+  const status = [
+    {
+      label: "Backlog",
+      value: TaskStatus.BACKLOG,
+    },
+    {
+      label: "In-progress",
+      value: TaskStatus.IN_PROGRESS,
+    },
+    {
+      label: "In-review",
+      value: TaskStatus.IN_REVIEW,
+    },
+    {
+      label: "Todo",
+      value: TaskStatus.TODO,
+    },
+    {
+      label: "Done",
+      value: TaskStatus.DONE,
+    },
+  ]
+  const priorityStatus = [
+    {
+      label: "Low",
+      value: PriorityStatus.LOW,
+    },
+    {
+      label: "Medium",
+      value: PriorityStatus.MEDIUM,
+    },
+    {
+      label: "High",
+      value: PriorityStatus.HIGH,
+    },
+  ]
 
   //   * create task hook
   const { mutate, isPending: isTaskCreating } = useCreateTask()
@@ -215,19 +253,16 @@ function CreateTaskForm({ onCancel }: FormPropTypes) {
                           <SelectValue placeholder="Select Status" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value={TaskStatus?.BACKLOG}>
-                            Backlog
-                          </SelectItem>
-                          <SelectItem value={TaskStatus?.IN_PROGRESS}>
-                            In-Progress
-                          </SelectItem>
-                          <SelectItem value={TaskStatus?.IN_REVIEW}>
-                            In-Review
-                          </SelectItem>
-                          <SelectItem value={TaskStatus?.DONE}>
-                            Completed
-                          </SelectItem>
-                          <SelectItem value={TaskStatus?.TODO}>Todo</SelectItem>
+                          {status?.map((statusValue) => {
+                            return (
+                              <SelectItem
+                                key={statusValue.value}
+                                value={statusValue.value}
+                              >
+                                {statusValue.label}
+                              </SelectItem>
+                            )
+                          })}
                         </SelectContent>
                       </Select>
                     </FormControl>
@@ -237,28 +272,29 @@ function CreateTaskForm({ onCancel }: FormPropTypes) {
               />
               <FormField
                 control={form.control}
-                name="status"
+                name="priority"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Priority Type</FormLabel>
+                    <FormLabel>Priority</FormLabel>
                     <FormControl>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field?.value}
                       >
                         <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select Priority" />
+                          <SelectValue placeholder="Select Status" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value={TaskStatus?.BACKLOG}>
-                            Low
-                          </SelectItem>
-                          <SelectItem value={TaskStatus?.IN_PROGRESS}>
-                            Medium
-                          </SelectItem>
-                          <SelectItem value={TaskStatus?.IN_REVIEW}>
-                            High
-                          </SelectItem>
+                          {priorityStatus?.map((priorityValue) => {
+                            return (
+                              <SelectItem
+                                key={priorityValue.value}
+                                value={priorityValue.value}
+                              >
+                                {priorityValue.label}
+                              </SelectItem>
+                            )
+                          })}
                         </SelectContent>
                       </Select>
                     </FormControl>

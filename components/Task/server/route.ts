@@ -186,6 +186,7 @@ const app = new Hono()
         name,
         projectId,
         status,
+        priority,
         workspaceId,
         description,
       } = c.req.valid("json")
@@ -206,6 +207,7 @@ const app = new Hono()
         TASKS_ID,
         [
           Query.equal("status", status),
+          Query.equal("priority", priority),
           Query.equal("workspaceId", workspaceId),
           Query.orderAsc("position"),
           Query.limit(1),
@@ -229,6 +231,7 @@ const app = new Hono()
           projectId,
           assigneeId,
           status,
+          priority,
           dueDate,
           position: newPosition,
         }
