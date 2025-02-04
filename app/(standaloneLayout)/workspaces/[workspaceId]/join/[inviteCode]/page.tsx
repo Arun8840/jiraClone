@@ -1,7 +1,7 @@
 import React from "react"
-import JoinIdClient from "./client"
 import { getCurrentUser } from "@/components/auth/actions"
 import { redirect } from "next/navigation"
+import CreateWorkspaceInviteLinkForm from "@/components/workspaces/components/create-workspace-inviteLink-form"
 
 async function page() {
   const user = await getCurrentUser()
@@ -9,9 +9,10 @@ async function page() {
   if (!user) {
     redirect("/sign-in")
   }
+
   return (
     <div className="size-full grid place-items-center">
-      <JoinIdClient />
+      <CreateWorkspaceInviteLinkForm />
     </div>
   )
 }

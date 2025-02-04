@@ -1,22 +1,22 @@
 "use client"
 import { Button } from "@/components/ui/button"
-import { Link, Loader, Merge } from "lucide-react"
+import { Link } from "lucide-react"
 import React from "react"
 import { useJoinInviteLinkMember } from "../api/use-join-invitelink-member"
 import { useRouter } from "next/navigation"
-import { Workspace } from "../types"
+import { Loader } from "@/Utility/Ui/Loader"
+import { useGetParamId } from "@/hooks/use-getParamId"
+import { Card } from "@/components/ui/card"
 
-interface FormPropTypes {
-  initialValue: Workspace
-}
-function CreateWorkspaceInviteLinkForm({ initialValue }: FormPropTypes) {
+function CreateWorkspaceInviteLinkForm() {
+  const { inviteCode, workspaceId } = useGetParamId()
   const { mutate, isPending } = useJoinInviteLinkMember()
   const router = useRouter()
   const handleJoin = () => {
     mutate(
       {
-        param: { workspaceId: initialValue.$id },
-        json: { code: initialValue.inviteCode },
+        param: { workspaceId },
+        json: { code: inviteCode },
       },
       {
         onSuccess: ({ data }) => {
@@ -25,16 +25,12 @@ function CreateWorkspaceInviteLinkForm({ initialValue }: FormPropTypes) {
       }
     )
   }
+
   return (
-    <div className="flex flex-col gap-3 font-poppins_normal">
-      <div className="size-28 bg-neutral-200 dark:bg-muted dark:text-primary rounded-full grid place-items-center mx-auto">
-        <Merge size={20} />
-      </div>
+    <Card className="flex flex-col w-1/2 p-3 border-none shadow-none gap-3 font-poppins_normal">
       <h1 className="text-lg font-medium p-2">Join workspace</h1>
       <p className="text-neutral-500 px-2">
-        You&apos;ve been invited to join
-        <strong className="text-primary px-2">{initialValue?.name}</strong>
-        workspace
+        You&apos;ve been invited to join workspace
       </p>
       <div className="flex gap-2 pt-3 items-center">
         <Button
@@ -54,7 +50,7 @@ function CreateWorkspaceInviteLinkForm({ initialValue }: FormPropTypes) {
           Join Workspace
         </Button>
       </div>
-    </div>
+    </Card>
   )
 }
 
