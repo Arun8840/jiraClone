@@ -12,27 +12,31 @@ import { Loader } from "@/Utility/Ui/Loader"
 import { Button } from "../ui/button"
 import { useCreateTasktModal } from "@/hooks/use-create-task"
 import { CreateTaskModal } from "./components/Modal/Create-task-modal"
+import { FilterDataTask } from "@/Utility/Ui/filters/Filter-data-task"
+import { useFilterTask } from "@/hooks/use-filter-task"
 
 function TaskViewer() {
   const [view, setView] = useQueryState("task-view", {
     defaultValue: "table",
   })
+  const [{ status, assigneeId, duDate, projectId, search }] = useFilterTask()
   const { open } = useCreateTasktModal()
 
-  const { workspaceId, projectId } = useGetParamId()
+  const { workspaceId } = useGetParamId()
   const { data: tasks, isPending } = useGetTasks({
     workspaceId,
-    projectId,
+    projectId: projectId || undefined,
+    assigneeId: assigneeId || undefined,
+    dueDate: duDate || undefined,
+    search: search || undefined,
+    status: status || undefined,
   })
 
-  if (isPending) {
-    return <Loader className="dark:text-primary" />
-  }
   return (
     <div className="size-full">
       <CreateTaskModal />
       <Tabs defaultValue={view} onValueChange={setView}>
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center gap-2">
           <TabsList className="font-poppins_normal bg-neutral-200 dark:bg-neutral-900">
             <TabsTrigger value="table">
               <TableProperties size={18} />
@@ -47,6 +51,10 @@ function TaskViewer() {
             </TabsTrigger>
           </TabsList>
 
+          {/* //* DATA TASK FILTERS */}
+
+          <FilterDataTask className="justify-end" />
+
           {/* //* CREATE TASK BUTTON */}
           <div className="pr-1">
             <Button size={"sm"} onClick={open}>
@@ -56,15 +64,23 @@ function TaskViewer() {
           </div>
         </div>
 
-        <TabsContent value="table">
-          <TaskTable data={tasks?.documents || []} />
-        </TabsContent>
-        <TabsContent value="kanban">
-          <TaskKnban data={tasks?.documents || []} />
-        </TabsContent>
-        <TabsContent value="calendar">
-          <TaskCalendar data={tasks?.documents || []} />
-        </TabsContent>
+        <div className="min-h-[100px]">
+          {isPending ? (
+            <Loader className="dark:text-primary my-3" />
+          ) : (
+            <>
+              <TabsContent value="table">
+                <TaskTable data={tasks?.documents || []} />
+              </TabsContent>
+              <TabsContent value="kanban">
+                <TaskKnban data={tasks?.documents || []} />
+              </TabsContent>
+              <TabsContent value="calendar">
+                <TaskCalendar data={tasks?.documents || []} />
+              </TabsContent>
+            </>
+          )}
+        </div>
       </Tabs>
     </div>
   )

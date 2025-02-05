@@ -75,6 +75,9 @@ function KanbanRowData({ data }: KanbanDataProps) {
               </li>
             )
           })}
+        <li className="bg-inherit p-2 rounded text-sm hidden first-of-type:block mt-2">
+          <h1 className="text-center">No Tasks found</h1>
+        </li>
       </ul>
     </>
   )

@@ -55,6 +55,7 @@ function TaskTable({ data }: TaksTablePropTypes) {
     "Assignee",
     "Status",
     "Priority",
+    "Created At",
     "Due Date",
     "Action",
   ]
@@ -95,7 +96,7 @@ function TaskTable({ data }: TaksTablePropTypes) {
                     key={headers}
                     className={`${headers.includes("Action") && "text-center"}`}
                   >
-                    <p className="line-clamp-1"> {headers}</p>
+                    <p className="truncate"> {headers}</p>
                   </TableHead>
                 )
               })}
@@ -118,18 +119,18 @@ function TaskTable({ data }: TaksTablePropTypes) {
                           imageUrl={taskValues.project.imageUrl}
                           title={taskValues?.project?.name}
                         />
-                        <p className="line-clamp-1 flex-1">
+                        <p className="truncate flex-1">
                           {taskValues?.project?.name}
                         </p>
                       </div>
                     </TableCell>
                     <TableCell>
-                      <p title={taskValues?.name} className="line-clamp-1">
+                      <p title={taskValues?.name} className="truncate">
                         {taskValues?.name}
                       </p>
                     </TableCell>
                     <TableCell>
-                      <p className="line-clamp-1">{taskValues?.description}</p>
+                      <p className="truncate">{taskValues?.description}</p>
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
@@ -137,7 +138,7 @@ function TaskTable({ data }: TaksTablePropTypes) {
                           className="bg-secondary text-neutral-800 dark:text-white"
                           title={taskValues?.assignee?.name}
                         />
-                        <p className="line-clamp-1 flex-1">
+                        <p className="truncate flex-1">
                           {taskValues?.assignee?.name}
                         </p>
                       </div>
@@ -165,7 +166,12 @@ function TaskTable({ data }: TaksTablePropTypes) {
                       </div>
                     </TableCell>
                     <TableCell>
-                      <p className="line-clamp-1">
+                      <p className="truncate">
+                        {taskValues?.$createdAt?.split("T")[0]}
+                      </p>
+                    </TableCell>
+                    <TableCell>
+                      <p className="truncate">
                         {taskValues?.dueDate?.split("T")[0]}
                       </p>
                     </TableCell>

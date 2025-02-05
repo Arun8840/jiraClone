@@ -32,7 +32,7 @@ const app = new Hono()
       const databases = c.get("databases")
       const user = c.get("user")
 
-      const { workspaceId, assigneeId, projectId, search, status } =
+      const { workspaceId, assigneeId, projectId, search, status, dueDate } =
         c.req.valid("query")
 
       const member = await getMembers({
@@ -62,6 +62,9 @@ const app = new Hono()
 
       if (search) {
         query.push(Query.search("name", search))
+      }
+      if (dueDate) {
+        query.push(Query.equal("dueDate", dueDate))
       }
 
       const tasks = await databases.listDocuments<Task>(
