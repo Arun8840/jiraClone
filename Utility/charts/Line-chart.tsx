@@ -94,12 +94,12 @@ function LineChart({ data, className }: ChartProps) {
               />
             </BarChart>
           </ChartContainer>
-          <CardFooter className="flex-col items-start gap-2 text-sm">
-            <div className="leading-none text-muted-foreground">
-              Showing overall workspace data for this month
-            </div>
-          </CardFooter>
         </CardContent>
+        <CardFooter className="flex-col items-start gap-2 text-sm">
+          <div className="leading-none text-muted-foreground">
+            Showing overall workspace data for this month
+          </div>
+        </CardFooter>
       </Card>
     </div>
   )

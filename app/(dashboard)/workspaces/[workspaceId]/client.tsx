@@ -109,7 +109,7 @@ export const TaskList = ({ data, total }: TaskListProps) => {
             <Plus />
           </Button>
         </div>
-        <ul className="flex flex-col justify-between h-full">
+        <ul className="flex flex-col gap-2 flex-1">
           {data.map((task) => {
             return (
               <li key={task?.$id} className="py-1">
@@ -140,7 +140,7 @@ export const TaskList = ({ data, total }: TaskListProps) => {
             <h1 className="text-center">No Tasks found</h1>
           </li>
           {data && (
-            <li>
+            <li className="flex-1 h-full place-content-end">
               <Button
                 className="block w-full text-center"
                 variant={"secondary"}
@@ -251,7 +251,7 @@ export const MembersList = ({ data, total, workspaceId }: MemberListProps) => {
             </Link>
           </Button>
         </div>
-        <ul className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 pt-1">
+        <ul className="grid md:grid-cols-2 lg:grid-cols-2 gap-2 pt-1">
           {data.map((member) => {
             return (
               <li
