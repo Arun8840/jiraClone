@@ -22,8 +22,13 @@ import { Button } from "@/components/ui/button"
 import { format } from "date-fns"
 import { Calendar } from "@/components/ui/calendar"
 
-interface PropTypes extends HTMLAttributes<HTMLDivElement> {}
-export const FilterDataTask: React.FC<PropTypes> = ({ className }) => {
+interface PropTypes extends HTMLAttributes<HTMLDivElement> {
+  hideAssigneeFilter?: boolean
+}
+export const FilterDataTask: React.FC<PropTypes> = ({
+  className,
+  hideAssigneeFilter,
+}) => {
   const { workspaceId } = useGetParamId()
   const baseClass = "text-sm flex items-center gap-2 flex-1"
 
@@ -94,28 +99,30 @@ export const FilterDataTask: React.FC<PropTypes> = ({ className }) => {
       </Select>
 
       {/* //* BY ASSIGNEE */}
-      <Select
-        onValueChange={(value) => onAssigneeChange(value)}
-        defaultValue={assigneeId ?? "all"}
-      >
-        <SelectTrigger className="w-fit !ring-0  h-9">
-          <div className="flex items-center gap-1">
-            <UserRound className="text-primary" size={14} />
-            <SelectValue placeholder="All assignee" />
-          </div>
-        </SelectTrigger>
-        <SelectContent>
-          {memberOption?.map((member) => {
-            return (
-              <SelectItem key={member?.value} value={member.value}>
-                {member.label}
-              </SelectItem>
-            )
-          })}
+      {!hideAssigneeFilter && (
+        <Select
+          onValueChange={(value) => onAssigneeChange(value)}
+          defaultValue={assigneeId ?? "all"}
+        >
+          <SelectTrigger className="w-fit !ring-0  h-9">
+            <div className="flex items-center gap-1">
+              <UserRound className="text-primary" size={14} />
+              <SelectValue placeholder="All assignee" />
+            </div>
+          </SelectTrigger>
+          <SelectContent>
+            {memberOption?.map((member) => {
+              return (
+                <SelectItem key={member?.value} value={member.value}>
+                  {member.label}
+                </SelectItem>
+              )
+            })}
 
-          <SelectItem value={"all"}>All assignees</SelectItem>
-        </SelectContent>
-      </Select>
+            <SelectItem value={"all"}>All assignees</SelectItem>
+          </SelectContent>
+        </Select>
+      )}
 
       {/* //* BY PROJECT */}
       <Select

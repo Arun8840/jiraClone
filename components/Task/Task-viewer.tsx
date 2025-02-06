@@ -15,7 +15,10 @@ import { CreateTaskModal } from "./components/Modal/Create-task-modal"
 import { FilterDataTask } from "@/Utility/Ui/filters/Filter-data-task"
 import { useFilterTask } from "@/hooks/use-filter-task"
 
-function TaskViewer() {
+interface TaskviewerProps {
+  hideAssigneeFilter?: boolean
+}
+function TaskViewer({ hideAssigneeFilter = false }: TaskviewerProps) {
   const [view, setView] = useQueryState("task-view", {
     defaultValue: "table",
   })
@@ -36,7 +39,7 @@ function TaskViewer() {
     <div className="size-full">
       <CreateTaskModal />
       <Tabs defaultValue={view} onValueChange={setView}>
-        <div className="flex justify-between items-center gap-2">
+        <div className="md:flex justify-between items-center gap-2">
           <TabsList className="font-poppins_normal bg-neutral-200 dark:bg-neutral-900">
             <TabsTrigger value="table">
               <TableProperties size={18} />
@@ -53,7 +56,10 @@ function TaskViewer() {
 
           {/* //* DATA TASK FILTERS */}
 
-          <FilterDataTask className="justify-end" />
+          <FilterDataTask
+            hideAssigneeFilter={hideAssigneeFilter}
+            className="justify-end"
+          />
 
           {/* //* CREATE TASK BUTTON */}
           <div className="pr-1">
