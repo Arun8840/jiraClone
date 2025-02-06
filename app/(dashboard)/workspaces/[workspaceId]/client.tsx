@@ -8,7 +8,7 @@ import { useGetParamId } from "@/hooks/use-getParamId"
 import Avatar from "@/Utility/Ui/Avatar"
 import ErrorComponent from "@/Utility/Ui/Error-component"
 import { Loader } from "@/Utility/Ui/Loader"
-import { Calendar, Plus, Settings } from "lucide-react"
+import { Calendar, LinkIcon, Plus, Settings } from "lucide-react"
 import Link from "next/link"
 import React from "react"
 import { format } from "date-fns"
@@ -24,11 +24,16 @@ import { useCreateProjectModal } from "@/hooks/use-createProject-modal"
 import { Projects } from "@/components/workspaces/Projects/type"
 import { Member } from "@/models/RoleTypes"
 import LineChart from "@/Utility/charts/Line-chart"
+import { useGetWorkspaces } from "@/components/workspaces/api/use-get-workspaces"
+import { Workspace } from "@/components/workspaces/types"
+import { toast } from "@/hooks/use-toast"
 
 export const WorkspaceIdClient = () => {
   const { workspaceId } = useGetParamId()
 
   //   *  DATAS
+  const { data: workspaces, isLoading: isWorkspacesLoading } =
+    useGetWorkspaces()
   const { data: workspaceAnalytics, isLoading: isAnalyticsLoading } =
     useGetWorkspaceAnalytics({ workspaceId })
 
@@ -46,13 +51,17 @@ export const WorkspaceIdClient = () => {
 
   //   * CREATE HOOKS
   const isLoading =
-    isAnalyticsLoading || isProjectLoading || isTasksLoading || isMembersLoading
+    isAnalyticsLoading ||
+    isProjectLoading ||
+    isTasksLoading ||
+    isMembersLoading ||
+    isWorkspacesLoading
 
   if (isLoading) {
     return <Loader />
   }
 
-  if (!workspaceAnalytics || !projects || !members || !tasks) {
+  if (!workspaces || !workspaceAnalytics || !projects || !members || !tasks) {
     return <ErrorComponent />
   }
 
@@ -61,9 +70,10 @@ export const WorkspaceIdClient = () => {
       <Analytics data={workspaceAnalytics} />
 
       <div className="grid lg:grid-cols-2 auto-rows-auto gap-2">
+        <WorkspaceList data={workspaces?.documents} total={workspaces.total} />
+        <ProjectsList data={projects.documents} total={projects.total} />
         <TaskList data={tasks.documents} total={tasks.total} />
         <LineChart data={{ data: workspaceAnalytics }} />
-        <ProjectsList data={projects.documents} total={projects.total} />
         <MembersList
           workspaceId={workspaceId}
           data={members.document}
@@ -150,6 +160,85 @@ export const TaskList = ({ data, total }: TaskListProps) => {
               </Button>
             </li>
           )}
+        </ul>
+      </Card>
+    </>
+  )
+}
+
+interface WorkspaceListprop {
+  data: Workspace[]
+  total: number
+}
+
+// * WORKSPACE LIST
+export const WorkspaceList = ({ data, total }: WorkspaceListprop) => {
+  const handleCopyLink = (fullLink: string) => {
+    navigator.clipboard
+      .writeText(fullLink)
+      .then(() =>
+        toast({
+          title: "Invite-link",
+          description: "Workspace Invite-link copied to clipbord!!",
+          variant: "success",
+        })
+      )
+      .catch(() =>
+        toast({ variant: "destructive", description: "Failed to copy link." })
+      )
+  }
+
+  return (
+    <>
+      <Card className="border-0 shadow-none p-3 size-full font-poppins_normal divide-y divide-dashed">
+        <div className="flex items-center pb-1">
+          <div className="flex items-center gap-1 flex-1">
+            <Badge
+              variant={"secondary"}
+              className="size-8 rounded-md p-0 grid place-items-center text-primary"
+            >
+              {total}
+            </Badge>
+            <h1 className="truncate flex-1 pl-1">Workspaces</h1>
+          </div>
+        </div>
+        <ul className="flex flex-col pt-1">
+          {data.map((workspace) => {
+            const fullInviteLink =
+              typeof window !== "undefined"
+                ? `${window.location.origin}/workspaces/${workspace.$id}/join/${workspace.inviteCode}`
+                : ""
+            return (
+              <li
+                key={workspace?.$id}
+                className="p-2 flex items-center justify-between"
+              >
+                <div>
+                  <div className="flex items-center gap-2">
+                    <Avatar
+                      imageUrl={workspace.imageUrl}
+                      title={workspace?.name}
+                    />
+                    <p className="text-sm">{workspace?.name}</p>
+                  </div>
+                  <p className="text-muted-foreground text-xs p-1 truncate">
+                    {format(workspace.$createdAt, "PPP")}
+                  </p>
+                </div>
+                <Button
+                  onClick={() => handleCopyLink(fullInviteLink)}
+                  title="Copy join link"
+                  className="size-9 rounded-full p-2 hover:bg-primary"
+                  variant={"outline"}
+                >
+                  <LinkIcon />
+                </Button>
+              </li>
+            )
+          })}
+          <li className="bg-muted p-2 rounded text-sm hidden first-of-type:block mb-2">
+            <h1 className="text-center">No Workspaces found</h1>
+          </li>
         </ul>
       </Card>
     </>

@@ -9,9 +9,10 @@ const Taskpage = async () => {
   if (!user) {
     redirect("/sign-in")
   }
+
   return (
     <div className="size-full p-2">
-      <TaskViewer />
+      <TaskViewer hideAssigneeFilter={true} />
     </div>
   )
 }
