@@ -30,6 +30,7 @@ import {
   DropdownMenuContent,
 } from "@/components/ui/dropdown-menu"
 import Avatar from "@/Utility/Ui/Avatar"
+import { useUpdateTasktModal } from "@/hooks/use-update-task"
 interface statusColorsTypes {
   IN_PROGRESS: string
   DONE: string
@@ -43,6 +44,7 @@ interface TaksTablePropTypes {
 }
 function TaskTable({ data }: TaksTablePropTypes) {
   const { mutate, isPending: isTaskRemoving } = useDeleteTask()
+  const { open } = useUpdateTasktModal()
   const [DeleteModal, confirmDelete] = useConfirm(
     "Confirmation",
     "Are you sure want to delete this task ?",
@@ -192,7 +194,10 @@ function TaskTable({ data }: TaksTablePropTypes) {
                                 <Info className="text-primary" /> Task info
                               </Link>
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="flex items-center gap-2">
+                            <DropdownMenuItem
+                              onClick={() => open(taskValues.$id)}
+                              className="flex items-center gap-2"
+                            >
                               <Pen className="text-primary" /> Edit task
                             </DropdownMenuItem>
                             <DropdownMenuItem
