@@ -1,7 +1,7 @@
 import { sessionMiddleware } from "@/lib/session-middleware"
 import { zValidator } from "@hono/zod-validator"
 import { Hono } from "hono"
-import { CreateTaskSchema } from "../Schemas"
+import { CreateTaskSchema, UpdateTaskSchema } from "../Schemas"
 import { getMembers } from "@/components/workspaces/members/util-get-members"
 import { DATABASE_ID, MEMBERS_ID, PROJECTS_ID, TASKS_ID } from "@/lib/config"
 import { ID, Query } from "node-appwrite"
@@ -33,8 +33,7 @@ const app = new Hono()
       const user = c.get("user")
 
       const { workspaceId, assigneeId, projectId, search, status, dueDate } =
-        c.req.valid("query")
-
+        await c.req.valid("query")
       const member = await getMembers({
         databases,
         userId: user.$id,
@@ -272,6 +271,7 @@ const app = new Hono()
       $id: task?.$id,
     })
   })
+
   .post(
     "/bulk-update",
     sessionMiddleware,
@@ -336,6 +336,53 @@ const app = new Hono()
       )
 
       return c.json({ data: updatedTasks })
+    }
+  )
+
+  .post(
+    "/:taskId",
+    sessionMiddleware,
+    zValidator("json", UpdateTaskSchema),
+    async (c) => {
+      const databases = c.get("databases")
+      const user = c.get("user")
+      const {
+        workspaceId,
+        name,
+        status,
+        priority,
+        dueDate,
+        assigneeId,
+        description,
+      } = await c.req.valid("json")
+
+      const { taskId } = c.req.param()
+
+      const member = await getMembers({
+        databases,
+        userId: user?.$id,
+        workspaceId,
+      })
+
+      if (!member) {
+        return c.json({ error: "Unauthorized" }, 401)
+      }
+
+      const updatedTask = await databases.updateDocument<Task>(
+        DATABASE_ID,
+        TASKS_ID,
+        taskId,
+        {
+          name,
+          status,
+          priority,
+          dueDate,
+          assigneeId,
+          description,
+        }
+      )
+
+      return c.json({ data: updatedTask, message: "Updated Successfully!!" })
     }
   )
 export default app

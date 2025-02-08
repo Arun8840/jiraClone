@@ -14,6 +14,7 @@ import { useCreateTasktModal } from "@/hooks/use-create-task"
 import { CreateTaskModal } from "./components/Modal/Create-task-modal"
 import { FilterDataTask } from "@/Utility/Ui/filters/Filter-data-task"
 import { useFilterTask } from "@/hooks/use-filter-task"
+import { UpdateTaskModal } from "./components/Modal/Update-task-modal"
 
 interface TaskviewerProps {
   hideAssigneeFilter?: boolean
@@ -38,6 +39,7 @@ function TaskViewer({ hideAssigneeFilter = false }: TaskviewerProps) {
   return (
     <div className="size-full">
       <CreateTaskModal />
+      <UpdateTaskModal />
       <Tabs defaultValue={view} onValueChange={setView}>
         <div className="md:flex justify-between items-center gap-2">
           <TabsList className="font-poppins_normal bg-neutral-200 dark:bg-neutral-900">

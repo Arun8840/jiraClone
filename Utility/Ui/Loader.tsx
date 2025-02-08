@@ -15,10 +15,7 @@ export const Loader: React.FC<LoaderProps> = ({
   return (
     <div {...props} className={cn(baseClass, className)}>
       <div className="flex items-center gap-2">
-        <LoaderIcon
-          size={18}
-          className="animate-spin origin-center dark:text-primary"
-        />
+        <LoaderIcon size={18} className="animate-spin origin-center" />
         <small className="text-muted-foreground">{message}</small>
       </div>
     </div>

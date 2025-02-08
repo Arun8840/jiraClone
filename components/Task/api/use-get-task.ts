@@ -6,8 +6,8 @@ interface UseGetTaskTypes {
 }
 export const useGetTask = ({ taskId }: UseGetTaskTypes) => {
   const query = useQuery({
-    queryKey: ["task", taskId],
-    queryFn: async ({}) => {
+    queryKey: ["taskId", taskId],
+    queryFn: async () => {
       const response = await client.api.tasks[":taskId"].$get({
         param: {
           taskId,
