@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ImagePlus, Loader, Plus } from "lucide-react"
+import { ImagePlus, Plus } from "lucide-react"
 import Image from "next/image"
 import React, { useRef } from "react"
 import { useForm } from "react-hook-form"
@@ -17,6 +17,7 @@ import { z } from "zod"
 import { createProjectSchema } from "../Schema/schemas"
 import { useCreateProject } from "../api/use-create-project"
 import { useParams } from "next/navigation"
+import { Loader } from "@/Utility/Ui/Loader"
 
 interface CreateFormProps {
   onCancel: () => void
@@ -135,11 +136,13 @@ export default function CreateProjectForm({ onCancel }: CreateFormProps) {
           </div>
           <Button type="submit" className="w-full">
             {isPending ? (
-              <Loader className="animate-spin origin-center" size={18} />
+              <Loader />
             ) : (
-              <Plus size={18} />
+              <>
+                <Plus size={18} />
+                Create
+              </>
             )}
-            Create
           </Button>
         </form>
       </Form>

@@ -23,7 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { CalendarIcon, Loader, Plus } from "lucide-react"
+import { CalendarIcon, Plus } from "lucide-react"
 import { useCreateTask } from "../../api/use-create-task"
 import { Button } from "@/components/ui/button"
 import {
@@ -35,6 +35,7 @@ import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { Calendar } from "@/components/ui/calendar"
 import { PriorityStatus, TaskStatus } from "../../types"
+import { Loader } from "@/Utility/Ui/Loader"
 
 interface FormPropTypes {
   onCancel: () => void
@@ -135,10 +136,7 @@ function CreateTaskForm({ onCancel }: FormPropTypes) {
     <>
       {isLoading ? (
         <div className="size-full grid place-items-center">
-          <Loader
-            className="animate-spin origin-center text-muted-foreground"
-            size={18}
-          />
+          <Loader />
         </div>
       ) : (
         <Form {...form}>
@@ -346,11 +344,13 @@ function CreateTaskForm({ onCancel }: FormPropTypes) {
             </div>
             <Button disabled={isTaskCreating} type="submit" className="w-full">
               {isTaskCreating ? (
-                <Loader className="animate-spin origin-center" size={18} />
+                <Loader />
               ) : (
-                <Plus size={18} />
+                <>
+                  <Plus size={18} />
+                  Create
+                </>
               )}
-              Create
             </Button>
           </form>
         </Form>

@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import React, { useRef } from "react"
 import { useForm } from "react-hook-form"
 import { createWorkSchema } from "../../schema/schemas"
-import { ImagePlus, Loader, Plus } from "lucide-react"
+import { ImagePlus, Plus } from "lucide-react"
 import { z } from "zod"
 import { useCreateWorkspace } from "../../api/use-create-workspace"
 import { Input } from "@/components/ui/input"
@@ -20,6 +20,7 @@ import {
 import Image from "next/image"
 import { Textarea } from "@/components/ui/textarea"
 import { useCreateWorkspaceModal } from "@/hooks/use-createWorkspace-modal"
+import { Loader } from "@/Utility/Ui/Loader"
 
 function CreateWorkspaceForm() {
   const uploadRef = useRef<HTMLInputElement>(null)
@@ -65,7 +66,7 @@ function CreateWorkspaceForm() {
           onSubmit={form.handleSubmit(handle_create)}
           className="space-y-3 flex flex-col h-full justify-between"
         >
-          <div className="">
+          <div className="flex flex-col gap-2">
             <FormField
               control={form.control}
               name="image"
@@ -138,11 +139,13 @@ function CreateWorkspaceForm() {
           </div>
           <Button type="submit" disabled={isPending}>
             {isPending ? (
-              <Loader className="animate-spin origin-center" size={18} />
+              <Loader />
             ) : (
-              <Plus size={18} />
+              <>
+                <Plus size={18} />
+                Create
+              </>
             )}
-            Create
           </Button>
         </form>
       </Form>

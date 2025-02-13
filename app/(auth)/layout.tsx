@@ -1,3 +1,4 @@
+import { SplashScreen } from "@/Utility/Ui/Splash-screen"
 import React from "react"
 
 interface LayoutProps {
@@ -6,6 +7,7 @@ interface LayoutProps {
 function AuthLayout({ children }: LayoutProps) {
   return (
     <section className="min-h-screen flex flex-col dark:bg-background">
+      <SplashScreen />
       {children}
     </section>
   )
