@@ -1,8 +1,8 @@
 "use client"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Chrome, Github } from "lucide-react"
+import { Chrome, Eye, EyeClosed, Github } from "lucide-react"
 import Link from "next/link"
-import React from "react"
+import React, { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from "zod"
 import { LoginSchema } from "./schema/AuthSchema"
@@ -14,6 +14,7 @@ import { signUpWithGithub } from "@/lib/oauth"
 
 function SignInComponent() {
   const { mutate, isPending } = useLogin()
+  const [showPass, setShowPass] = useState<boolean>(false)
   const {
     register,
     handleSubmit,
@@ -26,6 +27,9 @@ function SignInComponent() {
     },
   })
 
+  const handlePassToggle = () => {
+    setShowPass(!showPass)
+  }
   const handle_submit: SubmitHandler<z.infer<typeof LoginSchema>> = (data) => {
     mutate({ json: data })
   }
@@ -60,7 +64,21 @@ function SignInComponent() {
             <label htmlFor="password" className="block py-2">
               Password
             </label>
-            <Input {...register("password")} id="password" type="password" />
+            <div className="relative">
+              <Input
+                {...register("password")}
+                id="password"
+                type={showPass ? "text" : "password"}
+              />
+              <Button
+                onClick={handlePassToggle}
+                type="button"
+                className=" h-full  absolute right-0 top-0"
+                variant={"link"}
+              >
+                {showPass ? <EyeClosed /> : <Eye />}
+              </Button>
+            </div>
             {errors.password?.message && (
               <p className="text-red-500 font-poppins_normal text-sm pt-2">
                 {errors.password?.message}
