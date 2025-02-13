@@ -82,7 +82,7 @@ export const FilterDataTask: React.FC<PropTypes> = ({
         onValueChange={(value) => onStatusChange(value)}
         defaultValue={status ?? undefined}
       >
-        <SelectTrigger className="w-32 !ring-0  h-9">
+        <SelectTrigger className="w-max !ring-0  h-9">
           <div className="flex items-center gap-1">
             <ListCheck className="text-primary" size={14} />
             <SelectValue placeholder="Status" />

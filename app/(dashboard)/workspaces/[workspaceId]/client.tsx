@@ -66,14 +66,14 @@ export const WorkspaceIdClient = () => {
   }
 
   return (
-    <section className="p-2 size-full">
+    <section className="p-2 size-full flex flex-col">
       <Analytics data={workspaceAnalytics} />
 
-      <div className="grid lg:grid-cols-2 auto-rows-auto gap-2">
-        <WorkspaceList data={workspaces?.documents} total={workspaces.total} />
-        <ProjectsList data={projects.documents} total={projects.total} />
+      <div className="grid lg:grid-cols-2 gap-2 flex-1">
         <TaskList data={tasks.documents} total={tasks.total} />
         <LineChart data={{ data: workspaceAnalytics }} />
+        <WorkspaceList data={workspaces?.documents} total={workspaces.total} />
+        <ProjectsList data={projects.documents} total={projects.total} />
         <MembersList
           workspaceId={workspaceId}
           data={members.document}
@@ -94,20 +94,20 @@ interface TaskListProps {
 export const TaskList = ({ data, total }: TaskListProps) => {
   const { workspaceId } = useGetParamId()
   const { open: openCreateTaskModal } = useCreateTasktModal()
+  const date = new Date()
+
+  const currentDay = date.getDate()
+
+  const getFormatedDate = (value: string, formatString: string) => {
+    const formated = format(value, formatString)
+    return formated
+  }
   return (
     <>
       <CreateTaskModal />
-      <Card className="border-0 shadow-none p-3  font-poppins_normal divide-y divide-dashed flex flex-col gap-2">
+      <Card className="border-0 shadow-none p-3 max-h-svh overflow-y-auto font-poppins_normal divide-y divide-dashed flex flex-col gap-2">
         <div className="flex items-center pb-1">
-          <div className="flex items-center gap-1 flex-1">
-            <Badge
-              variant={"secondary"}
-              className="size-8 rounded-md p-0 grid place-items-center text-primary"
-            >
-              {total}
-            </Badge>
-            <h1 className="truncate flex-1 pl-1">Tasks</h1>
-          </div>
+          <h1 className="truncate flex-1 pl-1">Recent Tasks</h1>
 
           <Button
             title="Create task"
@@ -121,42 +121,51 @@ export const TaskList = ({ data, total }: TaskListProps) => {
         </div>
         <ul className="flex flex-col gap-2 flex-1">
           {data.map((task) => {
+            const currentDayTask =
+              currentDay === parseInt(getFormatedDate(task.$createdAt, "dd"))
             return (
-              <li key={task?.$id} className="py-1">
-                <Link
-                  className="p-2 rounded-lg hover:bg-muted text-sm block"
-                  href={`/workspaces/${task?.workspaceId}/tasks/${task?.$id}`}
-                >
-                  <div className="flex-1">
-                    <h1>{task?.name}</h1>
-                    <div className="flex items-center gap-2 pt-2">
-                      <Avatar
-                        imageUrl={task.project.imageUrl}
-                        title={task?.project?.name}
-                      />
-                      <p>{task?.project?.name}</p>
+              currentDayTask && (
+                <li key={task?.$id} className="py-1">
+                  <Link
+                    className="p-2 rounded-lg hover:bg-muted text-sm block"
+                    href={`/workspaces/${task?.workspaceId}/tasks/${task?.$id}`}
+                  >
+                    <div className="flex-1">
+                      <h1>{task?.name}</h1>
+                      <div className="flex items-center gap-2 pt-2">
+                        <Avatar
+                          imageUrl={task.project.imageUrl}
+                          title={task?.project?.name}
+                        />
+                        <p>{task?.project?.name}</p>
 
-                      <p className="text-xs text-muted-foreground truncate flex-1 text-end flex gap-2 justify-end items-center">
-                        <Calendar size={12} className="text-muted-foreground" />{" "}
-                        {format(task?.dueDate as string, "PPP")}
-                      </p>
+                        <p className="text-xs text-muted-foreground truncate flex-1 text-end flex gap-2 justify-end items-center">
+                          <Calendar
+                            size={12}
+                            className="text-muted-foreground"
+                          />{" "}
+                          {format(task?.dueDate as string, "PPP")}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              </li>
+                  </Link>
+                </li>
+              )
             )
           })}
           <li className="bg-muted p-2 rounded text-sm hidden first-of-type:block mt-2">
             <h1 className="text-center">No Tasks found</h1>
           </li>
           {data && (
-            <li className="flex-1 h-full place-content-end">
+            <li className="flex-1 h-full place-content-end sticky bottom-1">
               <Button
                 className="block w-full text-center"
                 variant={"secondary"}
                 asChild
               >
-                <Link href={`/workspaces/${workspaceId}/tasks`}>Show all</Link>
+                <Link href={`/workspaces/${workspaceId}/tasks`}>
+                  Show all <span className="text-primary">{total}</span>
+                </Link>
               </Button>
             </li>
           )}
