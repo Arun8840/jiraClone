@@ -11,6 +11,7 @@ import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { Loader } from "@/Utility/Ui/Loader"
 import { signUpWithGithub } from "@/lib/oauth"
+import Image from "next/image"
 
 function SignInComponent() {
   const { mutate, isPending } = useLogin()
@@ -40,12 +41,15 @@ function SignInComponent() {
       <div className="grid place-items-center">
         <div className="lg:w-1/3 w-[80%] flex flex-col justify-center">
           {/* Header */}
-          <h1 className="text-2xl p-2 font-poppins_bold font-semibold">
+          <div className="border rounded-full p-2 size-fit mx-auto">
+            <Image src={"/logo.svg"} alt="logo" width={30} height={30} />
+          </div>
+          <h1 className="text-2xl p-2 font-poppins_bold font-semibold text-center">
             Sign in to your workspace
           </h1>
 
           {/* Sub-header */}
-          <p className="text-stone-500 text-sm p-2">
+          <p className="text-stone-500 text-sm text-center p-2">
             Manage your projects, track progress, and collaborate with your team
             seamlessly. Provide your email and password to get started.
           </p>
