@@ -8,7 +8,7 @@ import { useGetParamId } from "@/hooks/use-getParamId"
 import Avatar from "@/Utility/Ui/Avatar"
 import ErrorComponent from "@/Utility/Ui/Error-component"
 import { Loader } from "@/Utility/Ui/Loader"
-import { Calendar, LinkIcon, Plus, Settings } from "lucide-react"
+import { Calendar, LinkIcon, Plus, Send, Settings } from "lucide-react"
 import Link from "next/link"
 import React from "react"
 import { format } from "date-fns"
@@ -27,6 +27,8 @@ import LineChart from "@/Utility/charts/Line-chart"
 import { useGetWorkspaces } from "@/components/workspaces/api/use-get-workspaces"
 import { Workspace } from "@/components/workspaces/types"
 import { toast } from "@/hooks/use-toast"
+import { useSendEmailModal } from "@/hooks/use-send-email"
+import SendEmailModal from "@/components/workspaces/components/modals/Send-email-modal"
 
 export const WorkspaceIdClient = () => {
   const { workspaceId } = useGetParamId()
@@ -182,6 +184,7 @@ interface WorkspaceListprop {
 
 // * WORKSPACE LIST
 export const WorkspaceList = ({ data, total }: WorkspaceListprop) => {
+  const { open } = useSendEmailModal()
   const handleCopyLink = (fullLink: string) => {
     navigator.clipboard
       .writeText(fullLink)
@@ -199,6 +202,7 @@ export const WorkspaceList = ({ data, total }: WorkspaceListprop) => {
 
   return (
     <>
+      <SendEmailModal />
       <Card className="border-0 shadow-none p-3 size-full font-poppins_normal divide-y divide-dashed">
         <div className="flex items-center pb-1">
           <div className="flex items-center gap-1 flex-1">
@@ -234,14 +238,24 @@ export const WorkspaceList = ({ data, total }: WorkspaceListprop) => {
                     {format(workspace.$createdAt, "PPP")}
                   </p>
                 </div>
-                <Button
-                  onClick={() => handleCopyLink(fullInviteLink)}
-                  title="Copy join link"
-                  className="size-9 rounded-full p-2 hover:bg-primary"
-                  variant={"outline"}
-                >
-                  <LinkIcon />
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Button
+                    onClick={() => open({ inviteLink: fullInviteLink })}
+                    title="Send join link"
+                    className="size-9 rounded-full p-2 hover:bg-primary"
+                    variant={"outline"}
+                  >
+                    <Send />
+                  </Button>
+                  <Button
+                    onClick={() => handleCopyLink(fullInviteLink)}
+                    title="Copy join link"
+                    className="size-9 rounded-full p-2 hover:bg-primary"
+                    variant={"outline"}
+                  >
+                    <LinkIcon />
+                  </Button>
+                </div>
               </li>
             )
           })}

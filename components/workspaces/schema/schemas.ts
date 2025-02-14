@@ -32,3 +32,8 @@ export const updateWorkSchema = z.object({
     ])
     .optional(),
 })
+
+export const sendEmailSchema = z.object({
+  email: z.string().trim().min(1, "Required").email(),
+  inviteLink: z.string(),
+})

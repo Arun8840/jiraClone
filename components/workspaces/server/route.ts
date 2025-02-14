@@ -1,11 +1,16 @@
 import { zValidator } from "@hono/zod-validator"
 import { Hono } from "hono"
-import { createWorkSchema, updateWorkSchema } from "../schema/schemas"
+import {
+  createWorkSchema,
+  sendEmailSchema,
+  updateWorkSchema,
+} from "../schema/schemas"
 import { sessionMiddleware } from "@/lib/session-middleware"
 import {
   DATABASE_ID,
   IMAGES_BUCKET_ID,
   MEMBERS_ID,
+  RESEND_ID,
   TASKS_ID,
   WORKSPACE_ID,
 } from "@/lib/config"
@@ -17,6 +22,9 @@ import { z } from "zod"
 import { Workspace } from "../types"
 import { startOfMonth, endOfMonth, subMonths } from "date-fns"
 import { TaskStatus } from "@/components/Task/types"
+
+import { Resend } from "resend"
+import { EmailTemplate } from "@/Utility/Ui/email/Email-template"
 
 const app = new Hono()
   // * LOAD ALL WORKSPACES
@@ -277,6 +285,44 @@ const app = new Hono()
       return c.json({
         data: workspace,
         message: `${user.name} is linked successfully!!`,
+      })
+    }
+  )
+
+  .post(
+    "/:workspaceId/send-inviteLink",
+    sessionMiddleware,
+    zValidator("form", sendEmailSchema),
+    async (c) => {
+      const { workspaceId } = c.req.param()
+      const { email, inviteLink } = c.req.valid("form")
+      const user = c.get("user")
+      const databases = c.get("databases")
+
+      const memeber = await getMembers({
+        databases,
+        userId: user.$id,
+        workspaceId,
+      })
+
+      const resend = new Resend(RESEND_ID)
+
+      if (!memeber) {
+        return c.json({ error: "Unauthorized" }, 401)
+      }
+
+      const { data, error } = await resend.emails.send({
+        from: "Acme <onboarding@resend.dev>",
+        to: [email],
+        subject: inviteLink,
+        react: await EmailTemplate({ title: inviteLink }),
+      })
+      if (error) {
+        return c.json(error, 400)
+      }
+      return c.json({
+        data: data,
+        message: "Mail sent successfully, please check your email",
       })
     }
   )
