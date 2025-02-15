@@ -20,7 +20,7 @@ function AnalyticsCard({
   const variantIcon =
     variant === "up" ? <ArrowUp size={18} /> : <ArrowDown size={18} />
   const baseClass =
-    "border-0 p-3 flex flex-col gap-3 shadow-none font-poppins_normal"
+    "border-0 p-3 flex flex-col gap-3 shadow-none font-poppins_normal dark:bg-[#101010]"
   return (
     <>
       <Card className={cn(baseClass, className)}>

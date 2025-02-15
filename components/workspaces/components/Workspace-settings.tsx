@@ -325,11 +325,13 @@ export const Dangerzone = ({ workspaceId }: DangerZonePropsTypes) => {
         <div className="flex justify-end">
           <Button onClick={handleDelete} variant={"destructive"}>
             {isworkspacePending ? (
-              <Loader className="animate-spin origin-center" />
+              <Loader message="Deleting ..." />
             ) : (
-              <Trash />
+              <>
+                <Trash />
+                Delete Workspace
+              </>
             )}
-            Delete Workspace
           </Button>
         </div>
       </div>

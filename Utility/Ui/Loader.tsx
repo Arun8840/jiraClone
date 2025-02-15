@@ -51,9 +51,9 @@ export const Loader: React.FC<LoaderProps> = ({
             <li key={index} className="bg-primary dark:bg-white"></li>
           ))}
         </ul>
-        <small className="font-poppins_normal tracking-wide truncate">
+        <span className="font-poppins_normal tracking-wide truncate">
           {message}
-        </small>
+        </span>
       </div>
     </div>
   )

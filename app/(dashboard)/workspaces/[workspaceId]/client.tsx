@@ -10,7 +10,6 @@ import ErrorComponent from "@/Utility/Ui/Error-component"
 import { Loader } from "@/Utility/Ui/Loader"
 import { Calendar, LinkIcon, Plus, Send, Settings } from "lucide-react"
 import Link from "next/link"
-import React from "react"
 import { format } from "date-fns"
 
 import { useGetMembers } from "@/components/members/api/use-get-members"
@@ -29,6 +28,7 @@ import { Workspace } from "@/components/workspaces/types"
 import { toast } from "@/hooks/use-toast"
 import { useSendEmailModal } from "@/hooks/use-send-email"
 import SendEmailModal from "@/components/workspaces/components/modals/Send-email-modal"
+import { InvertedCard } from "@/Utility/Ui/Inverted-card"
 
 export const WorkspaceIdClient = () => {
   const { workspaceId } = useGetParamId()
@@ -72,6 +72,7 @@ export const WorkspaceIdClient = () => {
       <Analytics data={workspaceAnalytics} />
 
       <div className="grid lg:grid-cols-2 gap-2 flex-1">
+        <InvertedCard />
         <TaskList data={tasks.documents} total={tasks.total} />
         <LineChart data={{ data: workspaceAnalytics }} />
         <WorkspaceList data={workspaces?.documents} total={workspaces.total} />
@@ -107,7 +108,7 @@ export const TaskList = ({ data, total }: TaskListProps) => {
   return (
     <>
       <CreateTaskModal />
-      <Card className="border-0 shadow-none p-3 max-h-svh overflow-y-auto font-poppins_normal divide-y divide-dashed flex flex-col gap-2">
+      <Card className="border-0 dark:bg-[#101010] shadow-none p-3 max-h-svh overflow-y-auto font-poppins_normal divide-y divide-dashed flex flex-col gap-2">
         <div className="flex items-center pb-1">
           <h1 className="truncate flex-1 pl-1">Recent Tasks</h1>
 
@@ -122,51 +123,44 @@ export const TaskList = ({ data, total }: TaskListProps) => {
           </Button>
         </div>
         <ul className="flex flex-col gap-2 flex-1">
-          {data.map((task) => {
-            const currentDayTask =
-              currentDay === parseInt(getFormatedDate(task.$createdAt, "dd"))
+          {data.slice(0, 4).map((task) => {
             return (
-              currentDayTask && (
-                <li key={task?.$id} className="py-1">
-                  <Link
-                    className="p-2 rounded-lg hover:bg-muted text-sm block"
-                    href={`/workspaces/${task?.workspaceId}/tasks/${task?.$id}`}
-                  >
-                    <div className="flex-1">
-                      <h1>{task?.name}</h1>
-                      <div className="flex items-center gap-2 pt-2">
-                        <Avatar
-                          imageUrl={task.project.imageUrl}
-                          title={task?.project?.name}
-                        />
-                        <p>{task?.project?.name}</p>
+              <li key={task?.$id} className="py-1">
+                <Link
+                  className="p-2 rounded-lg hover:bg-muted text-sm block"
+                  href={`/workspaces/${task?.workspaceId}/tasks/${task?.$id}`}
+                >
+                  <div className="flex-1">
+                    <h1>{task?.name}</h1>
+                    <div className="flex items-center gap-2 pt-2">
+                      <Avatar
+                        imageUrl={task.project.imageUrl}
+                        title={task?.project?.name}
+                      />
+                      <p>{task?.project?.name}</p>
 
-                        <p className="text-xs text-muted-foreground truncate flex-1 text-end flex gap-2 justify-end items-center">
-                          <Calendar
-                            size={12}
-                            className="text-muted-foreground"
-                          />{" "}
-                          {format(task?.dueDate as string, "PPP")}
-                        </p>
-                      </div>
+                      <p className="text-xs text-muted-foreground truncate flex-1 text-end flex gap-2 justify-end items-center">
+                        <Calendar size={12} className="text-muted-foreground" />{" "}
+                        {format(task?.dueDate as string, "PPP")}
+                      </p>
                     </div>
-                  </Link>
-                </li>
-              )
+                  </div>
+                </Link>
+              </li>
             )
           })}
-          <li className="bg-muted p-2 rounded text-sm hidden first-of-type:block mt-2">
-            <h1 className="text-center">No Tasks found</h1>
+          <li className="bg-inherit place-items-center p-2 rounded text-sm hidden first-of-type:grid h-full">
+            <h1 className="text-center capitalize">No Recent tasks found</h1>
           </li>
           {data && (
-            <li className="flex-1 h-full place-content-end sticky bottom-1">
+            <li className="flex-1 h-full place-content-end sticky bottom-0">
               <Button
                 className="block w-full text-center"
                 variant={"secondary"}
                 asChild
               >
                 <Link href={`/workspaces/${workspaceId}/tasks`}>
-                  Show all <span className="text-primary">{total}</span>
+                  Show all tasks <span className="text-primary">{total}</span>
                 </Link>
               </Button>
             </li>
@@ -203,7 +197,7 @@ export const WorkspaceList = ({ data, total }: WorkspaceListprop) => {
   return (
     <>
       <SendEmailModal />
-      <Card className="border-0 shadow-none p-3 size-full font-poppins_normal divide-y divide-dashed">
+      <Card className="border-0 dark:bg-[#101010] shadow-none p-3 size-full font-poppins_normal divide-y divide-dashed">
         <div className="flex items-center pb-1">
           <div className="flex items-center gap-1 flex-1">
             <Badge
@@ -277,7 +271,7 @@ export const ProjectsList = ({ data, total }: ProjectListProps) => {
   const { open: openCreateProjectModal } = useCreateProjectModal()
   return (
     <>
-      <Card className="border-0 shadow-none p-3 size-full font-poppins_normal divide-y divide-dashed">
+      <Card className="border-0 dark:bg-[#101010] shadow-none p-3 size-full font-poppins_normal divide-y divide-dashed">
         <div className="flex items-center pb-1">
           <div className="flex items-center gap-1 flex-1">
             <Badge
@@ -337,7 +331,7 @@ interface MemberListProps {
 export const MembersList = ({ data, total, workspaceId }: MemberListProps) => {
   return (
     <>
-      <Card className="border-0 shadow-none p-3 size-full font-poppins_normal divide-y divide-dashed">
+      <Card className="border-0 dark:bg-[#101010] shadow-none p-3 size-full font-poppins_normal divide-y divide-dashed">
         <div className="flex items-center pb-1">
           <div className="flex items-center gap-1 flex-1">
             <Badge

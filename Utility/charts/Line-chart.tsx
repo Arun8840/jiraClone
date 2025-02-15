@@ -1,5 +1,5 @@
 import React, { HTMLAttributes } from "react"
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
 import {
   ChartConfig,
   ChartContainer,
@@ -57,7 +57,7 @@ function LineChart({ data, className }: ChartProps) {
     },
     differences: {
       label: "Differences",
-      color: "hsl(var(--chart-3))",
+      color: "hsl(var(--chart-2))",
     },
   } satisfies ChartConfig
 
@@ -65,7 +65,7 @@ function LineChart({ data, className }: ChartProps) {
 
   return (
     <div className={cn(baseClass, className)}>
-      <Card className="border-0 shadow-none p-2">
+      <Card className="border-0 dark:bg-[#101010] shadow-none p-2">
         <CardHeader>
           <div className="flex gap-2 font-medium leading-none">
             Workspace analytics <TrendingUp className="h-4 w-4" />
@@ -80,11 +80,16 @@ function LineChart({ data, className }: ChartProps) {
                 tickLine={false}
                 tickMargin={10}
                 axisLine={false}
-                tickFormatter={(value) => value.slice(0)}
+              />
+              <YAxis
+                dataKey="count"
+                tickLine={true}
+                tickMargin={10}
+                axisLine={false}
               />
               <ChartTooltip
                 cursor={false}
-                content={<ChartTooltipContent indicator="dashed" />}
+                content={<ChartTooltipContent indicator="dot" />}
               />
               <Bar dataKey="count" fill="var(--color-count)" radius={4} />
               <Bar
