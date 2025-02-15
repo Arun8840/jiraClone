@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { useSendEmailModal } from "@/hooks/use-send-email"
 import { Send } from "lucide-react"
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { sendEmailSchema } from "../../schema/schemas"

@@ -65,7 +65,7 @@ function LineChart({ data, className }: ChartProps) {
 
   return (
     <div className={cn(baseClass, className)}>
-      <Card className="border-0 dark:bg-[#101010] shadow-none p-2">
+      <Card className="border-0 shadow-none p-2">
         <CardHeader>
           <div className="flex gap-2 font-medium leading-none">
             Workspace analytics <TrendingUp className="h-4 w-4" />
