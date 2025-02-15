@@ -10,6 +10,7 @@ import {
 import { SidebarMenuButton } from "../ui/sidebar"
 import { Loader } from "@/Utility/Ui/Loader"
 import Avatar from "@/Utility/Ui/Avatar"
+import { LogOut } from "lucide-react"
 
 function AccountButton() {
   const { data } = useCurrent()
@@ -28,14 +29,16 @@ function AccountButton() {
             </div>
           </SidebarMenuButton>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-[--radix-popper-anchor-width] flex flex-col gap-2">
-          <DropdownMenuItem>
-            <p className="break-words line-clamp-1">{data?.email}</p>
+        <DropdownMenuContent className="max-w-max flex flex-col gap-2">
+          <DropdownMenuItem className="flex items-center gap-2">
+            <Avatar title={data?.name as string} />
+            <p className="truncate">{data?.email}</p>
           </DropdownMenuItem>
           <DropdownMenuItem
-            className="bg-destructive/10 text-destructive"
+            className="bg-destructive text-destructive-foreground"
             onClick={() => mutate()}
           >
+            <LogOut size={18} />
             <span>Logout</span>
           </DropdownMenuItem>
         </DropdownMenuContent>

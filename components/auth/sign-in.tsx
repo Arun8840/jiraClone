@@ -41,7 +41,7 @@ function SignInComponent() {
       <div className="grid place-items-center">
         <div className="lg:w-1/3 w-[80%] flex flex-col justify-center">
           {/* Header */}
-          <div className="border rounded-full p-2 size-fit mx-auto">
+          <div className="rounded-full p-2 size-fit mx-auto">
             <Image src={"/logo.svg"} alt="logo" width={30} height={30} />
           </div>
           <h1 className="text-2xl p-2 font-poppins_bold font-semibold text-center">

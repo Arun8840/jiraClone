@@ -10,7 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "../ui/sidebar"
-import { CheckCheck, Home, Settings } from "lucide-react"
+import { CheckCheck, Home, Settings, UsersRound } from "lucide-react"
 import Image from "next/image"
 import { Separator } from "../ui/separator"
 import WorkspaceSwitcher from "./WorkspaceSwitcher"
@@ -26,37 +26,32 @@ function DashboardSidemenu() {
   const Menus: { title: string; icon: React.ReactNode; url: string }[] = [
     {
       title: "Home",
-      icon: <Home />,
+      icon: <Home size={18} />,
       url: `/workspaces/${workspaceId}`,
     },
-    // {
-    //   title: "Workspaces",
-    //   icon: <LayoutGridIcon />,
-    //   url: `/workspaces`,
-    // },
     {
       title: "My Tasks",
-      icon: <CheckCheck />,
+      icon: <CheckCheck size={18} />,
       url: `/workspaces/${workspaceId}/tasks`,
     },
     {
       title: "Settings",
-      icon: <Settings />,
+      icon: <Settings size={18} />,
       url: `/workspaces/${workspaceId}/settings`,
     },
-    // {
-    //   title: "Members",
-    //   icon: <UsersRound />,
-    //   url: "/members",
-    // },
+    {
+      title: "Members",
+      icon: <UsersRound size={18} />,
+      url: `/workspaces/${workspaceId}/members`,
+    },
   ]
 
   return (
     <>
       <Sidebar className="bg-card dark:bg-inherit group-data-[side=left]:border-r-0">
         <SidebarHeader>
-          <div className="flex items-center gap-3">
-            <Image src={"/logo.svg"} width={20} height={20} alt="logo" />
+          <div className="flex items-center gap-3 hover:brightness-125">
+            <Image src={"/logo.svg"} width={25} height={25} alt="logo" />
             <h1 className="font-bold font flex-1 capitalize tracking-wide text-primary">
               Jira Clone
             </h1>
@@ -78,13 +73,15 @@ function DashboardSidemenu() {
                   return (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton
-                        className={`p-3 h-10 ${
+                        className={`group/menu p-3 h-10 ${
                           isActive && "bg-muted text-primary dark:bg-card"
                         }`}
                         asChild
                       >
                         <Link href={item.url}>
-                          {item.icon}
+                          <span className="group-hover/menu:-rotate-12 transition-transform duration-150">
+                            {item.icon}
+                          </span>
                           <span>{item.title}</span>
                         </Link>
                       </SidebarMenuButton>

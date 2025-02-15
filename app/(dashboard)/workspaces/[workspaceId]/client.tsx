@@ -8,9 +8,15 @@ import { useGetParamId } from "@/hooks/use-getParamId"
 import Avatar from "@/Utility/Ui/Avatar"
 import ErrorComponent from "@/Utility/Ui/Error-component"
 import { Loader } from "@/Utility/Ui/Loader"
-import { Calendar, LinkIcon, Plus, Send, Settings } from "lucide-react"
+import {
+  Calendar,
+  LayoutDashboard,
+  LinkIcon,
+  Plus,
+  Send,
+  Settings,
+} from "lucide-react"
 import Link from "next/link"
-import React from "react"
 import { format } from "date-fns"
 
 import { useGetMembers } from "@/components/members/api/use-get-members"
@@ -68,7 +74,7 @@ export const WorkspaceIdClient = () => {
   }
 
   return (
-    <section className="p-2 size-full flex flex-col">
+    <section className="p-2 size-full flex flex-col gap-1">
       <Analytics data={workspaceAnalytics} />
 
       <div className="grid lg:grid-cols-2 gap-2 flex-1">
@@ -96,77 +102,77 @@ interface TaskListProps {
 export const TaskList = ({ data, total }: TaskListProps) => {
   const { workspaceId } = useGetParamId()
   const { open: openCreateTaskModal } = useCreateTasktModal()
-  const date = new Date()
-
-  const currentDay = date.getDate()
-
-  const getFormatedDate = (value: string, formatString: string) => {
-    const formated = format(value, formatString)
-    return formated
-  }
   return (
     <>
       <CreateTaskModal />
-      <Card className="border-0 shadow-none p-3 max-h-svh overflow-y-auto font-poppins_normal divide-y divide-dashed flex flex-col gap-2">
-        <div className="flex items-center pb-1">
-          <h1 className="truncate flex-1 pl-1">Recent Tasks</h1>
-
-          <Button
-            title="Create task"
-            type="button"
-            variant={"outline"}
-            onClick={openCreateTaskModal}
-            className="size-8 p-2"
+      <Card className="border-0 relative shadow-none max-h-svh overflow-y-auto font-poppins_normal flex flex-col">
+        <div className="flex items-center">
+          <div className="flex-1 flex items-center gap-2 pl-2">
+            <Badge
+              variant={"secondary"}
+              className="size-8 rounded-md p-0 grid place-items-center text-primary"
+            >
+              {total}
+            </Badge>
+            <h1 className="truncate">Tasks</h1>
+          </div>
+          {/* //* masked container */}
+          <div
+            className="bg-muted dark:bg-black relative left-0 top-0 h-12  rounded-tr-xl rounded-bl-xl aspect-square
+       after:absolute after:top-0 after:-left-5 after:size-5 after:bg-radial-[at_0%_70%]   after:from-inherit after:to-muted dark:after:to-black after:from-75% after:to-0% before:absolute before:-bottom-5 before:-right-0 before:size-5 before:bg-radial-[at_0%_70%] before:from-inherit before:to-muted dark:before:to-black before:from-75% before:to-0% grid place-items-center"
           >
-            <Plus />
-          </Button>
+            <Button
+              title="Create task"
+              type="button"
+              onClick={openCreateTaskModal}
+              className="size-8 p-2"
+            >
+              <Plus />
+            </Button>
+          </div>
         </div>
-        <ul className="flex flex-col gap-2 flex-1">
-          {data.map((task) => {
-            const currentDayTask =
-              currentDay === parseInt(getFormatedDate(task.$createdAt, "dd"))
+        <ul className="flex flex-col gap-2 flex-1 p-3">
+          {data.slice(0, 3).map((task) => {
             return (
-              currentDayTask && (
-                <li key={task?.$id} className="py-1">
-                  <Link
-                    className="p-2 rounded-lg hover:bg-muted text-sm block"
-                    href={`/workspaces/${task?.workspaceId}/tasks/${task?.$id}`}
-                  >
-                    <div className="flex-1">
-                      <h1>{task?.name}</h1>
-                      <div className="flex items-center gap-2 pt-2">
-                        <Avatar
-                          imageUrl={task.project.imageUrl}
-                          title={task?.project?.name}
-                        />
-                        <p>{task?.project?.name}</p>
+              <li key={task?.$id} className="py-1">
+                <Link
+                  className="p-2 rounded-lg hover:bg-muted text-sm block"
+                  href={`/workspaces/${task?.workspaceId}/tasks/${task?.$id}`}
+                >
+                  <div className="flex-1">
+                    <h1>{task?.name}</h1>
+                    <div className="flex items-center gap-2 pt-2">
+                      <Avatar
+                        imageUrl={task.project.imageUrl}
+                        title={task?.project?.name}
+                      />
+                      <p>{task?.project?.name}</p>
 
-                        <p className="text-xs text-muted-foreground truncate flex-1 text-end flex gap-2 justify-end items-center">
-                          <Calendar
-                            size={12}
-                            className="text-muted-foreground"
-                          />{" "}
-                          {format(task?.dueDate as string, "PPP")}
-                        </p>
-                      </div>
+                      <p className="text-xs text-muted-foreground truncate flex-1 text-end flex gap-2 justify-end items-center">
+                        <Calendar size={12} className="text-muted-foreground" />{" "}
+                        {format(task?.dueDate as string, "PPP")}
+                      </p>
                     </div>
-                  </Link>
-                </li>
-              )
+                  </div>
+                </Link>
+              </li>
             )
           })}
-          <li className="bg-muted p-2 rounded text-sm hidden first-of-type:block mt-2">
-            <h1 className="text-center">No Tasks found</h1>
+          <li className="bg-inherit place-items-center p-2 rounded text-sm hidden first-of-type:grid h-full">
+            <h1 className="text-center capitalize">No Recent tasks found</h1>
           </li>
           {data && (
-            <li className="flex-1 h-full place-content-end sticky bottom-1">
+            <li className="flex-1 h-full grid place-items-end">
               <Button
                 className="block w-full text-center"
                 variant={"secondary"}
                 asChild
               >
-                <Link href={`/workspaces/${workspaceId}/tasks`}>
-                  Show all <span className="text-primary">{total}</span>
+                <Link
+                  href={`/workspaces/${workspaceId}/tasks`}
+                  className="capitalize"
+                >
+                  Show all tasks
                 </Link>
               </Button>
             </li>
@@ -203,19 +209,21 @@ export const WorkspaceList = ({ data, total }: WorkspaceListprop) => {
   return (
     <>
       <SendEmailModal />
-      <Card className="border-0 shadow-none p-3 size-full font-poppins_normal divide-y divide-dashed">
-        <div className="flex items-center pb-1">
-          <div className="flex items-center gap-1 flex-1">
-            <Badge
-              variant={"secondary"}
-              className="size-8 rounded-md p-0 grid place-items-center text-primary"
-            >
+      <Card className="border-0 shadow-none size-full font-poppins_normal">
+        <div className="flex items-center pl-2">
+          <LayoutDashboard size={18} className="m-1 text-primary" />
+          <h1 className="truncate flex-1">Workspaces</h1>
+          {/* //* masked container */}
+          <div
+            className="bg-muted dark:bg-black relative left-0 top-0 h-12  rounded-tr-xl rounded-bl-xl aspect-square
+       after:absolute after:top-0 after:-left-5 after:size-5 after:bg-radial-[at_0%_70%]   after:from-inherit after:to-muted dark:after:to-black after:from-75% after:to-0% before:absolute before:-bottom-5 before:-right-0 before:size-5 before:bg-radial-[at_0%_70%]   before:from-inherit before:to-muted dark:before:to-black before:from-75% before:to-0% grid place-items-center"
+          >
+            <Badge className="size-8 rounded-md p-0 grid place-items-center">
               {total}
             </Badge>
-            <h1 className="truncate flex-1 pl-1">Workspaces</h1>
           </div>
         </div>
-        <ul className="flex flex-col pt-1">
+        <ul className="flex flex-col p-2">
           {data.map((workspace) => {
             const fullInviteLink =
               typeof window !== "undefined"
@@ -277,29 +285,33 @@ export const ProjectsList = ({ data, total }: ProjectListProps) => {
   const { open: openCreateProjectModal } = useCreateProjectModal()
   return (
     <>
-      <Card className="border-0 shadow-none p-3 size-full font-poppins_normal divide-y divide-dashed">
-        <div className="flex items-center pb-1">
-          <div className="flex items-center gap-1 flex-1">
+      <Card className="border-0 shadow-none size-full font-poppins_normal">
+        <div className="flex items-center">
+          <div className="flex-1 flex items-center gap-2 pl-2">
             <Badge
               variant={"secondary"}
               className="size-8 rounded-md p-0 grid place-items-center text-primary"
             >
               {total}
             </Badge>
-            <h1 className="truncate flex-1 pl-1">Projects</h1>
+            <h1 className="truncate">Projects</h1>
           </div>
-
-          <Button
-            title="Create project"
-            type="button"
-            variant={"outline"}
-            onClick={openCreateProjectModal}
-            className="size-8 p-2"
+          {/* //* masked container */}
+          <div
+            className="bg-muted dark:bg-black relative left-0 top-0 h-12  rounded-tr-xl rounded-bl-xl aspect-square
+       after:absolute after:top-0 after:-left-5 after:size-5 after:bg-radial-[at_0%_70%]   after:from-inherit after:to-muted dark:after:to-black after:from-75% after:to-0% before:absolute before:-bottom-5 before:-right-0 before:size-5 before:bg-radial-[at_0%_70%]   before:from-inherit before:to-muted dark:before:to-black before:from-75% before:to-0% grid place-items-center"
           >
-            <Plus />
-          </Button>
+            <Button
+              title="Create project"
+              type="button"
+              onClick={openCreateProjectModal}
+              className="size-8 p-2"
+            >
+              <Plus />
+            </Button>
+          </div>
         </div>
-        <ul className="flex flex-col pt-1">
+        <ul className="flex flex-col p-2">
           {data.map((project) => {
             return (
               <li key={project?.$id} className="py-1">
@@ -337,33 +349,38 @@ interface MemberListProps {
 export const MembersList = ({ data, total, workspaceId }: MemberListProps) => {
   return (
     <>
-      <Card className="border-0 shadow-none p-3 size-full font-poppins_normal divide-y divide-dashed">
-        <div className="flex items-center pb-1">
-          <div className="flex items-center gap-1 flex-1">
+      <Card className="border-0 shadow-none size-full font-poppins_normal">
+        <div className="flex items-center">
+          <div className="flex-1 flex items-center gap-2 pl-2">
             <Badge
               variant={"secondary"}
               className="size-8 rounded-md p-0 grid place-items-center text-primary"
             >
               {total}
             </Badge>
-            <h1 className="truncate flex-1 pl-1">Members</h1>
+            <h1 className="truncate">Members</h1>
           </div>
-          <Button
-            title="Create task"
-            type="button"
-            variant={"outline"}
-            className="size-8 p-2"
-            asChild
+          {/* //* masked container */}
+          <div
+            className="bg-muted dark:bg-black relative left-0 top-0 h-12  rounded-tr-xl rounded-bl-xl aspect-square
+       after:absolute after:top-0 after:-left-5 after:size-5 after:bg-radial-[at_0%_70%]   after:from-inherit after:to-muted dark:after:to-black after:from-75% after:to-0% before:absolute before:-bottom-5 before:-right-0 before:size-5 before:bg-radial-[at_0%_70%]   before:from-inherit before:to-muted dark:before:to-black before:from-75% before:to-0% grid place-items-center"
           >
-            <Link
-              href={`/workspaces/${workspaceId}/members`}
-              className="text-muted-foreground"
+            <Button
+              title="View all"
+              type="button"
+              className="size-8 p-2"
+              asChild
             >
-              <Settings />
-            </Link>
-          </Button>
+              <Link
+                href={`/workspaces/${workspaceId}/members`}
+                className="text-muted-foreground"
+              >
+                <Settings />
+              </Link>
+            </Button>
+          </div>
         </div>
-        <ul className="grid md:grid-cols-2 lg:grid-cols-2 gap-2 pt-1">
+        <ul className="grid md:grid-cols-2 lg:grid-cols-2 gap-2 p-2">
           {data.map((member) => {
             return (
               <li

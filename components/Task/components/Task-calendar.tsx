@@ -11,7 +11,6 @@ import { enUS } from "date-fns/locale"
 import { Calendar, dateFnsLocalizer } from "react-big-calendar"
 import { Task } from "../types"
 import "react-big-calendar/lib/css/react-big-calendar.css"
-import "./data-calendar.css"
 import EventCard from "./Calendar-view-components/Event-card"
 import CustomToolbar from "./Calendar-view-components/Custom-toolbar"
 

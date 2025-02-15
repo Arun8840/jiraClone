@@ -5,7 +5,7 @@ interface LayoutProps {
 }
 function StandAloneLayout({ children }: LayoutProps) {
   return (
-    <section className="h-screen overflow-y-auto p-3 bg-muted border border-black">
+    <section className="h-screen overflow-y-auto p-3 dark:bg-black bg-muted">
       <main className="container size-full rounded-lg mx-auto p-3">
         {children}
       </main>

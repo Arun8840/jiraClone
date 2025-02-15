@@ -82,7 +82,7 @@ export const FilterDataTask: React.FC<PropTypes> = ({
         onValueChange={(value) => onStatusChange(value)}
         defaultValue={status ?? undefined}
       >
-        <SelectTrigger className="w-max !ring-0  h-9">
+        <SelectTrigger className="w-max ring-0!  h-9">
           <div className="flex items-center gap-1">
             <ListCheck className="text-primary" size={14} />
             <SelectValue placeholder="Status" />
@@ -104,7 +104,7 @@ export const FilterDataTask: React.FC<PropTypes> = ({
           onValueChange={(value) => onAssigneeChange(value)}
           defaultValue={assigneeId ?? "all"}
         >
-          <SelectTrigger className="w-fit !ring-0  h-9">
+          <SelectTrigger className="w-fit ring-0!  h-9">
             <div className="flex items-center gap-1">
               <UserRound className="text-primary" size={14} />
               <SelectValue placeholder="All assignee" />
@@ -129,7 +129,7 @@ export const FilterDataTask: React.FC<PropTypes> = ({
         onValueChange={(value) => onProjectChange(value)}
         defaultValue={projectId ?? "all"}
       >
-        <SelectTrigger className="w-fit !ring-0  h-9">
+        <SelectTrigger className="w-fit ring-0!  h-9">
           <div className="flex items-center gap-1">
             <FolderIcon className="text-primary" size={14} />
             <SelectValue placeholder="Project" />

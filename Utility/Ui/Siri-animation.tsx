@@ -9,7 +9,7 @@ export const SiriAnimation: React.FC<SiriProps> = () => {
   const siriRef = useRef<HTMLDivElement>(null)
 
   const baseClass =
-    "h-0.5 bg-gradient-to-r from-blue-800 via-pink-700 to-orange-500"
+    "h-0.5 bg-linear-to-r from-blue-800 via-pink-700 to-orange-500"
 
   useGSAP(() => {
     gsap.to(siriRef.current, {

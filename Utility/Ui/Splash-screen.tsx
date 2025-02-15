@@ -15,10 +15,29 @@ export const SplashScreen = () => {
     () => {
       tl.fromTo(
         imageRef.current,
-        { scale: 0, transformOrigin: "center" },
-        { scale: 1, transformOrigin: "center" }
+        { scale: 0, opacity: 0, transformOrigin: "center" },
+        {
+          scale: 1,
+          opacity: 1,
+          rotate: 360,
+          transformOrigin: "center",
+          duration: 1,
+        }
       )
-        .to(imageRef.current, { delay: 1, scale: 0 })
+        .to(imageRef.current, {
+          filter: "brightness(2) drop-shadow(0px 0px 5px #D2FF72)",
+        })
+        .to(imageRef.current, {
+          filter: "brightness(2) drop-shadow(0px 0px 40px #D2FF72)",
+        })
+        .to(imageRef.current, {
+          filter: "brightness(2) drop-shadow(0px 0px 60px #D2FF72)",
+        })
+        .to(imageRef.current, {
+          opacity: 0,
+          duration: 1,
+          delay: 1,
+        })
         .to(containerRef.current, { opacity: 0, display: "none" })
     },
     {
@@ -28,11 +47,11 @@ export const SplashScreen = () => {
   return (
     <section
       ref={containerRef}
-      className="h-screen size-full bg-black absolute z-10 grid place-items-center"
+      className="h-screen overflow-hidden size-full bg-black absolute z-10 grid place-items-center"
     >
       <div className="size-fit">
         <Image
-          className="scale-0"
+          className="scale-0 brightness-200"
           ref={imageRef}
           src={"/logo.svg"}
           width={100}
