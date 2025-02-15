@@ -117,7 +117,7 @@ const WorkspaceSettings = ({ initialValue }: PropTypes) => {
                     accept=".jpg, .svg, .jpeg, .png"
                     onChange={handleUploadImage}
                   />
-                  <div className="size-full bg-black/50 absolute opacity-0 group-hover/uploadImage:opacity-[1] transition-opacity duration-150 grid place-items-center">
+                  <div className="size-full bg-black/50 absolute opacity-0 group-hover/uploadImage:opacity-1 transition-opacity duration-150 grid place-items-center">
                     <div className="flex items-center gap-2">
                       <Button
                         type="button"

@@ -29,7 +29,7 @@ function Header() {
 
   return (
     <>
-      <nav className="p-1 w-full flex justify-between items-center bg-background/10 backdrop-blur-sm sticky top-0 z-20 font-poppins_normal border-b border-dashed">
+      <nav className="p-1 w-full flex justify-between items-center bg-background/10 backdrop-blur-xs sticky top-0 z-20 font-poppins_normal border-b border-dashed">
         <div>
           <div className="flex items-center gap-2">
             <SidebarTrigger />
