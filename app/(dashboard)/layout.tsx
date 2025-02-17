@@ -10,7 +10,7 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
         <DashboardSidemenu />
         <div className="flex-1 flex flex-col overflow-y-auto">
           <Header />
-          <div className="flex-1 bg-fixed dark:bg-[repeating-linear-gradient(0deg,black_0_5px,transparent_10px_5px),repeating-linear-gradient(90deg,#181C14_0_2px,transparent_2px_10px)]">
+          <div className="flex-1 bg-fixed bg-[radial-gradient(#373A40_.5px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#fff_100%,transparent_100%)]">
             {children}
           </div>
         </div>
