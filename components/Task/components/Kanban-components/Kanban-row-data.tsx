@@ -1,4 +1,3 @@
-import React from "react"
 import { Task } from "../../types"
 import Dragable from "@/Utility/Ui/Dragable"
 import {
@@ -11,14 +10,12 @@ import { Button } from "@/components/ui/button"
 import { Info, MoreVertical, Pen, Trash } from "lucide-react"
 import { useConfirm } from "@/hooks/use-confirm"
 import { useDeleteTask } from "../../api/use-delete-task"
-import { useDetailModal } from "@/hooks/use-detail-modal"
 
 interface KanbanDataProps {
   data: Task[]
 }
 function KanbanRowData({ data }: KanbanDataProps) {
   const { mutate } = useDeleteTask()
-  const { open } = useDetailModal()
   const [DeleteModal, confirmDelete] = useConfirm(
     "Confirmation",
     "Are you sure want to delete this task ?",
@@ -55,7 +52,7 @@ function KanbanRowData({ data }: KanbanDataProps) {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="space-y-1">
-                      <DropdownMenuItem onClick={open}>
+                      <DropdownMenuItem>
                         <Info />
                         Task Details
                       </DropdownMenuItem>

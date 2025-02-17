@@ -5,8 +5,7 @@ import KanbanRowData from "./Kanban-components/Kanban-row-data"
 import { DndContext, DragEndEvent } from "@dnd-kit/core"
 import Droppable from "@/Utility/Ui/Droppable"
 import { useBulkUpdateTask } from "../api/use-bulkUpdate-task"
-import { Loader } from "lucide-react"
-import DetailModal from "@/Utility/Ui/Detail-modal"
+import { Loader } from "@/Utility/Ui/Loader"
 interface KanbanPropTypes {
   data: Task[]
 }
@@ -122,15 +121,14 @@ function TaskKnban({ data }: KanbanPropTypes) {
   }, [data])
   return (
     <DndContext onDragEnd={handleDragEnd}>
-      <DetailModal title="Task details" description="" />
-      <section className="grid lg:grid-cols-5  auto-rows-max gap-2">
+      <section className="flex  auto-rows-max gap-2 overflow-x-auto">
         {boards?.map((taskBoard) => {
           const taskLength = tasks[taskBoard]?.length
           const taskData = tasks[taskBoard]
           return (
             <Droppable
               dropId={taskBoard}
-              className={`divide-y ${droppableColors[taskBoard]}`}
+              className={`min-w-[350px] ${droppableColors[taskBoard]}`}
               key={taskBoard}
             >
               {/* //*HEADER */}
@@ -140,13 +138,12 @@ function TaskKnban({ data }: KanbanPropTypes) {
             </Droppable>
           )
         })}
-        {isTaskUpdating && (
-          <div className="col-span-full flex justify-center items-center gap-2 p-3 text-muted-foreground">
-            <small>Task is updating</small>
-            <Loader className="animate-spin origin-center " size={18} />
-          </div>
-        )}
       </section>
+      {isTaskUpdating && (
+        <div className="col-span-full flex justify-center gap-2 p-3 text-muted-foreground">
+          <Loader className="w-fit" message="Task is updating" />
+        </div>
+      )}
     </DndContext>
   )
 }
